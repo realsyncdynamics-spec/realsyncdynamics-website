@@ -918,6 +918,419 @@ footer{
 </head>
 <body>
 
+
+   /* ============================================================
+   DOWNLOADS & APPS HUB + INFRASTRUKTUR PIPELINE
+   → Einfügen vor </style>
+   Design-System: --gold:#C9A84C | --bg:#030303 | Syne + DM Mono
+   ============================================================ */
+
+/* ---------- SHARED UTILITIES ---------- */
+#downloads,
+#infra {
+  background: var(--bg, #030303);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+#downloads::before,
+#infra::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------- DOWNLOADS SECTION ---------- */
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+@media (max-width: 1024px) { .downloads-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px)  { .downloads-grid { grid-template-columns: 1fr; } }
+
+/* App Card */
+.app-card {
+  position: relative;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border, rgba(201,168,76,0.16));
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  overflow: hidden;
+}
+
+.app-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.app-card:hover {
+  border-color: rgba(201,168,76,0.40);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(201,168,76,0.08);
+}
+.app-card:hover::after { opacity: 1; }
+
+/* Card — Live accent */
+.app-card.is-live {
+  border-color: rgba(201,168,76,0.32);
+  background: rgba(201,168,76,0.03);
+}
+
+/* App Icon */
+.app-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(201,168,76,0.10);
+  border: 1px solid rgba(201,168,76,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+/* App Header row */
+.app-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-card__name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+
+.app-card__platform {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-top: 3px;
+}
+
+/* Status Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge--live {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.30);
+  color: #4ade80;
+}
+.badge--live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(.7); }
+}
+
+.badge--soon {
+  background: rgba(201,168,76,0.10);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: rgba(201,168,76,0.80);
+}
+
+/* Description */
+.app-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.50);
+  margin: 0;
+  flex: 1;
+}
+
+/* Tech Tags */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tech-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.35);
+}
+
+/* Card Buttons */
+.app-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btn-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: background .25s, color .25s, border-color .25s, transform .2s;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-download--primary {
+  background: var(--gold, #C9A84C);
+  color: #030303;
+  border-color: var(--gold, #C9A84C);
+}
+.btn-download--primary:hover {
+  background: #d9b85c;
+  transform: translateY(-1px);
+}
+
+.btn-download--secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border-color: rgba(255,255,255,0.10);
+}
+.btn-download--secondary:hover {
+  border-color: rgba(201,168,76,0.30);
+  color: rgba(201,168,76,0.70);
+}
+
+.btn-download--disabled {
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.07);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- INFRA PIPELINE SECTION ---------- */
+
+/* Pipeline Flow */
+.pipeline-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 56px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .pipeline-flow {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.pipeline-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 28px 16px;
+  position: relative;
+  text-align: center;
+}
+
+/* Connecting line between steps */
+.pipeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 38px;
+  right: -1px;
+  width: 2px;
+  height: 36px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.5) 0%, rgba(201,168,76,0.1) 100%);
+  z-index: 1;
+}
+
+@media (min-width: 769px) {
+  .pipeline-step:not(:last-child)::after {
+    top: 30px;
+    right: 0;
+    width: 0;
+    height: 0;
+    background: none;
+  }
+  /* Horizontal arrow */
+  .pipeline-step:not(:last-child)::before {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 24px;
+    font-size: 1.1rem;
+    color: rgba(201,168,76,0.45);
+    z-index: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .pipeline-step:not(:last-child)::before {
+    content: '↓';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: rgba(201,168,76,0.45);
+    z-index: 2;
+  }
+  .pipeline-step { padding: 24px 20px; }
+}
+
+.pipeline-step__num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+  margin-bottom: -6px;
+}
+
+.pipeline-step__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: background .3s, border-color .3s, transform .3s;
+}
+
+.pipeline-step:hover .pipeline-step__icon {
+  background: rgba(201,168,76,0.15);
+  border-color: rgba(201,168,76,0.45);
+  transform: scale(1.08);
+}
+
+.pipeline-step__label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+
+.pipeline-step__sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* Tech Grid */
+.tech-grid-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.55);
+  margin: 56px 0 24px;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) { .tech-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 400px) { .tech-grid { grid-template-columns: 1fr; } }
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  transition: border-color .25s, background .25s;
+}
+
+.tech-item:hover {
+  border-color: rgba(201,168,76,0.25);
+  background: rgba(201,168,76,0.03);
+}
+
+.tech-item__icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.tech-item__info {}
+
+.tech-item__name {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.80);
+  display: block;
+}
+
+.tech-item__role {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.60rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  display: block;
+  margin-top: 2px;
+}
 <!-- cursor -->
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -1502,7 +1915,248 @@ footer{
 <!-- ═══ EU STRIP ═══ -->
 <div class="eu-strip reveal">
   <div class="eu-strip-inner">
-    <div class="eu-strip-text">
+
+     <!-- ============================================================
+     DOWNLOADS & APPS HUB
+     → Einfügen nach </section> der Products-Section,
+       vor dem EU Strip
+     ============================================================ -->
+<section id="downloads" class="reveal">
+  <div class="section-inner">
+
+    <p class="section-label">Platform</p>
+    <h2 class="section-title">Downloads &amp; Apps</h2>
+    <p class="section-subtitle">
+      Zugang zu CreatorSeal auf jeder Plattform – Web, Desktop und Mobile.
+    </p>
+
+    <div class="downloads-grid">
+
+      <!-- Card 1: Web App (LIVE) -->
+      <div class="app-card is-live">
+        <div class="app-card__header">
+          <div>
+            <div class="app-card__icon">🌐</div>
+          </div>
+          <span class="badge badge--live">Live</span>
+        </div>
+        <div>
+          <h3 class="app-card__name">CreatorSeal</h3>
+          <p class="app-card__platform">Web App · Browser</p>
+        </div>
+        <p class="app-card__desc">
+          Die vollständige CreatorSeal-Plattform direkt im Browser – keine Installation nötig. Inhalte verifizieren, schützen und auf der Blockchain verankern.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Polygon</span>
+          <span class="tech-tag">C2PA</span>
+        </div>
+        <div class="app-card__actions">
+          <a href="https://creatorseal.de" target="_blank" rel="noopener noreferrer" class="btn-download btn-download--primary">
+            <span>🚀</span> App öffnen
+          </a>
+          <a href="https://creatorseal.de" target="_blank" rel="noopener noreferrer" class="btn-download btn-download--secondary">
+            Dokumentation →
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Desktop (Coming Soon) -->
+      <div class="app-card">
+        <div class="app-card__header">
+          <div>
+            <div class="app-card__icon">🖥️</div>
+          </div>
+          <span class="badge badge--soon">Coming Soon</span>
+        </div>
+        <div>
+          <h3 class="app-card__name">CreatorSeal Desktop</h3>
+          <p class="app-card__platform">Windows · macOS</p>
+        </div>
+        <p class="app-card__desc">
+          Native Desktop-App für professionelle Creator. Offline-Funktionalität, Batch-Verarbeitung und direkte Integration in lokale Workflows.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">Electron</span>
+          <span class="tech-tag">Rust</span>
+          <span class="tech-tag">Offline</span>
+          <span class="tech-tag">Batch</span>
+        </div>
+        <div class="app-card__actions">
+          <button class="btn-download btn-download--disabled" disabled>
+            <span>⬇️</span> Windows Download
+          </button>
+          <button class="btn-download btn-download--disabled" disabled>
+            <span>⬇️</span> macOS Download
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Mobile (Coming Soon) -->
+      <div class="app-card">
+        <div class="app-card__header">
+          <div>
+            <div class="app-card__icon">📱</div>
+          </div>
+          <span class="badge badge--soon">Coming Soon</span>
+        </div>
+        <div>
+          <h3 class="app-card__name">CreatorSeal Mobile</h3>
+          <p class="app-card__platform">iOS · Android</p>
+        </div>
+        <p class="app-card__desc">
+          Schütze Inhalte direkt beim Erstellen. Kamera-Integration, QR-Scan-Verifizierung und sofortige Blockchain-Verankerung – direkt vom Smartphone.
+        </p>
+        <div class="tech-tags">
+          <span class="tech-tag">React Native</span>
+          <span class="tech-tag">Expo</span>
+          <span class="tech-tag">QR Scan</span>
+          <span class="tech-tag">Camera</span>
+        </div>
+        <div class="app-card__actions">
+          <button class="btn-download btn-download--disabled" disabled>
+            <span>⬇️</span> App Store
+          </button>
+          <button class="btn-download btn-download--disabled" disabled>
+            <span>⬇️</span> Google Play
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     IMPLEMENTIERUNGS-INFRASTRUKTUR
+     ============================================================ -->
+<section id="infra" class="reveal">
+  <div class="section-inner">
+
+    <p class="section-label">Engineering</p>
+    <h2 class="section-title">Implementierungs-Infrastruktur</h2>
+    <p class="section-subtitle">
+      Production-grade CI/CD Pipeline und Cloud-Stack – built for scale.
+    </p>
+
+    <!-- 5-Step Pipeline -->
+    <div class="pipeline-flow">
+
+      <div class="pipeline-step">
+        <span class="pipeline-step__num">01</span>
+        <div class="pipeline-step__icon">🛠️</div>
+        <span class="pipeline-step__label">Develop</span>
+        <span class="pipeline-step__sub">VS Code<br>GitHub<br>Copilot</span>
+      </div>
+
+      <div class="pipeline-step">
+        <span class="pipeline-step__num">02</span>
+        <div class="pipeline-step__icon">📦</div>
+        <span class="pipeline-step__label">Build</span>
+        <span class="pipeline-step__sub">Next.js<br>Docker<br>Turborepo</span>
+      </div>
+
+      <div class="pipeline-step">
+        <span class="pipeline-step__num">03</span>
+        <div class="pipeline-step__icon">🧪</div>
+        <span class="pipeline-step__label">Test</span>
+        <span class="pipeline-step__sub">Vitest<br>Playwright<br>Sentry</span>
+      </div>
+
+      <div class="pipeline-step">
+        <span class="pipeline-step__num">04</span>
+        <div class="pipeline-step__icon">🚀</div>
+        <span class="pipeline-step__label">Deploy</span>
+        <span class="pipeline-step__sub">Vercel<br>Cloudflare<br>GitHub Actions</span>
+      </div>
+
+      <div class="pipeline-step">
+        <span class="pipeline-step__num">05</span>
+        <div class="pipeline-step__icon">📈</div>
+        <span class="pipeline-step__label">Scale</span>
+        <span class="pipeline-step__sub">PostHog<br>Supabase<br>Stripe</span>
+      </div>
+
+    </div>
+
+    <!-- Tech Grid -->
+    <p class="tech-grid-label">Tech Stack</p>
+    <div class="tech-grid">
+
+      <div class="tech-item">
+        <span class="tech-item__icon">▲</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Vercel</span>
+          <span class="tech-item__role">Hosting &amp; Edge</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🐙</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">GitHub</span>
+          <span class="tech-item__role">CI/CD &amp; Source</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🟩</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Supabase</span>
+          <span class="tech-item__role">Database &amp; Auth</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">💳</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Stripe</span>
+          <span class="tech-item__role">Payments &amp; Billing</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🐳</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Docker</span>
+          <span class="tech-item__role">Containerisierung</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🌐</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Cloudflare</span>
+          <span class="tech-item__role">CDN &amp; Security</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🔴</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">Sentry</span>
+          <span class="tech-item__role">Error Monitoring</span>
+        </div>
+      </div>
+
+      <div class="tech-item">
+        <span class="tech-item__icon">🦔</span>
+        <div class="tech-item__info">
+          <span class="tech-item__name">PostHog</span>
+          <span class="tech-item__role">Product Analytics</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+    
+  <!-- ═══ EU STRIP ═══ -->
+  <div class="eu-strip reveal">
+    <div class="eu-strip-inner">
+     <div class="eu-strip-text">
       <h3>EU-Regulierung ist unser Wachstumsmotor</h3>
       <p>Jede neue Regulierung — DSA, EU AI Act, C2PA-Pflicht ab August 2025 — schafft Compliance-Bedarf, den CreatorSeal bereits heute erfüllt. Wir sind regulatorisch ahead of the curve.</p>
     </div>
