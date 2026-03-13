@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RealSync Dynamics — Digital Infrastructure for Creators</title>
+<meta name="description" content="RealSync Dynamics baut kryptografische Verifikations-Tools, EdTech-Plattformen und KI-gestützte Creator-Infrastructure. Made in Germany.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root{
+  --black:#000;
+  --bg:#030303;
+  --gold:#C9A84C;
+  --gold-l:#E8C96A;
+  --gold-d:#7A6330;
+  --gold-f:rgba(201,168,76,0.10);
+  --gold-ff:rgba(201,168,76,0.04);
+  --white:#F5F5F0;
+  --grey:#888880;
+  --grey-d:#222220;
+  --border:rgba(201,168,76,0.16);
+  --text:rgba(245,245,240,0.68);
+  --radius:2px;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:'DM Mono',monospace;
+  overflow-x:hidden;
+  cursor:none;
+}
+::selection{background:var(--gold);color:var(--black);}
+
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+#cur{
+  position:fixed;width:6px;height:6px;
+  background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  mix-blend-mode:screen;
+  transition:transform .1s;
+}
+#cur-ring{
+  position:fixed;width:24px;height:24px;
+  border:1px solid rgba(201,168,76,0.5);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transition:all .12s ease;
+}
+body:hover #cur-ring{opacity:1;}
+
+/* ═══════════════════════════════════════════
+   STARS & CANVAS BG
+═══════════════════════════════════════════ */
+#starfield{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
+}
+.star{
+  position:absolute;background:#fff;border-radius:50%;
+  animation:twinkle var(--d) ease-in-out infinite;
+  animation-delay:var(--dl);
+}
+@keyframes twinkle{
+  0%,100%{opacity:var(--o);}
+  50%{opacity:.02;}
+}
+
+/* Grain texture */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:.6;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;height:64px;
+  background:rgba(3,3,3,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;
+}
+nav.scrolled{height:56px;background:rgba(3,3,3,0.97);}
+.nav-brand{display:flex;flex-direction:column;gap:2px;text-decoration:none;}
+.nav-brand-name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:15px;letter-spacing:.06em;color:var(--gold);
+}
+.nav-brand-sub{
+  font-size:8px;letter-spacing:.22em;
+  color:var(--gold-d);text-transform:uppercase;
+}
+.nav-menu{display:flex;align-items:center;gap:0;list-style:none;}
+.nav-menu a{
+  color:var(--grey);text-decoration:none;
+  font-size:11px;letter-spacing:.1em;
+  padding:8px 16px;border:1px solid transparent;
+  transition:all .2s;white-space:nowrap;
+}
+.nav-menu a:hover{color:var(--gold);border-color:var(--border);}
+.nav-cta{
+  background:var(--gold)!important;
+  color:var(--black)!important;
+  font-weight:500!important;
+  border-color:var(--gold)!important;
+  margin-left:8px;
+}
+.nav-cta:hover{background:var(--gold-l)!important;border-color:var(--gold-l)!important;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.nav-hamburger span{width:22px;height:1px;background:var(--grey);transition:all .3s;}
+.mobile-menu{display:none;}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero{
+  position:relative;z-index:2;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:120px 52px 80px;
+  overflow:hidden;
+}
+
+.hero-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+.hero-glow-1{
+  position:absolute;top:-200px;right:-200px;
+  width:800px;height:800px;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 65%);
+  pointer-events:none;
+  animation:glowPulse 8s ease-in-out infinite;
+}
+.hero-glow-2{
+  position:absolute;bottom:-300px;left:-100px;
+  width:600px;height:600px;
+  background:radial-gradient(ellipse,rgba(201,168,76,0.04) 0%,transparent 65%);
+  pointer-events:none;
+  animation:glowPulse 10s ease-in-out infinite reverse;
+}
+@keyframes glowPulse{
+  0%,100%{transform:scale(1);opacity:1;}
+  50%{transform:scale(1.15);opacity:.6;}
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:36px;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+}
+.hero-eyebrow::before{
+  content:'';width:40px;height:1px;background:var(--gold-d);
+}
+
+.hero-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(52px,7vw,96px);
+  line-height:.92;letter-spacing:-.03em;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .9s .35s forwards;
+}
+.hero-title .line2{
+  display:block;
+  -webkit-text-stroke:1px rgba(201,168,76,0.4);
+  color:transparent;
+}
+.hero-title .gold{color:var(--gold);}
+
+.hero-desc{
+  font-size:17px;color:var(--text);
+  max-width:580px;line-height:1.8;
+  margin-bottom:48px;
+  opacity:0;animation:fadeUp .9s .5s forwards;
+}
+
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s .65s forwards;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;
+  font-size:12px;letter-spacing:.1em;
+  padding:14px 28px;text-decoration:none;
+  border:1px solid;transition:all .25s;cursor:none;
+}
+.btn-primary{
+  background:var(--gold);color:var(--black);
+  border-color:var(--gold);font-weight:500;
+}
+.btn-primary:hover{background:var(--gold-l);border-color:var(--gold-l);transform:translateY(-1px);}
+.btn-secondary{
+  background:transparent;color:var(--white);
+  border-color:var(--border);
+}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px);}
+.btn-arrow{font-size:14px;transition:transform .2s;}
+.btn:hover .btn-arrow{transform:translateX(4px);}
+
+.hero-stats{
+  display:flex;gap:0;margin-top:80px;
+  border-top:1px solid var(--border);padding-top:40px;
+  opacity:0;animation:fadeUp .9s .8s forwards;
+}
+.hero-stat{
+  flex:1;padding:0 32px 0 0;
+  border-right:1px solid var(--border);
+  margin-right:32px;
+}
+.hero-stat:last-child{border-right:none;margin-right:0;padding-right:0;}
+.hero-stat-num{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:36px;color:var(--gold);line-height:1;
+  margin-bottom:8px;
+}
+.hero-stat-label{font-size:11px;color:var(--grey);letter-spacing:.08em;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px);}
+  to{opacity:1;transform:none;}
+}
+
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:40px;left:52px;
+  display:flex;align-items:center;gap:12px;
+  font-size:10px;letter-spacing:.2em;color:var(--gold-d);
+  opacity:0;animation:fadeUp .9s 1.1s forwards;
+}
+.scroll-line{
+  width:1px;height:40px;background:var(--gold-d);
+  animation:scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim{
+  0%{transform:scaleY(0);transform-origin:top;}
+  50%{transform:scaleY(1);transform-origin:top;}
+  51%{transform-origin:bottom;}
+  100%{transform:scaleY(0);transform-origin:bottom;}
+}
+
+/* ═══════════════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════════════ */
+section{position:relative;z-index:2;}
+.section-inner{padding:100px 52px;}
+.section-label{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:9px;letter-spacing:.28em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:20px;
+}
+.section-label::before{content:'';width:24px;height:1px;background:var(--gold-d);}
+.section-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(36px,4.5vw,58px);
+  line-height:1.0;letter-spacing:-.02em;
+  margin-bottom:20px;
+}
+.section-title span{color:var(--gold);}
+.section-desc{
+  font-size:15px;color:var(--text);
+  max-width:600px;line-height:1.8;
+  margin-bottom:60px;
+}
+
+/* ═══════════════════════════════════════════
+   MARQUEE STRIP
+═══════════════════════════════════════════ */
+.marquee-strip{
+  overflow:hidden;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;
+  background:rgba(201,168,76,0.02);
+}
+.marquee-inner{
+  display:flex;gap:0;
+  animation:marquee 28s linear infinite;
+  white-space:nowrap;
+}
+.marquee-inner span{
+  font-size:10px;letter-spacing:.18em;color:var(--gold-d);
+  padding:0 28px;
+  border-right:1px solid var(--border);
+}
+@keyframes marquee{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+/* ═══════════════════════════════════════════
+   WHAT WE BUILD
+═══════════════════════════════════════════ */
+#what{background:var(--bg);}
+.what-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.what-card{
+  background:var(--bg);
+  padding:44px 36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.what-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:2px;background:transparent;
+  transition:background .3s;
+}
+.what-card:hover{background:rgba(201,168,76,0.03);}
+.what-card:hover::before{background:var(--gold);}
+.what-icon{
+  width:48px;height:48px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;margin-bottom:24px;
+  transition:border-color .3s;
+}
+.what-card:hover .what-icon{border-color:var(--gold);}
+.what-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:18px;color:var(--white);
+  margin-bottom:12px;letter-spacing:-.01em;
+}
+.what-desc{font-size:13px;color:var(--text);line-height:1.75;}
+
+/* ═══════════════════════════════════════════
+   CREATORSEAL FEATURE
+═══════════════════════════════════════════ */
+#creatorseal{
+  background:var(--black);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.cs-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+.cs-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:9px;letter-spacing:.18em;color:var(--gold);
+  border:1px solid var(--border);
+  padding:6px 14px;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.cs-badge::before{
+  content:'';width:6px;height:6px;
+  background:var(--gold);border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.cs-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(40px,4vw,60px);
+  line-height:.95;letter-spacing:-.02em;
+  margin-bottom:24px;
+}
+.cs-title span{color:var(--gold);}
+.cs-desc{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:32px;}
+
+.cs-tech-stack{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:36px;
+}
+.cs-tech-item{
+  background:var(--black);
+  padding:16px 20px;
+}
+.cs-tech-label{
+  font-size:9px;letter-spacing:.18em;
+  color:var(--gold-d);text-transform:uppercase;margin-bottom:5px;
+}
+.cs-tech-val{font-size:13px;color:var(--white);}
+
+.cs-visual{
+  position:relative;
+  border:1px solid var(--border);
+  background:var(--bg);
+  padding:40px;
+  overflow:hidden;
+}
+.cs-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 30%,rgba(201,168,76,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.trust-score-demo{text-align:center;}
+.ts-ring-wrap{
+  position:relative;
+  width:180px;height:180px;
+  margin:0 auto 28px;
+}
+.ts-ring{
+  width:180px;height:180px;
+  border-radius:50%;
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.ts-ring::before{
+  content:'';
+  position:absolute;inset:-4px;
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,0.2);
+}
+.ts-ring::after{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:50%;
+  background:conic-gradient(var(--gold) 0deg 324deg,transparent 324deg);
+  -webkit-mask:radial-gradient(circle,transparent 66px,black 67px);
+  mask:radial-gradient(circle,transparent 66px,black 67px);
+  animation:spinIn 2s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+@keyframes spinIn{from{transform:rotate(-90deg);}to{transform:rotate(-90deg) rotate(324deg);}}
+.ts-num{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:44px;color:var(--gold);line-height:1;
+}
+.ts-label{font-size:10px;letter-spacing:.14em;color:var(--gold-d);margin-top:4px;}
+.ts-breakdown{display:flex;flex-direction:column;gap:10px;text-align:left;}
+.ts-row{display:flex;align-items:center;gap:12px;}
+.ts-row-label{font-size:11px;color:var(--grey);width:120px;flex-shrink:0;}
+.ts-bar-wrap{flex:1;height:3px;background:var(--grey-d);}
+.ts-bar{height:100%;background:var(--gold);animation:barGrow 1.5s ease forwards;}
+@keyframes barGrow{from{width:0;}to{width:var(--w);}}
+.ts-pct{font-size:11px;color:var(--gold-d);width:32px;text-align:right;}
+
+/* Pricing */
+.cs-pricing{margin-top:60px;}
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.pricing-card{
+  background:var(--bg);padding:28px 22px;
+  transition:background .25s;
+  position:relative;
+}
+.pricing-card:hover{background:rgba(201,168,76,0.04);}
+.pricing-card.featured{
+  background:rgba(201,168,76,0.06);
+  border-top:2px solid var(--gold);
+}
+.pricing-tier{
+  font-size:9px;letter-spacing:.2em;
+  color:var(--gold-d);text-transform:uppercase;margin-bottom:10px;
+}
+.pricing-price{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:32px;color:var(--white);margin-bottom:4px;
+}
+.pricing-card.featured .pricing-price{color:var(--gold);}
+.pricing-period{font-size:10px;color:var(--grey);margin-bottom:16px;}
+.pricing-features{list-style:none;display:flex;flex-direction:column;gap:0;}
+.pricing-features li{
+  font-size:11px;color:var(--text);
+  padding:6px 0;border-bottom:1px solid rgba(201,168,76,0.06);
+  display:flex;align-items:flex-start;gap:8px;
+}
+.pricing-features li::before{content:'✓';color:var(--gold-d);flex-shrink:0;}
+
+/* ═══════════════════════════════════════════
+   INNOVATION STACK
+═══════════════════════════════════════════ */
+#innovation{background:var(--bg);}
+.inno-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.inno-card{
+  background:var(--bg);padding:40px 36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.inno-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:1px;background:transparent;
+  transition:background .3s;
+}
+.inno-card:hover{background:rgba(201,168,76,0.025);}
+.inno-card:hover::after{background:linear-gradient(90deg,transparent,var(--gold-d),transparent);}
+.inno-num{
+  font-size:10px;letter-spacing:.18em;
+  color:var(--gold-d);margin-bottom:20px;
+}
+.inno-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:20px;color:var(--white);
+  margin-bottom:10px;letter-spacing:-.01em;
+}
+.inno-title span{color:var(--gold);}
+.inno-desc{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:16px;}
+.inno-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.inno-tag{
+  font-size:9px;letter-spacing:.1em;
+  color:var(--grey);border:1px solid var(--grey-d);
+  padding:3px 10px;
+}
+
+/* ═══════════════════════════════════════════
+   INDUSTRIES
+═══════════════════════════════════════════ */
+#industries{
+  background:var(--black);
+  border-top:1px solid var(--border);
+}
+.industries-layout{
+  display:grid;grid-template-columns:380px 1fr;
+  gap:80px;align-items:start;
+}
+.industries-sticky{position:sticky;top:100px;}
+.industry-list{display:flex;flex-direction:column;gap:0;}
+.industry-item{
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.industry-header{
+  display:flex;align-items:center;gap:16px;
+  padding:22px 0;cursor:pointer;
+  transition:color .2s;
+}
+.industry-header:hover .industry-name{color:var(--gold);}
+.industry-icon-wrap{
+  width:40px;height:40px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  transition:border-color .2s;
+}
+.industry-header:hover .industry-icon-wrap{border-color:var(--gold-d);}
+.industry-info{flex:1;}
+.industry-name{
+  font-family:'Syne',sans-serif;font-weight:600;
+  font-size:15px;color:var(--white);
+  transition:color .2s;
+}
+.industry-sub{font-size:10px;color:var(--grey);letter-spacing:.06em;margin-top:2px;}
+.industry-arrow{
+  font-size:16px;color:var(--gold-d);
+  transition:transform .3s;
+}
+.industry-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .4s ease,padding .3s;
+  padding:0 0 0 56px;
+}
+.industry-body.open{max-height:300px;padding:0 0 22px 56px;}
+.industry-body p{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:12px;}
+.industry-body ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.industry-body ul li{
+  font-size:12px;color:var(--text);
+  padding-left:16px;position:relative;
+}
+.industry-body ul li::before{content:'—';position:absolute;left:0;color:var(--gold-d);}
+.industry-body ul li strong{color:var(--white);font-weight:400;}
+.industry-header.active .industry-arrow{transform:rotate(90deg);}
+
+/* ═══════════════════════════════════════════
+   PRODUCTS / APPS
+═══════════════════════════════════════════ */
+#products{background:var(--bg);}
+.products-grid{display:flex;flex-direction:column;gap:1px;}
+.product-card{
+  border:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1.6fr;
+  overflow:hidden;
+  transition:border-color .3s;
+}
+.product-card:hover{border-color:rgba(201,168,76,0.35);}
+.product-left{
+  padding:44px 40px;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+}
+.product-left::before{
+  content:'';
+  position:absolute;top:0;left:0;width:3px;height:100%;
+  background:var(--gold-d);
+  transition:background .3s;
+}
+.product-card:hover .product-left::before{background:var(--gold);}
+.product-status{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:9px;letter-spacing:.16em;
+  color:var(--gold);text-transform:uppercase;
+  margin-bottom:16px;
+}
+.product-status::before{
+  content:'';width:5px;height:5px;
+  background:var(--gold);border-radius:50%;
+}
+.product-status.soon::before{background:var(--grey);}
+.product-status.soon{color:var(--grey);}
+.product-name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:28px;color:var(--white);
+  margin-bottom:6px;letter-spacing:-.01em;
+}
+.product-tagline{
+  font-size:11px;color:var(--gold);
+  letter-spacing:.08em;margin-bottom:20px;
+}
+.product-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.1em;color:var(--gold);
+  text-decoration:none;border:1px solid var(--border);
+  padding:8px 16px;transition:all .2s;
+  width:fit-content;
+}
+.product-link:hover{border-color:var(--gold);background:var(--gold-ff);}
+.product-right{
+  padding:44px 40px;
+  background:rgba(201,168,76,0.01);
+}
+.product-desc{
+  font-size:14px;color:var(--text);
+  line-height:1.8;margin-bottom:24px;
+}
+.product-feature-list{
+  display:flex;flex-direction:column;gap:0;
+  margin-bottom:24px;
+}
+.product-feature{
+  display:flex;gap:14px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(201,168,76,0.06);
+}
+.product-feature:last-child{border-bottom:none;}
+.pf-dot{
+  width:5px;height:5px;background:var(--gold);
+  border-radius:50%;flex-shrink:0;margin-top:6px;
+}
+.pf-text{font-size:13px;color:var(--text);line-height:1.6;}
+.pf-text strong{color:var(--white);font-weight:500;}
+.product-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.product-tag{
+  font-size:9px;letter-spacing:.1em;
+  color:var(--grey);border:1px solid var(--grey-d);
+  padding:4px 10px;
+}
+
+/* ═══════════════════════════════════════════
+   ROADMAP / ZUKUNFT
+═══════════════════════════════════════════ */
+#roadmap{
+  background:var(--black);
+  border-top:1px solid var(--border);
+}
+.roadmap-timeline{
+  position:relative;
+  padding-left:1px;
+}
+.roadmap-timeline::before{
+  content:'';
+  position:absolute;left:99px;top:0;bottom:0;
+  width:1px;background:var(--border);
+}
+.roadmap-item{
+  display:flex;gap:40px;
+  margin-bottom:0;
+  position:relative;
+}
+.roadmap-item:last-child .rm-body{padding-bottom:0;}
+.rm-year-col{
+  width:100px;flex-shrink:0;
+  padding-top:2px;text-align:right;
+  padding-right:20px;
+}
+.rm-year{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:16px;color:var(--gold);
+}
+.rm-dot{
+  position:absolute;left:99px;top:6px;
+  width:11px;height:11px;
+  border:2px solid var(--gold);
+  background:var(--black);
+  border-radius:50%;
+  transform:translateX(-50%);
+}
+.rm-body{
+  flex:1;padding:0 0 52px 40px;
+}
+.rm-title{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:18px;color:var(--white);margin-bottom:10px;
+}
+.rm-desc{font-size:13.5px;color:var(--text);line-height:1.75;margin-bottom:14px;}
+.rm-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.rm-tag{
+  font-size:9px;letter-spacing:.1em;
+  color:var(--gold);border:1px solid var(--border);
+  padding:4px 10px;text-transform:uppercase;
+}
+
+/* EU strip */
+.eu-strip{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:52px;
+  background:rgba(201,168,76,0.025);
+}
+.eu-strip-inner{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:40px;
+  flex-wrap:wrap;
+}
+.eu-strip-text h3{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:22px;color:var(--white);margin-bottom:8px;
+}
+.eu-strip-text p{font-size:13px;color:var(--text);max-width:500px;line-height:1.7;}
+.eu-badges{display:flex;gap:8px;flex-wrap:wrap;}
+.eu-badge{
+  font-size:9px;letter-spacing:.14em;
+  color:var(--gold);border:1px solid var(--border);
+  padding:8px 16px;text-transform:uppercase;
+  display:flex;align-items:center;gap:7px;
+  white-space:nowrap;
+}
+.eu-badge::before{
+  content:'';width:4px;height:4px;
+  background:var(--gold);border-radius:50%;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+#contact{background:var(--bg);}
+.contact-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;
+}
+.contact-info h3{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:18px;color:var(--white);margin-bottom:6px;
+}
+.contact-info p{font-size:13px;color:var(--text);margin-bottom:24px;line-height:1.75;}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);border:1px solid var(--border);
+}
+.contact-box{
+  background:var(--bg);padding:18px 20px;
+  transition:background .2s;
+}
+.contact-box:hover{background:var(--gold-ff);}
+.contact-box label{
+  display:block;font-size:9px;letter-spacing:.18em;
+  color:var(--gold-d);text-transform:uppercase;margin-bottom:6px;
+}
+.contact-box a,.contact-box span{
+  font-size:12px;color:var(--white);text-decoration:none;
+  transition:color .2s;display:block;
+}
+.contact-box a:hover{color:var(--gold);}
+.address-block{
+  border:1px solid var(--border);
+  padding:32px;
+  margin-top:28px;
+}
+.address-block h4{
+  font-size:9px;letter-spacing:.22em;color:var(--gold-d);
+  text-transform:uppercase;margin-bottom:16px;
+}
+.address-block p{
+  font-size:13px;color:var(--text);line-height:2.0;margin:0;
+}
+.address-block p strong{color:var(--white);font-weight:500;}
+
+/* Legal links */
+.legal-links{
+  display:flex;flex-wrap:wrap;gap:0;
+  border:1px solid var(--border);
+  margin-top:28px;
+}
+.legal-link{
+  font-size:11px;letter-spacing:.08em;
+  color:var(--grey);text-decoration:none;
+  padding:12px 20px;border-right:1px solid var(--border);
+  transition:color .2s;
+}
+.legal-link:last-child{border-right:none;}
+.legal-link:hover{color:var(--gold);}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer{
+  position:relative;z-index:2;
+  border-top:1px solid var(--border);
+  background:var(--black);
+}
+.footer-main{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px;padding:60px 52px;
+}
+.footer-brand-col .brand-name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:18px;color:var(--gold);letter-spacing:.04em;
+  margin-bottom:4px;
+}
+.footer-brand-col .brand-sub{
+  font-size:9px;letter-spacing:.2em;color:var(--gold-d);
+  text-transform:uppercase;margin-bottom:16px;
+}
+.footer-brand-col p{font-size:12px;color:var(--text);line-height:1.7;max-width:280px;}
+.footer-col h4{
+  font-size:9px;letter-spacing:.2em;
+  color:var(--gold-d);text-transform:uppercase;
+  margin-bottom:16px;
+}
+.footer-col a,.footer-col span{
+  display:block;font-size:12px;color:var(--grey);
+  text-decoration:none;margin-bottom:8px;letter-spacing:.04em;
+  transition:color .2s;
+}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{
+  border-top:1px solid var(--border);
+  padding:20px 52px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-copy{font-size:10px;color:rgba(245,245,240,0.2);letter-spacing:.06em;}
+.footer-badges{display:flex;gap:8px;}
+.footer-badge{
+  font-size:9px;letter-spacing:.1em;color:var(--gold-d);
+  border:1px solid rgba(201,168,76,0.12);
+  padding:4px 10px;
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.in{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width:1100px){
+  .cs-layout,.industries-layout,.contact-layout{grid-template-columns:1fr;}
+  .products-grid .product-card{grid-template-columns:1fr;}
+  .product-left{border-right:none;border-bottom:1px solid var(--border);}
+}
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-menu{display:none;}
+  .nav-hamburger{display:flex;}
+  .mobile-menu{
+    display:none;position:fixed;top:64px;left:0;right:0;
+    background:rgba(3,3,3,0.98);z-index:199;
+    border-bottom:1px solid var(--border);
+    flex-direction:column;padding:12px 20px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    color:var(--grey);text-decoration:none;
+    font-size:13px;padding:14px 0;
+    border-bottom:1px solid var(--border);
+    letter-spacing:.06em;transition:color .2s;
+  }
+  .mobile-menu a:hover{color:var(--gold);}
+  #hero{padding:100px 20px 60px;}
+  .section-inner{padding:60px 20px;}
+  .hero-stats{flex-wrap:wrap;gap:28px;}
+  .hero-stat{border:none;padding:0;margin:0;flex:none;width:calc(50% - 14px);}
+  .what-grid,.inno-grid,.pricing-grid{grid-template-columns:1fr;}
+  .roadmap-timeline::before{left:0;}
+  .rm-year-col{display:none;}
+  .rm-dot{left:0;}
+  .rm-body{padding-left:24px;}
+  .footer-main{grid-template-columns:1fr 1fr;gap:32px;padding:40px 20px;}
+  .footer-bottom{padding:16px 20px;}
+  .footer-brand-col{grid-column:1/-1;}
+  .eu-strip{padding:32px 20px;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- cursor -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- stars -->
+<div id="starfield"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-brand-name">REALSYNC DYNAMICS</div>
+    <div class="nav-brand-sub">Digital Infrastructure</div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#what">Was wir bauen</a></li>
+    <li><a href="#creatorseal">CreatorSeal</a></li>
+    <li><a href="#industries">Branchen</a></li>
+    <li><a href="#products">Produkte</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contact" class="nav-cta">Kontakt →</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#what">Was wir bauen</a>
+  <a href="#creatorseal">CreatorSeal</a>
+  <a href="#industries">Branchen</a>
+  <a href="#products">Produkte</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#contact">Kontakt</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-eyebrow">Digital Infrastructure · Made in Germany</div>
+  <h1 class="hero-title">
+    We build<br>
+    <span class="line2">trust for the</span><br>
+    <span class="gold">digital age.</span>
+  </h1>
+  <p class="hero-desc">RealSync Dynamics entwickelt kryptografische Verifikations-Tools, EdTech-Plattformen und KI-gestützte Creator-Infrastructure — für eine Welt, in der digitales Vertrauen keine Option mehr ist, sondern Voraussetzung.</p>
+  <div class="hero-actions">
+    <a href="#creatorseal" class="btn btn-primary">CreatorSeal entdecken <span class="btn-arrow">→</span></a>
+    <a href="#products" class="btn btn-secondary">Alle Produkte <span class="btn-arrow">→</span></a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">C2PA</div>
+      <div class="hero-stat-label">v2.3 Standard · vollständig implementiert</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">98%</div>
+      <div class="hero-stat-label">Deepfake-Erkennungsrate</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Aktive Produkte · 2 in Entwicklung</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">EU</div>
+      <div class="hero-stat-label">DSA · AI Act · DSGVO · konform</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>CREATORSEAL</span><span>SCHULABOR</span><span>LINK-MAGIC</span>
+    <span>ED25519 KRYPTOGRAFIE</span><span>SHA-256 HASH-CHAINS</span>
+    <span>C2PA 2.3</span><span>BLOCKCHAIN TIMESTAMP</span>
+    <span>DEEPFAKE DETECTION</span><span>EU AI ACT READY</span>
+    <span>DSA KONFORM</span><span>DSGVO</span><span>MADE IN GERMANY</span>
+    <!-- duplicate for seamless loop -->
+    <span>CREATORSEAL</span><span>SCHULABOR</span><span>LINK-MAGIC</span>
+    <span>ED25519 KRYPTOGRAFIE</span><span>SHA-256 HASH-CHAINS</span>
+    <span>C2PA 2.3</span><span>BLOCKCHAIN TIMESTAMP</span>
+    <span>DEEPFAKE DETECTION</span><span>EU AI ACT READY</span>
+    <span>DSA KONFORM</span><span>DSGVO</span><span>MADE IN GERMANY</span>
+  </div>
+</div>
+
+<!-- ═══ WHAT WE BUILD ═══ -->
+<section id="what">
+  <div class="section-inner">
+    <div class="section-label reveal">Was wir bauen</div>
+    <h2 class="section-title reveal">Infrastruktur für<br><span>digitales Vertrauen</span></h2>
+    <p class="section-desc reveal">Wir lösen keine kleinen Probleme. KI-generierte Inhalte, Deepfakes und Content-Diebstahl untergraben das Fundament digitaler Kommunikation. Unsere Tools geben Creator, Medien und Unternehmen ihr Fundament zurück.</p>
+
+    <div class="what-grid">
+      <div class="what-card reveal">
+        <div class="what-icon">🔐</div>
+        <div class="what-title">Kryptografische Verifikation</div>
+        <div class="what-desc">Jeder Inhalt erhält eine Ed25519-Signatur und eine SHA-256 Hash-Chain — mathematisch beweisbare Urheberschaft, die kein Gericht und kein Algorithmus anfechten kann.</div>
+      </div>
+      <div class="what-card reveal reveal-delay-1">
+        <div class="what-icon">🧠</div>
+        <div class="what-title">KI-gestützte Detection</div>
+        <div class="what-desc">Unsere Deepfake-Erkennung analysiert synthetisch generierte Inhalte mit 98% Erkennungsrate — bevor sie Schaden anrichten. KI gegen KI, auf deiner Seite.</div>
+      </div>
+      <div class="what-card reveal reveal-delay-2">
+        <div class="what-icon">⛓</div>
+        <div class="what-title">Blockchain-Infrastruktur</div>
+        <div class="what-desc">RFC 3161-konforme Zeitstempel auf der Blockchain schaffen einen dezentralen, unveränderlichen Beweisstand — international anerkannt, gerichtstauglich.</div>
+      </div>
+      <div class="what-card reveal">
+        <div class="what-icon">📋</div>
+        <div class="what-title">C2PA 2.3 Standard</div>
+        <div class="what-desc">Als eines der ersten deutschen Produkte implementiert CreatorSeal den C2PA 2.3-Standard vollständig — ready für die EU-Pflicht ab August 2025.</div>
+      </div>
+      <div class="what-card reveal reveal-delay-1">
+        <div class="what-icon">🎓</div>
+        <div class="what-title">EdTech Plattformen</div>
+        <div class="what-desc">SchulLabor bringt interaktive Science-Lab-Simulatoren in deutsche Klassenzimmer — browserbasiert, ohne Installation, für jedes Endgerät.</div>
+      </div>
+      <div class="what-card reveal reveal-delay-2">
+        <div class="what-icon">⚡</div>
+        <div class="what-title">KI-Marketing Tools</div>
+        <div class="what-desc">Link-Magic automatisiert die Erstellung von Social Media Ads — URL eingeben, fertige Kampagnen erhalten. Creator-Growth auf Knopfdruck.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CREATORSEAL FEATURE ═══ -->
+<section id="creatorseal">
+  <div class="section-inner">
+    <div class="cs-layout">
+      <div>
+        <div class="cs-badge">Flagship Product · Live</div>
+        <h2 class="cs-title">Creator<span>Seal</span></h2>
+        <p class="cs-desc">Die einzige Plattform, die Signatur, Hash-Verifikation, C2PA-Compliance, Deepfake-Erkennung und Blockchain-Timestamping in einem gewichteten <strong style="color:var(--white)">Trust Score</strong> vereint. Warum 4 Tools nutzen, wenn CreatorSeal alles in einem macht?</p>
+
+        <div class="cs-tech-stack reveal">
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Kryptografie</div>
+            <div class="cs-tech-val">Ed25519 · SHA-256</div>
+          </div>
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Standard</div>
+            <div class="cs-tech-val">C2PA 2.3</div>
+          </div>
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Timestamp</div>
+            <div class="cs-tech-val">RFC 3161 · Blockchain</div>
+          </div>
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Detection</div>
+            <div class="cs-tech-val">Deepfake AI · 98%</div>
+          </div>
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Creator Page</div>
+            <div class="cs-tech-val">creatorseal.io/c/[user]</div>
+          </div>
+          <div class="cs-tech-item">
+            <div class="cs-tech-label">Viral Growth</div>
+            <div class="cs-tech-val">QR + Barcode System</div>
+          </div>
+        </div>
+
+        <div class="hero-actions reveal">
+          <a href="https://creatorseal.de" target="_blank" class="btn btn-primary">creatorseal.de <span class="btn-arrow">→</span></a>
+          <a href="https://creatorseal.io" target="_blank" class="btn btn-secondary">creatorseal.io <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="cs-visual reveal">
+        <div class="trust-score-demo">
+          <div class="ts-ring-wrap">
+            <div class="ts-ring">
+              <div>
+                <div class="ts-num">90</div>
+                <div class="ts-label">TRUST SCORE</div>
+              </div>
+            </div>
+          </div>
+          <div class="ts-breakdown">
+            <div class="ts-row">
+              <span class="ts-row-label">Signatur</span>
+              <div class="ts-bar-wrap"><div class="ts-bar" style="--w:100%"></div></div>
+              <span class="ts-pct">100%</span>
+            </div>
+            <div class="ts-row">
+              <span class="ts-row-label">Hash-Chain</span>
+              <div class="ts-bar-wrap"><div class="ts-bar" style="--w:100%;animation-delay:.2s"></div></div>
+              <span class="ts-pct">100%</span>
+            </div>
+            <div class="ts-row">
+              <span class="ts-row-label">C2PA Manifest</span>
+              <div class="ts-bar-wrap"><div class="ts-bar" style="--w:100%;animation-delay:.4s"></div></div>
+              <span class="ts-pct">100%</span>
+            </div>
+            <div class="ts-row">
+              <span class="ts-row-label">Deepfake Check</span>
+              <div class="ts-bar-wrap"><div class="ts-bar" style="--w:80%;animation-delay:.6s"></div></div>
+              <span class="ts-pct">80%</span>
+            </div>
+            <div class="ts-row">
+              <span class="ts-row-label">Blockchain TS</span>
+              <div class="ts-bar-wrap"><div class="ts-bar" style="--w:100%;animation-delay:.8s"></div></div>
+              <span class="ts-pct">100%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="cs-pricing reveal">
+      <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:20px;color:var(--white);margin-bottom:20px;letter-spacing:-.01em;">Preismodell <span style="color:var(--gold)">— Starte kostenlos.</span></h3>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Bronze</div>
+          <div class="pricing-price">Free</div>
+          <div class="pricing-period">für immer kostenlos</div>
+          <ul class="pricing-features">
+            <li>5 Signaturen/Monat</li>
+            <li>Basisverifizierung</li>
+            <li>Trust Score Anzeige</li>
+            <li>Creator Badge</li>
+          </ul>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-tier">Silver · Empfohlen</div>
+          <div class="pricing-price">€29</div>
+          <div class="pricing-period">/Monat · monatlich kündbar</div>
+          <ul class="pricing-features">
+            <li>100 Signaturen/Monat</li>
+            <li>Creator Page</li>
+            <li>QR + Barcode Generator</li>
+            <li>Referral-System</li>
+            <li>C2PA Manifest</li>
+          </ul>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Gold</div>
+          <div class="pricing-price">€49</div>
+          <div class="pricing-period">/Monat</div>
+          <ul class="pricing-features">
+            <li>Unbegrenzte Signaturen</li>
+            <li>API-Zugang</li>
+            <li>Priorität-Support</li>
+            <li>C2PA Export</li>
+            <li>Analytics Dashboard</li>
+          </ul>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Platinum</div>
+          <div class="pricing-price">€149</div>
+          <div class="pricing-period">/Monat</div>
+          <ul class="pricing-features">
+            <li>White-Label Option</li>
+            <li>Team-Accounts</li>
+            <li>Enterprise-SLA</li>
+            <li>Custom Integration</li>
+            <li>Dedizierter Support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INNOVATION ═══ -->
+<section id="innovation">
+  <div class="section-inner">
+    <div class="section-label reveal">Tools & Innovation</div>
+    <h2 class="section-title reveal">Technologie,<br><span>die zählt</span></h2>
+    <p class="section-desc reveal">Jede Technologie in unserem Stack wurde nicht zufällig gewählt — sie ist Antwort auf ein konkretes Problem, das Creator heute haben.</p>
+
+    <div class="inno-grid">
+      <div class="inno-card reveal">
+        <div class="inno-num">01 / 06</div>
+        <div class="inno-title">Ed25519 <span>Kryptografie</span></div>
+        <div class="inno-desc">Asymmetrische Kryptografie auf Basis elliptischer Kurven. Jeder Creator erhält ein einzigartiges Schlüsselpaar — der Private Key bleibt beim Creator, der Public Key auf der Blockchain. Fälschungssicher, schnell, minimal.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">Asymmetrisch</span>
+          <span class="inno-tag">Elliptische Kurven</span>
+          <span class="inno-tag">C2PA Standard</span>
+        </div>
+      </div>
+      <div class="inno-card reveal reveal-delay-1">
+        <div class="inno-num">02 / 06</div>
+        <div class="inno-title">SHA-256 <span>Hash-Chains</span></div>
+        <div class="inno-desc">Jeder Inhalt wird zu einem 256-Bit-Fingerabdruck. Ändert sich auch nur ein Pixel, ändert sich der gesamte Hash. Hash-Chains verknüpfen Versionsstände — Manipulation wird sofort sichtbar.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">Manipulationssicher</span>
+          <span class="inno-tag">Hard Binding</span>
+          <span class="inno-tag">Versionierung</span>
+        </div>
+      </div>
+      <div class="inno-card reveal">
+        <div class="inno-num">03 / 06</div>
+        <div class="inno-title">C2PA 2.3 <span>Manifeste</span></div>
+        <div class="inno-desc">Coalition for Content Provenance and Authenticity — der Standard von Adobe, Microsoft, Google und BBC. Jeder verifizierte Inhalt trägt ein maschinenlesbares Manifest direkt in der Datei. Überprüfbar von jedem kompatiblen Tool weltweit.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">Industriestandard</span>
+          <span class="inno-tag">W3C Konform</span>
+          <span class="inno-tag">Interoperabel</span>
+        </div>
+      </div>
+      <div class="inno-card reveal reveal-delay-1">
+        <div class="inno-num">04 / 06</div>
+        <div class="inno-title">Blockchain <span>Timestamping</span></div>
+        <div class="inno-desc">RFC 3161-konforme Zeitstempelautorität schreibt jeden Signiervorgang dezentral auf die Blockchain. Keine Instanz kann diesen Zeitstempel nachträglich ändern — ein digitales Notariat ohne Notar.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">RFC 3161</span>
+          <span class="inno-tag">Dezentral</span>
+          <span class="inno-tag">Gerichtstauglich</span>
+        </div>
+      </div>
+      <div class="inno-card reveal">
+        <div class="inno-num">05 / 06</div>
+        <div class="inno-title">Deepfake <span>Detection AI</span></div>
+        <div class="inno-desc">KI-gestützte Analyse erkennt synthetisch generierte Inhalte mit 98% Erkennungsrate. Das System lernt kontinuierlich — je mehr Creator nutzen, desto schärfer wird die Detection. KI gegen KI.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">98% Erkennungsrate</span>
+          <span class="inno-tag">Continuous Learning</span>
+          <span class="inno-tag">EU AI Act</span>
+        </div>
+      </div>
+      <div class="inno-card reveal reveal-delay-1">
+        <div class="inno-num">06 / 06</div>
+        <div class="inno-title">Creator Page <span>+ QR System</span></div>
+        <div class="inno-desc">Jeder Creator erhält eine verifizierte Profilseite unter creatorseal.io/c/[username] — Trust Score, versiegelte Inhalte, Social Links. Ein QR-Code macht die Seite physisch teilbar. Virales Wachstum durch Design.</div>
+        <div class="inno-tags">
+          <span class="inno-tag">Creator Profile</span>
+          <span class="inno-tag">QR + Barcode</span>
+          <span class="inno-tag">Viral Growth</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INDUSTRIES ═══ -->
+<section id="industries">
+  <div class="section-inner">
+    <div class="industries-layout">
+      <div class="industries-sticky">
+        <div class="section-label reveal">Branchenlösungen</div>
+        <h2 class="section-title reveal">Wer wir<br><span>bedienen</span></h2>
+        <p class="reveal" style="font-size:14px;color:var(--text);line-height:1.8;">Unsere Technologie ist keine Nischenlösung. Von Creator-Wirtschaft über Bildung bis zu Enterprise — digitales Vertrauen ist in jeder Branche Infrastruktur.</p>
+      </div>
+
+      <div class="industry-list reveal">
+        <div class="industry-item">
+          <div class="industry-header" onclick="toggleIndustry(this)">
+            <div class="industry-icon-wrap">📸</div>
+            <div class="industry-info">
+              <div class="industry-name">Media, Creator & Content</div>
+              <div class="industry-sub">Instagram · YouTube · TikTok · Fotografie</div>
+            </div>
+            <div class="industry-arrow">›</div>
+          </div>
+          <div class="industry-body open">
+            <p>Creator verlieren täglich Umsatz und Reputation durch Content-Diebstahl. CreatorSeal gibt ihnen den kryptografischen Beweis, den kein Anwalt in Frage stellen kann.</p>
+            <ul>
+              <li><strong>Fotografen & Videografen</strong> — Urheberrecht beweisbar</li>
+              <li><strong>Social Media Creator</strong> — Trust Score als Brand-Asset</li>
+              <li><strong>Influencer & Brand Creator</strong> — Proof für Agenturen</li>
+              <li><strong>NFT-Artists & Web3</strong> — On-Chain Provenance</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="industry-item">
+          <div class="industry-header" onclick="toggleIndustry(this)">
+            <div class="industry-icon-wrap">📰</div>
+            <div class="industry-info">
+              <div class="industry-name">Journalismus & Medien</div>
+              <div class="industry-sub">Redaktionen · Agenturen · Investigativ</div>
+            </div>
+            <div class="industry-arrow">›</div>
+          </div>
+          <div class="industry-body">
+            <p>Fake News und manipuliertes Bildmaterial untergraben das Vertrauen in Medien. C2PA-konforme Signierung macht jedes publizierte Bild öffentlich nachprüfbar.</p>
+            <ul>
+              <li><strong>Bildredaktionen</strong> — C2PA-Manifest für jedes Foto</li>
+              <li><strong>Nachrichtenagenturen</strong> — dpa/AP-kompatibler Standard</li>
+              <li><strong>Investigativjournalisten</strong> — Beweissichere Dokumentation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="industry-item">
+          <div class="industry-header" onclick="toggleIndustry(this)">
+            <div class="industry-icon-wrap">🎓</div>
+            <div class="industry-info">
+              <div class="industry-name">Bildung & EdTech</div>
+              <div class="industry-sub">Schulen · Universitäten · Verlage</div>
+            </div>
+            <div class="industry-arrow">›</div>
+          </div>
+          <div class="industry-body">
+            <p>SchulLabor adressiert den akuten Mangel an digitaler Laborinfrastruktur im deutschen Bildungswesen — browserbasiert, kostengünstig, sofort einsatzbereit.</p>
+            <ul>
+              <li><strong>Gymnasien & Realschulen</strong> — Ergänzung zum Präsenzlabor</li>
+              <li><strong>Schulbuchverlage</strong> — White-Label Integration</li>
+              <li><strong>Bundesländer</strong> — Rahmenverträge für Flächenlizenzen</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="industry-item">
+          <div class="industry-header" onclick="toggleIndustry(this)">
+            <div class="industry-icon-wrap">⚖️</div>
+            <div class="industry-info">
+              <div class="industry-name">Recht, Notare & Compliance</div>
+              <div class="industry-sub">Kanzleien · IP-Recht · Behörden</div>
+            </div>
+            <div class="industry-arrow">›</div>
+          </div>
+          <div class="industry-body">
+            <p>Digitale Beweise müssen sicher, manipulationsfrei und vor Gericht standhaft sein. Unser RFC 3161-konformer Blockchain-Timestamp ist das digitale Äquivalent einer Notarurkunde.</p>
+            <ul>
+              <li><strong>IP-Kanzleien</strong> — Beweissicherung für Urheberrecht</li>
+              <li><strong>Versicherungen</strong> — Schadensdoku mit Manipulationsnachweis</li>
+              <li><strong>Compliance</strong> — EU AI Act Dokumentationspflichten</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="industry-item">
+          <div class="industry-header" onclick="toggleIndustry(this)">
+            <div class="industry-icon-wrap">🏢</div>
+            <div class="industry-info">
+              <div class="industry-name">Enterprise & Agenturen</div>
+              <div class="industry-sub">Marken · PR · E-Commerce · Plattformen</div>
+            </div>
+            <div class="industry-arrow">›</div>
+          </div>
+          <div class="industry-body">
+            <p>Marken brauchen verifizierte Content-Lieferketten. Unser Platinum-Tier mit White-Label-Option integriert CreatorSeal-Infrastruktur nahtlos in bestehende Systeme.</p>
+            <ul>
+              <li><strong>E-Commerce</strong> — Produktfoto-Authentifizierung</li>
+              <li><strong>PR-Agenturen</strong> — Verifizierter Kampagnen-Content</li>
+              <li><strong>SaaS-Plattformen</strong> — C2PA-Infrastruktur als API</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section id="products">
+  <div class="section-inner">
+    <div class="section-label reveal">Produkte & Apps</div>
+    <h2 class="section-title reveal">Das <span>Portfolio</span></h2>
+    <p class="section-desc reveal">Drei eigenständige Produkte, eine gemeinsame Mission: digitale Infrastruktur bauen, die Creator, Schulen und Marken stärkt.</p>
+
+    <div class="products-grid">
+      <!-- CreatorSeal -->
+      <div class="product-card reveal">
+        <div class="product-left">
+          <div>
+            <div class="product-status">Live · Beta</div>
+            <div class="product-name">CreatorSeal</div>
+            <div class="product-tagline">Kryptografische Content-Verifikation</div>
+          </div>
+          <div>
+            <a href="https://creatorseal.de" target="_blank" class="product-link">creatorseal.de →</a>
+            <a href="https://creatorseal.io" target="_blank" class="product-link" style="margin-top:8px;">creatorseal.io →</a>
+          </div>
+        </div>
+        <div class="product-right">
+          <p class="product-desc">Das Herzstück von RealSync Dynamics. CreatorSeal kombiniert fünf Technologien in einem Trust Score — der einzigen Kennzahl, die Creator brauchen, um ihre Urheberschaft unwiderlegbar zu beweisen.</p>
+          <div class="product-feature-list">
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Trust Score Dashboard</strong> — gewichteter Verifikations-Score aus allen Schichten: Signatur, Hash, C2PA, Deepfake, Blockchain</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Creator Page</strong> — verifiziertes Profil unter creatorseal.io/c/[username] mit Avatar, Trust Score, Social Links, versiegelten Inhalten</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>QR + Barcode System</strong> — physisch teilbarer Nachweis der Urheberschaft, viraler Wachstumsmechanismus</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Referral-System</strong> — Creator laden Creator ein, organisches Wachstum durch Vertrauen</div>
+            </div>
+          </div>
+          <div class="product-tags">
+            <span class="product-tag">Next.js</span><span class="product-tag">Ed25519</span>
+            <span class="product-tag">SHA-256</span><span class="product-tag">C2PA 2.3</span>
+            <span class="product-tag">Blockchain</span><span class="product-tag">Supabase</span>
+            <span class="product-tag">Stripe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SchulLabor -->
+      <div class="product-card reveal">
+        <div class="product-left">
+          <div>
+            <div class="product-status soon">In Entwicklung</div>
+            <div class="product-name">SchulLabor</div>
+            <div class="product-tagline">EdTech Science Lab · DACH Schulen</div>
+          </div>
+          <div>
+            <span class="product-link" style="opacity:.5;cursor:default;">Bald verfügbar</span>
+          </div>
+        </div>
+        <div class="product-right">
+          <p class="product-desc">Browserbasierte Science-Lab-Simulatoren für Physik, Chemie und Biologie — keine Installation, kein spezielles Gerät. SchulLabor ergänzt oder ersetzt reale Laborausstattung für Schulen im DACH-Raum.</p>
+          <div class="product-feature-list">
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Canvas Simulatoren</strong> — interaktive Experimente direkt im Browser, vollständig physikalisch korrekt</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>B2B Schullizenzen</strong> — Schulen zahlen eine Jahreslizenz, alle Schüler bekommen Zugang</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Bundesland-Rahmenverträge</strong> — strategischer Vertrieb über Kultusministerien und Schulbuchverlage</div>
+            </div>
+          </div>
+          <div class="product-tags">
+            <span class="product-tag">EdTech</span><span class="product-tag">B2B SaaS</span>
+            <span class="product-tag">Canvas API</span><span class="product-tag">DACH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Link-Magic -->
+      <div class="product-card reveal">
+        <div class="product-left">
+          <div>
+            <div class="product-status soon">Konzept · Coming Soon</div>
+            <div class="product-name">Link-Magic</div>
+            <div class="product-tagline">KI Ad Generation Tool</div>
+          </div>
+          <div>
+            <span class="product-link" style="opacity:.5;cursor:default;">In Entwicklung</span>
+          </div>
+        </div>
+        <div class="product-right">
+          <p class="product-desc">URL eingeben — fertige Social Media Ads erhalten. Link-Magic analysiert Produkte und Inhalte per KI und generiert sofort einsetzbare Kampagnen für Instagram, TikTok und Facebook.</p>
+          <div class="product-feature-list">
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>KI Ad Generation</strong> — Texte, Hooks, CTAs und Creatives auf Knopfdruck</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>Multi-Platform</strong> — optimiert für Instagram, TikTok, Facebook und Reels</div>
+            </div>
+            <div class="product-feature">
+              <div class="pf-dot"></div>
+              <div class="pf-text"><strong>DACH-First</strong> — deutschsprachige Copy, kulturell angepasste Texte</div>
+            </div>
+          </div>
+          <div class="product-tags">
+            <span class="product-tag">KI / LLM</span><span class="product-tag">Social Ads</span>
+            <span class="product-tag">Instagram</span><span class="product-tag">TikTok</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EU STRIP ═══ -->
+<div class="eu-strip reveal">
+  <div class="eu-strip-inner">
+    <div class="eu-strip-text">
+      <h3>EU-Regulierung ist unser Wachstumsmotor</h3>
+      <p>Jede neue Regulierung — DSA, EU AI Act, C2PA-Pflicht ab August 2025 — schafft Compliance-Bedarf, den CreatorSeal bereits heute erfüllt. Wir sind regulatorisch ahead of the curve.</p>
+    </div>
+    <div class="eu-badges">
+      <span class="eu-badge">DSA 2022/2065</span>
+      <span class="eu-badge">EU AI Act</span>
+      <span class="eu-badge">C2PA Aug. 2025</span>
+      <span class="eu-badge">DSGVO</span>
+      <span class="eu-badge">BDSG</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ROADMAP ═══ -->
+<section id="roadmap">
+  <div class="section-inner">
+    <div class="section-label reveal">Roadmap & Zukunft</div>
+    <h2 class="section-title reveal">Wohin wir<br><span>gehen</span></h2>
+    <p class="section-desc reveal">Wir bauen keine App — wir bauen Infrastruktur. Die Roadmap folgt der Entwicklung der EU-Regulierung und den Bedürfnissen des globalen Creator-Markts.</p>
+
+    <div class="roadmap-timeline">
+      <div class="roadmap-item reveal">
+        <div class="rm-year-col"><div class="rm-year">2024</div></div>
+        <div class="rm-dot"></div>
+        <div class="rm-body">
+          <div class="rm-title">Gründung & Technologie-Stack</div>
+          <div class="rm-desc">RealSync Dynamics gegründet in Neuhaus am Rennweg. CreatorSeal von No-Code (Bubble.io) zu vollständigem Next.js-Stack migriert. C2PA 2.3 vollständig implementiert. Ed25519, SHA-256, RFC 3161 Blockchain-Timestamping live. EU AI Act tritt in Kraft.</div>
+          <div class="rm-tags"><span class="rm-tag">Gründung</span><span class="rm-tag">C2PA 2.3</span><span class="rm-tag">Next.js Migration</span></div>
+        </div>
+      </div>
+
+      <div class="roadmap-item reveal">
+        <div class="rm-year-col"><div class="rm-year">2025</div></div>
+        <div class="rm-dot"></div>
+        <div class="rm-body">
+          <div class="rm-title">DACH Market Launch · C2PA-Pflicht</div>
+          <div class="rm-desc">Ab August 2025 schreibt die EU C2PA-konforme Kennzeichnung für KI-Inhalte vor — CreatorSeal ist ready. Launch des 4-Wochen-Marketing-Plans für DACH (Instagram, TikTok, Reddit, Product Hunt). SchulLabor Beta-Launch. Erste Verlagspartnergespräche.</div>
+          <div class="rm-tags"><span class="rm-tag">DACH Launch</span><span class="rm-tag">EU C2PA Pflicht</span><span class="rm-tag">SchulLabor Beta</span></div>
+        </div>
+      </div>
+
+      <div class="roadmap-item reveal">
+        <div class="rm-year-col"><div class="rm-year">2026</div></div>
+        <div class="rm-dot"></div>
+        <div class="rm-body">
+          <div class="rm-title">API-Ökosystem · International</div>
+          <div class="rm-desc">CreatorSeal API für Drittanbieter geöffnet. Expansion in UK, Benelux, CEE und Nordics via creatorseal.io. Enterprise Tier ausgebaut. Link-Magic Live-Launch. Erste Schulbuch-Verlagspartnerschaften für SchulLabor. Erste Agentur-White-Label-Deals.</div>
+          <div class="rm-tags"><span class="rm-tag">API Launch</span><span class="rm-tag">EU Expansion</span><span class="rm-tag">Link-Magic</span></div>
+        </div>
+      </div>
+
+      <div class="roadmap-item reveal">
+        <div class="rm-year-col"><div class="rm-year">2027+</div></div>
+        <div class="rm-dot"></div>
+        <div class="rm-body">
+          <div class="rm-title">Content Trust Infrastructure</div>
+          <div class="rm-desc">RealSync Dynamics wird zur B2B-Infrastruktur-Schicht für digitales Vertrauen in Europa. API-Anbieter für Redaktionssysteme, DAM-Tools und Plattformen. Globale Expansion via creatorseal.io in US, CA, AU. Mögliche Integration in Adobe Content Credentials-Ökosystem.</div>
+          <div class="rm-tags"><span class="rm-tag">Global</span><span class="rm-tag">B2B Infrastructure</span><span class="rm-tag">Adobe Ecosystem</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label reveal">Kontakt & Impressum</div>
+    <h2 class="section-title reveal">Lass uns<br><span>sprechen.</span></h2>
+
+    <div class="contact-layout">
+      <div class="reveal">
+        <p style="font-size:14px;color:var(--text);line-height:1.8;margin-bottom:28px;">Ob du als Creator starten willst, eine Enterprise-Integration planst oder als Schule an SchulLabor interessiert bist — wir antworten innerhalb von 5 Werktagen.</p>
+
+        <div class="contact-grid">
+          <div class="contact-box">
+            <label>Allgemein</label>
+            <a href="mailto:kontakt@creatorseal.de">kontakt@creatorseal.de</a>
+          </div>
+          <div class="contact-box">
+            <label>RealSync Dynamics</label>
+            <a href="mailto:kontakt@realsyncdynamics.de">kontakt@realsyncdynamics.de</a>
+          </div>
+          <div class="contact-box">
+            <label>Support</label>
+            <a href="mailto:support@creatorseal.de">support@creatorseal.de</a>
+          </div>
+          <div class="contact-box">
+            <label>Datenschutz</label>
+            <a href="mailto:datenschutz@creatorseal.de">datenschutz@creatorseal.de</a>
+          </div>
+          <div class="contact-box">
+            <label>Abuse / DSA</label>
+            <a href="mailto:abuse@creatorseal.de">abuse@creatorseal.de</a>
+          </div>
+          <div class="contact-box">
+            <label>Enterprise & B2B</label>
+            <a href="mailto:kontakt@realsyncdynamics.de">kontakt@realsyncdynamics.de</a>
+          </div>
+        </div>
+
+        <div class="legal-links">
+          <a href="#" class="legal-link">Impressum</a>
+          <a href="#" class="legal-link">AGB</a>
+          <a href="#" class="legal-link">Datenschutz</a>
+          <a href="#" class="legal-link">DSA</a>
+          <a href="#" class="legal-link">C2PA Docs</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="address-block">
+          <h4>Impressum · § 5 TMG</h4>
+          <p>
+            <strong>RealSync Dynamics</strong><br>
+            Inhaber: Dominik [Nachname]<br>
+            [Straße und Hausnummer]<br>
+            98724 Neuhaus am Rennweg<br>
+            Thüringen, Deutschland<br><br>
+            <strong>Rechtsform:</strong> Einzelunternehmen<br>
+            <strong>USt.:</strong> § 19 UStG Kleinunternehmer<br>
+            <strong>GitHub:</strong> github.com/Chico1711<br><br>
+            <strong>Domains:</strong><br>
+            realsyncdynamics.de<br>
+            creatorseal.de · creatorseal.io
+          </p>
+        </div>
+
+        <div style="margin-top:16px;border:1px solid var(--border);padding:24px;">
+          <div style="font-size:9px;letter-spacing:.2em;color:var(--gold-d);text-transform:uppercase;margin-bottom:12px;">Streitbeilegung</div>
+          <p style="font-size:12px;color:var(--text);line-height:1.7;margin:0;">EU OS-Plattform: <a href="https://ec.europa.eu/consumers/odr" target="_blank" style="color:var(--gold);text-decoration:none;">ec.europa.eu/consumers/odr</a><br>DSA-Behörde: Bundesnetzagentur, Bonn</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand-col">
+      <div class="brand-name">REALSYNC DYNAMICS</div>
+      <div class="brand-sub">Digital Infrastructure · Made in Germany</div>
+      <p>Wir bauen kryptografische Verifikations-Tools, EdTech-Plattformen und KI-gestützte Creator-Infrastructure für eine Welt, in der digitales Vertrauen Voraussetzung ist.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produkte</h4>
+      <a href="https://creatorseal.de" target="_blank">CreatorSeal</a>
+      <a href="https://creatorseal.io" target="_blank">creatorseal.io</a>
+      <span>SchulLabor (bald)</span>
+      <span>Link-Magic (bald)</span>
+    </div>
+    <div class="footer-col">
+      <h4>Branchen</h4>
+      <a href="#industries">Creator & Media</a>
+      <a href="#industries">Journalismus</a>
+      <a href="#industries">Bildung</a>
+      <a href="#industries">Enterprise</a>
+      <a href="#industries">Recht & IP</a>
+    </div>
+    <div class="footer-col">
+      <h4>Rechtliches</h4>
+      <a href="#">Impressum</a>
+      <a href="#">AGB</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">DSA</a>
+      <a href="#">C2PA Dokumentation</a>
+      <a href="https://github.com/Chico1711" target="_blank">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 RealSync Dynamics · Einzelunternehmen · 98724 Neuhaus am Rennweg · Thüringen · Deutschland · Alle Rechte vorbehalten</div>
+    <div class="footer-badges">
+      <span class="footer-badge">C2PA 2.3</span>
+      <span class="footer-badge">DSA</span>
+      <span class="footer-badge">DSGVO</span>
+      <span class="footer-badge">EU AI Act</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+/* Stars */
+const sf = document.getElementById('starfield');
+for(let i=0;i<220;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const sz=Math.random()*1.8+.3;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--o:${Math.random()*.5+.05};--d:${(Math.random()*7+3).toFixed(1)}s;--dl:${(Math.random()*8).toFixed(1)}s;`;
+  sf.appendChild(s);
+}
+
+/* Cursor */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){
+  cur.style.cssText=`left:${mx-3}px;top:${my-3}px;`;
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  ring.style.cssText=`left:${rx-12}px;top:${ry-12}px;`;
+  requestAnimationFrame(loop);
+})();
+
+/* Nav scroll */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* Reveal */
+const obs=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting)x.target.classList.add('in');
+}),{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Industry accordion */
+function toggleIndustry(header){
+  const body=header.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  // close all
+  document.querySelectorAll('.industry-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.industry-header').forEach(h=>h.classList.remove('active'));
+  if(!isOpen){
+    body.classList.add('open');
+    header.classList.add('active');
+  }
+}
+
+/* Mobile menu */
+document.getElementById('hamburger').addEventListener('click',function(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+/* Smooth scroll for nav links */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+</script>
+</body>
+</html>
