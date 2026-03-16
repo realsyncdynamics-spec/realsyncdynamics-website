@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://realsyncdynamics-website.vercel.app/sitemap.xml
