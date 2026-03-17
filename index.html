@@ -1466,6 +1466,41 @@ footer{
 .screenshot-item .ss-desc{font-size:11px;color:var(--text);line-height:1.6;margin-bottom:8px;}
 .screenshot-item .ss-platform{font-size:8px;letter-spacing:.1em;color:var(--grey);border:1px solid var(--border);padding:3px 8px;display:inline-block;}
 
+/* ARCHITEKTUR SECTION */
+.arch-diagram{display:flex;flex-direction:column;gap:0;margin:3rem 0;border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;}
+.arch-layer{padding:1.5rem 2rem;border-bottom:1px solid rgba(212,175,55,0.15);background:rgba(255,255,255,0.02);}
+.arch-layer:last-child{border-bottom:none;}
+.arch-layer-label{font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:0.75rem;}
+.arch-nodes{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:0.75rem;}
+.arch-node{display:flex;flex-direction:column;gap:0.25rem;padding:0.75rem 1rem;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:rgba(255,255,255,0.03);min-width:160px;flex:1;}
+.arch-node.primary{border-color:rgba(212,175,55,0.4);background:rgba(212,175,55,0.06);}
+.arch-node.accent{border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.04);}
+.arch-node .arch-icon{font-size:1.2rem;}
+.arch-node strong{font-size:0.85rem;color:var(--white);}
+.arch-node small{font-size:0.7rem;color:var(--grey);line-height:1.4;}
+.arch-arrow{font-size:0.7rem;color:rgba(212,175,55,0.6);font-family:'DM Mono',monospace;letter-spacing:0.05em;}
+.arch-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:3rem 0;}
+.arch-detail-card{padding:1.75rem;border:1px solid rgba(255,255,255,0.08);border-radius:12px;background:rgba(255,255,255,0.02);transition:border-color 0.3s;}
+.arch-detail-card:hover{border-color:rgba(212,175,55,0.3);}
+.arch-detail-icon{font-size:2rem;margin-bottom:1rem;}
+.arch-detail-card h3{font-size:1rem;color:var(--white);margin-bottom:0.75rem;}
+.arch-detail-card p{font-size:0.82rem;color:var(--grey);line-height:1.7;margin-bottom:1rem;}
+.arch-detail-card code{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--gold);background:rgba(212,175,55,0.1);padding:1px 5px;border-radius:3px;}
+.arch-code{background:#0a0a0a;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1rem;margin-bottom:1rem;overflow-x:auto;}
+.arch-code pre{font-family:'DM Mono',monospace;font-size:0.7rem;color:#a0d080;line-height:1.6;margin:0;white-space:pre;}
+.arch-tags{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.arch-tag{font-size:0.62rem;letter-spacing:0.1em;padding:3px 8px;border:1px solid rgba(212,175,55,0.3);border-radius:20px;color:var(--gold);font-family:'DM Mono',monospace;}
+.arch-stack-table{margin:2rem 0;border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;}
+.arch-stack-title{padding:1rem 1.5rem;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);font-family:'DM Mono',monospace;background:rgba(212,175,55,0.06);border-bottom:1px solid rgba(212,175,55,0.15);}
+.arch-stack-grid{}
+.arch-stack-row{display:grid;grid-template-columns:140px 1fr 70px;gap:1rem;padding:0.75rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;align-items:center;}
+.arch-stack-row:last-child{border-bottom:none;}
+.arch-stack-row.header{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--grey);background:rgba(255,255,255,0.02);}
+.arch-stack-row span:first-child{color:var(--gold);font-family:'DM Mono',monospace;font-size:0.72rem;}
+.arch-stack-row span:nth-child(2){color:rgba(255,255,255,0.7);}
+.status-live{color:#4ade80;font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;}
+.status-soon{color:rgba(212,175,55,0.7);font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;}
+@media(max-width:768px){.arch-nodes{flex-direction:column;}.arch-node{min-width:auto;}.arch-stack-row{grid-template-columns:100px 1fr 50px;gap:0.5rem;font-size:0.7rem;}.arch-detail-grid{grid-template-columns:1fr;}}
 </style>
   </head>
   <body>
@@ -1489,6 +1524,7 @@ footer{
     <li><a href="#industries">Branchen</a></li>
     <li><a href="#products">Produkte</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#architektur">Architektur</a></li>
                  <li><a href="#investors">Investoren</a></li>
         <li><a href="#partner">Partner</a></li>
     <li><a href="#contact" class="nav-cta">Kontakt →</a></li>
@@ -2355,7 +2391,169 @@ footer{
   </div>
 </div>
 
-<!-- ═══ ROADMAP ═══ -->
+<!-- — SAAS ARCHITEKTUR — -->
+<section id="architektur" class="section">
+  <div class="container">
+    <div class="section-label">ARCHITEKTUR</div>
+    <h2>SaaS-Infrastruktur<br><span class="highlight">RealSync Stack</span></h2>
+    <p class="section-desc">Production-grade Multi-Tenant SaaS-Architektur — Next.js, Supabase RLS, Stripe, Polygon, C2PA. Skalierbar von 1 bis 1.000.000 Tenants.</p>
+
+    <div class="arch-diagram">
+
+      <!-- Layer 1: Client -->
+      <div class="arch-layer">
+        <div class="arch-layer-label">CLIENT</div>
+        <div class="arch-nodes">
+          <div class="arch-node primary"><span class="arch-icon">🌐</span><strong>Browser / SPA</strong><small>Next.js App Router · React · Tailwind</small></div>
+          <div class="arch-node"><span class="arch-icon">📱</span><strong>Mobile</strong><small>React Native · Expo</small></div>
+          <div class="arch-node"><span class="arch-icon">🖥️</span><strong>Desktop</strong><small>Electron · Rust</small></div>
+        </div>
+        <div class="arch-arrow">↓ HTTPS / TLS 1.3</div>
+      </div>
+
+      <!-- Layer 2: Edge -->
+      <div class="arch-layer">
+        <div class="arch-layer-label">API EDGE</div>
+        <div class="arch-nodes">
+          <div class="arch-node accent"><span class="arch-icon">▲</span><strong>Vercel Edge</strong><small>Middleware · Tenant-Resolve · Rate Limit</small></div>
+          <div class="arch-node"><span class="arch-icon">🌐</span><strong>Cloudflare</strong><small>CDN · DDoS · WAF</small></div>
+          <div class="arch-node"><span class="arch-icon">🔀</span><strong>API Gateway</strong><small>Routing · Auth-Check · Logging</small></div>
+        </div>
+        <div class="arch-arrow">↓ tenant_id injected</div>
+      </div>
+
+      <!-- Layer 3: Backend -->
+      <div class="arch-layer">
+        <div class="arch-layer-label">BACKEND SERVICES</div>
+        <div class="arch-nodes">
+          <div class="arch-node"><span class="arch-icon">🔐</span><strong>Auth Service</strong><small>JWT · OIDC · RBAC · MFA</small></div>
+          <div class="arch-node primary"><span class="arch-icon">⚙️</span><strong>Core API</strong><small>Next.js Routes · C2PA · Ed25519</small></div>
+          <div class="arch-node"><span class="arch-icon">💳</span><strong>Billing Service</strong><small>Stripe · Webhooks · Metered</small></div>
+          <div class="arch-node"><span class="arch-icon">⛓</span><strong>Blockchain</strong><small>Polygon · RFC 3161 · Timestamping</small></div>
+        </div>
+        <div class="arch-arrow">↓ tenant-aware queries</div>
+      </div>
+
+      <!-- Layer 4: Data -->
+      <div class="arch-layer">
+        <div class="arch-layer-label">DATA LAYER</div>
+        <div class="arch-nodes">
+          <div class="arch-node accent"><span class="arch-icon">🟩</span><strong>Supabase Postgres</strong><small>RLS · tenant_id · Shared Schema</small></div>
+          <div class="arch-node"><span class="arch-icon">⚡</span><strong>Redis</strong><small>Caching · Rate Limits · Job Queue</small></div>
+          <div class="arch-node"><span class="arch-icon">☁️</span><strong>S3 / Backblaze</strong><small>Uploads · C2PA Manifests · CDN</small></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Multi-Tenancy Detail -->
+    <div class="arch-detail-grid">
+
+      <div class="arch-detail-card">
+        <div class="arch-detail-icon">🏢</div>
+        <h3>Multi-Tenancy Modell</h3>
+        <p>Shared DB / Shared Schema — alle Tenants in denselben Tabellen mit <code>tenant_id</code>. Row Level Security (RLS) im Postgres-Layer isoliert Daten automatisch. Skaliert günstig bis Enterprise.</p>
+        <div class="arch-code">
+          <pre>-- Supabase RLS Policy
+CREATE POLICY tenant_isolation
+  ON content USING (
+    tenant_id = auth.jwt()->>'tid'
+  );</pre>
+        </div>
+        <div class="arch-tags">
+          <span class="arch-tag">Shared Schema</span>
+          <span class="arch-tag">RLS</span>
+          <span class="arch-tag">tenant_id</span>
+        </div>
+      </div>
+
+      <div class="arch-detail-card">
+        <div class="arch-detail-icon">🔄</div>
+        <h3>Request Flow</h3>
+        <p>Browser → DNS (<code>tenant.realsyncdynamics.de</code>) → Edge Middleware (Tenant-Resolve) → API mit Tenant-Kontext → Postgres mit RLS → Response. Latenz &lt; 80ms p99.</p>
+        <div class="arch-code">
+          <pre>// Edge Middleware
+export function middleware(req) {
+  const tenant = resolveTenant(req);
+  req.headers.set('x-tid', tenant.id);
+  return NextResponse.next();
+}</pre>
+        </div>
+        <div class="arch-tags">
+          <span class="arch-tag">&lt; 80ms p99</span>
+          <span class="arch-tag">Edge-First</span>
+          <span class="arch-tag">Auto-Scale</span>
+        </div>
+      </div>
+
+      <div class="arch-detail-card">
+        <div class="arch-detail-icon">💳</div>
+        <h3>Billing Flow</h3>
+        <p>User registriert sich → Tenant erstellt → Stripe Customer + Subscription angelegt → Plan-Features als Flags im Tenant-Record → Feature-Gates im Frontend und API.</p>
+        <div class="arch-code">
+          <pre>// Signup + Billing
+await stripe.customers.create(
+  { email, metadata: { tenant_id } }
+);
+await db.tenants.update(
+  { plan: 'silver', features: [...] }
+);</pre>
+        </div>
+        <div class="arch-tags">
+          <span class="arch-tag">Stripe</span>
+          <span class="arch-tag">Feature Flags</span>
+          <span class="arch-tag">Freemium</span>
+        </div>
+      </div>
+
+      <div class="arch-detail-card">
+        <div class="arch-detail-icon">📊</div>
+        <h3>Observability</h3>
+        <p>OpenTelemetry Traces durch alle Services. Sentry für Error-Monitoring. PostHog für Product Analytics. Prometheus + Grafana für Infra-Metriken. Logs per Tenant isoliert.</p>
+        <div class="arch-code">
+          <pre>// Structured Logging
+logger.info('verify', {
+  tenant_id,
+  user_id,
+  trust_score,
+  duration_ms
+});</pre>
+        </div>
+        <div class="arch-tags">
+          <span class="arch-tag">OpenTelemetry</span>
+          <span class="arch-tag">Sentry</span>
+          <span class="arch-tag">PostHog</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tech Stack Table -->
+    <div class="arch-stack-table">
+      <div class="arch-stack-title">TECH STACK · VOLLSTÄNDIG</div>
+      <div class="arch-stack-grid">
+        <div class="arch-stack-row header">
+          <span>Schicht</span><span>Tools</span><span>Status</span>
+        </div>
+        <div class="arch-stack-row"><span>Frontend</span><span>Next.js App Router · React · Tailwind</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>API Edge</span><span>Vercel Edge · Cloudflare · API Gateway</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Backend</span><span>Next.js API Routes · Node.js</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Auth</span><span>Supabase Auth · JWT · RBAC</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Datenbank</span><span>Supabase Postgres · RLS · Drizzle ORM</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Cache/Queue</span><span>Redis · Background Jobs</span><span class="status-soon">SOON</span></div>
+        <div class="arch-stack-row"><span>Storage</span><span>S3/Backblaze · CDN · C2PA Manifests</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Billing</span><span>Stripe · Subscriptions · Webhooks</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Blockchain</span><span>Polygon · RFC 3161 · Ed25519</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Observability</span><span>Sentry · PostHog · OpenTelemetry</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>Hosting</span><span>Vercel (FE+Edge) · Supabase (DB)</span><span class="status-live">LIVE</span></div>
+        <div class="arch-stack-row"><span>CI/CD</span><span>GitHub Actions · Vercel Deployments</span><span class="status-live">LIVE</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+         
+         <!-- ═══ ROADMAP ═══ -->
 <section id="roadmap">
   <div class="section-inner">
     <div class="section-label reveal">Roadmap</div>
