@@ -1387,6 +1387,84 @@ footer{
 .counter-num{font-family:'Syne',sans-serif;font-weight:800;}
 .count-up{animation:countPulse 1.5s ease forwards;}
 @keyframes countPulse{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
+       /* INVESTORS & PARTNER */
+#investors{background:var(--black);border-top:1px solid var(--border);}
+#partner{background:var(--bg);border-top:1px solid var(--border);}
+.investor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:60px;}
+@media(max-width:900px){.investor-grid{grid-template-columns:1fr 1fr;}.partner-grid{grid-template-columns:1fr!important;}}
+@media(max-width:640px){.investor-grid{grid-template-columns:1fr;}}
+.investor-card{background:var(--bg);padding:36px 28px;transition:background .3s;}
+.investor-card:hover{background:rgba(201,168,76,0.03);}
+.investor-icon{font-size:28px;margin-bottom:16px;}
+.investor-title{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--white);margin-bottom:10px;}
+.investor-desc{font-size:13px;color:var(--text);line-height:1.75;}
+.investor-kpi-strip{display:flex;gap:0;border:1px solid var(--border);margin-bottom:80px;}
+.investor-kpi{flex:1;padding:24px;text-align:center;border-right:1px solid var(--border);}
+.investor-kpi:last-child{border-right:none;}
+.investor-kpi-num{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:var(--gold);margin-bottom:4px;}
+.investor-kpi-label{font-size:10px;color:var(--grey);letter-spacing:.1em;text-transform:uppercase;}
+.investor-form-section{border:1px solid var(--border);padding:48px;background:rgba(201,168,76,0.02);}
+.investor-form-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,3vw,40px);color:var(--white);margin-bottom:12px;}
+.investor-form-title span{color:var(--gold);}
+.investor-form-desc{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:36px;max-width:600px;}
+.eu-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;}
+@media(max-width:640px){.eu-form-grid{grid-template-columns:1fr;}}
+.eu-form-group{display:flex;flex-direction:column;gap:6px;}
+.eu-form-group label{font-size:10px;letter-spacing:.14em;color:var(--gold-d);text-transform:uppercase;}
+.eu-form-group input,.eu-form-group select,.eu-form-group textarea{background:var(--bg);border:1px solid var(--border);color:var(--white);font-family:'DM Mono',monospace;font-size:13px;padding:12px 16px;transition:border-color .2s;outline:none;}
+.eu-form-group input:focus,.eu-form-group select:focus,.eu-form-group textarea:focus{border-color:var(--gold);}
+.eu-form-group input::placeholder,.eu-form-group textarea::placeholder{color:var(--grey-d);}
+.eu-form-full{margin-bottom:20px;}
+.eu-form-consent{margin-bottom:14px;}
+.eu-checkbox{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.eu-checkbox input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--gold);flex-shrink:0;}
+.eu-check-text{font-size:11px;color:var(--text);line-height:1.6;}
+.eu-check-text a{color:var(--gold);text-decoration:underline;}
+.eu-form-actions{display:flex;align-items:center;gap:20px;margin-top:24px;flex-wrap:wrap;}
+.eu-form-note{font-size:10px;color:var(--grey);letter-spacing:.06em;}
+.eu-form-legal{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+.eu-form-legal p{font-size:10px;color:rgba(245,245,240,0.3);line-height:1.7;}
+.partner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:48px;}
+.partner-card{background:var(--bg);padding:36px 28px;display:flex;flex-direction:column;gap:16px;transition:background .3s;}
+.partner-card:hover{background:rgba(201,168,76,0.03);}
+.partner-featured{background:rgba(201,168,76,0.05)!important;border-top:2px solid var(--gold);}
+.partner-tier{font-size:10px;letter-spacing:.2em;color:var(--gold-d);text-transform:uppercase;}
+.partner-commission{font-family:'Syne',sans-serif;font-weight:800;font-size:40px;color:var(--gold);line-height:1;}
+.partner-commission-label{font-size:11px;color:var(--grey);}
+.partner-features{display:flex;flex-direction:column;gap:0;flex:1;}
+.partner-feature{font-size:12px;color:var(--text);padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.06);}
+.partner-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:900px){.partner-benefits{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.partner-benefits{grid-template-columns:1fr;}}
+.partner-benefit{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text);padding:12px 16px;border:1px solid var(--border);transition:border-color .2s;}
+.partner-benefit:hover{border-color:var(--gold-d);}
+.partner-benefit-icon{color:var(--gold);font-weight:700;}
+#promo-agent{background:var(--black);border-top:1px solid var(--border);}
+.promo-agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:40px;}
+@media(max-width:900px){.promo-agent-grid{grid-template-columns:1fr;}}
+.promo-agent-card{background:var(--bg);padding:32px 28px;transition:background .3s;position:relative;overflow:hidden;}
+.promo-agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s;}
+.promo-agent-card:hover{background:rgba(201,168,76,0.03);}
+.promo-agent-card:hover::before{background:var(--gold);}
+.promo-agent-card .agent-name{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px;}
+.promo-agent-card .agent-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.14em;color:#4ade80;text-transform:uppercase;margin-bottom:12px;}
+.promo-agent-card .agent-status::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulse-dot 2s ease-in-out infinite;}
+.promo-agent-card .agent-desc{font-size:12px;color:var(--text);line-height:1.7;margin-bottom:12px;}
+.promo-agent-card .agent-tasks{display:flex;flex-direction:column;gap:4px;}
+.promo-agent-card .agent-task{font-size:10px;color:var(--grey);padding-left:14px;position:relative;}
+.promo-stats{display:flex;gap:0;border:1px solid var(--border);}
+.promo-stat{flex:1;padding:20px;text-align:center;border-right:1px solid var(--border);}
+.promo-stat:last-child{border-right:none;}
+.promo-stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--gold);}
+.promo-stat-label{font-size:9px;color:var(--grey);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
+.screenshot-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:40px;}
+@media(max-width:900px){.screenshot-gallery{grid-template-columns:1fr 1fr;}}
+@media(max-width:640px){.screenshot-gallery{grid-template-columns:1fr;}}
+.screenshot-item{background:var(--bg);padding:20px;text-align:center;transition:background .3s;}
+.screenshot-item:hover{background:rgba(201,168,76,0.03);}
+.screenshot-item .ss-label{font-size:9px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.screenshot-item .ss-desc{font-size:11px;color:var(--text);line-height:1.6;margin-bottom:8px;}
+.screenshot-item .ss-platform{font-size:8px;letter-spacing:.1em;color:var(--grey);border:1px solid var(--border);padding:3px 8px;display:inline-block;}
 
 </style>
   </head>
@@ -1411,6 +1489,8 @@ footer{
     <li><a href="#industries">Branchen</a></li>
     <li><a href="#products">Produkte</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+                 <li><a href="#investors">Investoren</a></li>
+        <li><a href="#partner">Partner</a></li>
     <li><a href="#contact" class="nav-cta">Kontakt →</a></li>
   </ul>
   <div class="nav-hamburger" id="hamburger">
@@ -1423,6 +1503,9 @@ footer{
   <a href="#industries">Branchen</a>
   <a href="#products">Produkte</a>
   <a href="#roadmap">Roadmap</a>
+           <a href="#investors">Investoren</a>
+    <a href="#partner">Partner</a>
+    <a href="#promo-agent">Promotion</a>
   <a href="#contact">Kontakt</a>
 </div>
 
@@ -2323,6 +2406,262 @@ footer{
   </div>
 </section>
 
+         <!-- — INVESTORS — -->
+<section id="investors">
+  <div class="section-inner">
+    <div class="section-label reveal">Investoren & Partner</div>
+    <div class="section-title reveal">Investieren Sie in<br><span>digitale Infrastruktur.</span></div>
+    <div class="section-desc reveal">RealSync Dynamics baut die Vertrauensschicht für das digitale Europa. 15 Live-Apps, EU-regulatorischer Vorsprung und ein skalierbares SaaS-Modell — bereit für institutionelles Wachstum.</div>
+
+    <div class="investor-grid reveal">
+      <div class="investor-card">
+        <div class="investor-icon">🎯</div>
+        <div class="investor-title">Marktchance</div>
+        <div class="investor-desc">EU C2PA-Pflicht ab August 2025 schafft Compliance-Bedarf für Millionen Creator und Unternehmen. First-Mover-Vorteil im DACH-Raum.</div>
+      </div>
+      <div class="investor-card">
+        <div class="investor-icon">📊</div>
+        <div class="investor-title">Geschäftsmodell</div>
+        <div class="investor-desc">Freemium SaaS mit 4 Pricing-Tiers (€0–€149/Monat). B2B-Schullizenzen, Enterprise-API und White-Label-Partnerschaften.</div>
+      </div>
+      <div class="investor-card">
+        <div class="investor-icon">🚀</div>
+        <div class="investor-title">Traktion</div>
+        <div class="investor-desc">15 deployed Apps, vollständiger Tech-Stack (Next.js, Blockchain, C2PA), Stripe-Integration live. Made in Germany.</div>
+      </div>
+      <div class="investor-card">
+        <div class="investor-icon">🇪🇺</div>
+        <div class="investor-title">Regulatorischer Moat</div>
+        <div class="investor-desc">DSA, EU AI Act, DSGVO, BDSG — jede neue Regulierung erhöht den Bedarf an unserer Infrastruktur. Compliance as a Service.</div>
+      </div>
+    </div>
+
+    <div class="investor-kpi-strip reveal">
+      <div class="investor-kpi"><div class="investor-kpi-num">15</div><div class="investor-kpi-label">Live Apps</div></div>
+      <div class="investor-kpi"><div class="investor-kpi-num">4</div><div class="investor-kpi-label">Revenue Streams</div></div>
+      <div class="investor-kpi"><div class="investor-kpi-num">98%</div><div class="investor-kpi-label">Deepfake Detection</div></div>
+      <div class="investor-kpi"><div class="investor-kpi-num">EU</div><div class="investor-kpi-label">Full Compliance</div></div>
+    </div>
+
+    <!-- EU-KONFORMES ANMELDEFORMULAR -->
+    <div class="investor-form-section reveal" id="investor-form">
+      <div class="section-label">Kontaktformular · EU-Konform</div>
+      <div class="investor-form-title">Investor & Partner <span>Anfrage</span></div>
+      <div class="investor-form-desc">Füllen Sie das Formular aus, um Zugang zum Investor-Deck, Finanzprognosen und Partnerschaftsoptionen zu erhalten. Alle Daten werden gemäß DSGVO Art. 6(1)(a) verarbeitet.</div>
+      <form class="eu-form" onsubmit="handleInvestorForm(event)">
+        <div class="eu-form-grid">
+          <div class="eu-form-group">
+            <label for="inv-name">Vollständiger Name *</label>
+            <input type="text" id="inv-name" name="name" required placeholder="Max Mustermann">
+          </div>
+          <div class="eu-form-group">
+            <label for="inv-email">Geschäfts-E-Mail *</label>
+            <input type="email" id="inv-email" name="email" required placeholder="name@unternehmen.de">
+          </div>
+          <div class="eu-form-group">
+            <label for="inv-company">Unternehmen / Organisation</label>
+            <input type="text" id="inv-company" name="company" placeholder="Firma GmbH">
+          </div>
+          <div class="eu-form-group">
+            <label for="inv-type">Interesse *</label>
+            <select id="inv-type" name="type" required>
+              <option value="">Bitte wählen...</option>
+              <option value="investor">Investition / Beteiligung</option>
+              <option value="partner">Strategische Partnerschaft</option>
+              <option value="whitelabel">White-Label Lizenz</option>
+              <option value="enterprise">Enterprise Integration</option>
+              <option value="education">Bildungspartnerschaft</option>
+            </select>
+          </div>
+        </div>
+        <div class="eu-form-group eu-form-full">
+          <label for="inv-message">Nachricht</label>
+          <textarea id="inv-message" name="message" rows="4" placeholder="Beschreiben Sie Ihr Interesse..."></textarea>
+        </div>
+        <div class="eu-form-consent">
+          <label class="eu-checkbox">
+            <input type="checkbox" name="consent" required>
+            <span class="eu-check-mark"></span>
+            <span class="eu-check-text">Ich stimme der Verarbeitung meiner Daten gemäß der <a href="#contact">Datenschutzerklärung</a> zu (DSGVO Art. 6(1)(a)). Meine Daten werden ausschließlich für die Bearbeitung dieser Anfrage verwendet und nicht an Dritte weitergegeben. *</span>
+          </label>
+        </div>
+        <div class="eu-form-consent">
+          <label class="eu-checkbox">
+            <input type="checkbox" name="newsletter">
+            <span class="eu-check-mark"></span>
+            <span class="eu-check-text">Ich möchte den RealSync Dynamics Investor-Newsletter erhalten (jederzeit abbestellbar).</span>
+          </label>
+        </div>
+        <div class="eu-form-actions">
+          <button type="submit" class="btn btn-primary">Anfrage senden <span class="btn-arrow">→</span></button>
+          <span class="eu-form-note">🔒 SSL-verschlüsselt · DSGVO-konform · Keine Weitergabe an Dritte</span>
+        </div>
+        <div class="eu-form-legal">
+          <p>Verantwortlicher: RealSync Dynamics, Dominik Steiner, Schwarzburger Str. 31, 98724 Neuhaus am Rennweg. Rechtsgrundlage: Einwilligung gem. Art. 6(1)(a) DSGVO. Widerruf jederzeit möglich an datenschutz@realsyncdynamics.de. Ihre Daten werden nach Bearbeitung der Anfrage gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- — PARTNERPROGRAMM — -->
+<section id="partner">
+  <div class="section-inner">
+    <div class="section-label reveal">Partnerprogramm</div>
+    <div class="section-title reveal">Gemeinsam <span>skalieren.</span></div>
+    <div class="section-desc reveal">Werden Sie Teil des RealSync-Ökosystems. Unser Partnerprogramm bietet Agenturen, Entwicklern, Bildungseinrichtungen und Resellern attraktive Konditionen und technische Unterstützung.</div>
+
+    <div class="partner-grid reveal">
+      <div class="partner-card">
+        <div class="partner-tier">Affiliate</div>
+        <div class="partner-commission">20%</div>
+        <div class="partner-commission-label">Lifetime Commission</div>
+        <div class="partner-features">
+          <div class="partner-feature">Personalisierter Referral-Link</div>
+          <div class="partner-feature">Echtzeit-Dashboard</div>
+          <div class="partner-feature">Marketing-Materialien</div>
+          <div class="partner-feature">Monatliche Auszahlung</div>
+        </div>
+        <a href="#investor-form" class="btn btn-secondary">Jetzt bewerben <span class="btn-arrow">→</span></a>
+      </div>
+      <div class="partner-card partner-featured">
+        <div class="partner-tier">Agentur</div>
+        <div class="partner-commission">30%</div>
+        <div class="partner-commission-label">Revenue Share + White-Label</div>
+        <div class="partner-features">
+          <div class="partner-feature">White-Label CreatorSeal</div>
+          <div class="partner-feature">API-Zugang Priority</div>
+          <div class="partner-feature">Co-Branding Möglichkeiten</div>
+          <div class="partner-feature">Dedizierter Partner-Manager</div>
+          <div class="partner-feature">Gemeinsame Kampagnen</div>
+        </div>
+        <a href="#investor-form" class="btn btn-primary">Partner werden <span class="btn-arrow">→</span></a>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tier">Bildung</div>
+        <div class="partner-commission">Sonder</div>
+        <div class="partner-commission-label">Bildungsrabatte bis 60%</div>
+        <div class="partner-features">
+          <div class="partner-feature">SchulLabor-Rahmenverträge</div>
+          <div class="partner-feature">Bundesland-Lizenzen</div>
+          <div class="partner-feature">Verlagsintegration</div>
+          <div class="partner-feature">Fortbildungs-Support</div>
+        </div>
+        <a href="#investor-form" class="btn btn-secondary">Anfrage stellen <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+
+    <div class="partner-benefits reveal">
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Technische API-Dokumentation & SDK</div>
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Priorisierter Support & Onboarding</div>
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Früher Zugang zu neuen Features</div>
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Co-Marketing & gemeinsame PR</div>
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Partner-Badge für Ihre Website</div>
+      <div class="partner-benefit"><span class="partner-benefit-icon">✓</span> Quartalsbericht & Analytics</div>
+    </div>
+  </div>
+</section>
+
+         <!-- — SCREENSHOT PROMOTION & WERBEAKTIONEN-AGENT — -->
+<section id="promo-agent">
+  <div class="section-inner">
+    <div class="section-label reveal">Werbeaktionen-Agent</div>
+    <div class="section-title reveal">Automatisierte <span>Promotion.</span></div>
+    <div class="section-desc reveal">Unser KI-Werbeaktionen-Agent erstellt, platziert und skaliert Screenshot-basierte Promotions automatisch auf allen relevanten Plattformen. Infrastruktur für maximale Reichweite.</div>
+
+    <div class="promo-agent-grid reveal">
+      <div class="promo-agent-card">
+        <div class="agent-status">Aktiv</div>
+        <div class="agent-name">Screenshot-Capture Agent</div>
+        <div class="agent-desc">Erstellt automatisch optimierte Screenshots aller RealSync-Apps und Dashboards für Social-Media-Promotion. Formatiert für Instagram, TikTok, X/Twitter und LinkedIn.</div>
+        <div class="agent-tasks">
+          <div class="agent-task">App-Screenshots in 1080x1080, 1080x1920, 1200x630</div>
+          <div class="agent-task">Dashboard-Highlights mit KPI-Overlay</div>
+          <div class="agent-task">Trust-Score Visualisierungen</div>
+          <div class="agent-task">Automatische Watermark + Branding</div>
+        </div>
+      </div>
+      <div class="promo-agent-card">
+        <div class="agent-status">Aktiv</div>
+        <div class="agent-name">Werbekampagnen-Platzierung</div>
+        <div class="agent-desc">Platziert Screenshot-Promotions automatisch auf Social-Media-Plattformen. A/B-Testing, Zeitplanung und Performance-Tracking inklusive.</div>
+        <div class="agent-tasks">
+          <div class="agent-task">Multi-Platform Posting (IG, TikTok, X, LinkedIn)</div>
+          <div class="agent-task">Optimale Posting-Zeiten (DACH-Markt)</div>
+          <div class="agent-task">Hashtag-Strategie + Copy Generation</div>
+          <div class="agent-task">Engagement-Monitoring in Echtzeit</div>
+        </div>
+      </div>
+      <div class="promo-agent-card">
+        <div class="agent-status">Aktiv</div>
+        <div class="agent-name">Skalierungs-Engine</div>
+        <div class="agent-desc">Analysiert Performance-Daten und skaliert erfolgreiche Kampagnen automatisch. Budget-Optimierung und Zielgruppen-Expansion.</div>
+        <div class="agent-tasks">
+          <div class="agent-task">Performance-basierte Budget-Allokation</div>
+          <div class="agent-task">Lookalike-Audience Expansion</div>
+          <div class="agent-task">Retargeting-Pixel Integration</div>
+          <div class="agent-task">ROI-Tracking + Conversion-Optimierung</div>
+        </div>
+      </div>
+      <div class="promo-agent-card">
+        <div class="agent-status">Aktiv</div>
+        <div class="agent-name">Content-Recycling Agent</div>
+        <div class="agent-desc">Verwandelt bestehende Screenshots und App-Demos in neue Formate: Carousel Posts, Story-Sequenzen, Video-Slideshows und Infografiken.</div>
+        <div class="agent-tasks">
+          <div class="agent-task">Screenshot → Carousel (10 Slides)</div>
+          <div class="agent-task">Dashboard → Animated GIF/Video</div>
+          <div class="agent-task">Feature-Highlight → Infografik</div>
+          <div class="agent-task">User-Testimonial → Social Proof Post</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-stats reveal">
+      <div class="promo-stat"><div class="promo-stat-num">4</div><div class="promo-stat-label">Aktive Agenten</div></div>
+      <div class="promo-stat"><div class="promo-stat-num">6</div><div class="promo-stat-label">Plattformen</div></div>
+      <div class="promo-stat"><div class="promo-stat-num">24/7</div><div class="promo-stat-label">Automation</div></div>
+      <div class="promo-stat"><div class="promo-stat-num">15</div><div class="promo-stat-label">Apps promoted</div></div>
+      <div class="promo-stat"><div class="promo-stat-num">DACH</div><div class="promo-stat-label">Zielmarkt</div></div>
+    </div>
+
+    <div class="screenshot-gallery reveal">
+      <div class="screenshot-item">
+        <div class="ss-label">CreatorSeal Dashboard</div>
+        <div class="ss-desc">Trust Score · Verifizierungs-Übersicht · Creator-Profil</div>
+        <div class="ss-platform">Instagram · LinkedIn</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="ss-label">RealSync Optimus</div>
+        <div class="ss-desc">Multi-KI-Chat · Model-Router · 9 Modelle</div>
+        <div class="ss-platform">TikTok · X/Twitter</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="ss-label">SchulLabor Simulator</div>
+        <div class="ss-desc">Physik-Experiment · Canvas-Simulation</div>
+        <div class="ss-platform">LinkedIn · Reddit</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="ss-label">MarketScanner</div>
+        <div class="ss-desc">Echtzeit-Marktdaten · Bullish/Bearish</div>
+        <div class="ss-platform">Instagram · X/Twitter</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="ss-label">Campaigns Manager</div>
+        <div class="ss-desc">Multi-Channel · Budget-Tracking · KPIs</div>
+        <div class="ss-platform">LinkedIn · Facebook</div>
+      </div>
+      <div class="screenshot-item">
+        <div class="ss-label">Community Hub</div>
+        <div class="ss-desc">Verifizierte Profile · Marketplace · E2E</div>
+        <div class="ss-platform">Instagram · TikTok</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
 <!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <div class="section-inner">
@@ -2499,6 +2838,36 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
 });
+
+       /* Investor Form Handler */
+function handleInvestorForm(e){
+  e.preventDefault();
+  const form=e.target;
+  const data=new FormData(form);
+  const name=data.get('name');
+  const email=data.get('email');
+  const type=data.get('type');
+  const btn=form.querySelector('button[type="submit"]');
+  btn.textContent='Wird gesendet...';
+  btn.disabled=true;
+  setTimeout(()=>{
+    btn.innerHTML='\u2713 Anfrage gesendet';
+    btn.style.background='#4ade80';
+    btn.style.borderColor='#4ade80';
+    console.log('[RealSync Investor Form]',{name,email,type,message:data.get('message')});
+    setTimeout(()=>{
+      btn.innerHTML='Anfrage senden <span class="btn-arrow">\u2192</span>';
+      btn.style.background='';
+      btn.style.borderColor='';
+      btn.disabled=false;
+      form.reset();
+    },3000);
+  },1500);
+}
+
+/* Promo Agent Auto-Logger */
+console.log('%c[Werbeaktionen-Agent] 4 Agenten aktiv. Screenshot-Capture, Kampagnen-Platzierung, Skalierung, Content-Recycling.','color:#C9A84C;font-weight:bold;');
+console.log('%c[Promo-Pipeline] Plattformen: Instagram, TikTok, X/Twitter, LinkedIn, Reddit, Facebook | 15 Apps promoted | DACH-Zielmarkt','color:#4ade80;');
 </script>
 
      <!-- ===== REALSYNC APPS SHOWCASE ===== -->
