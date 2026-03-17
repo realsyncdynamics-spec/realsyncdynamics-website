@@ -90,7 +90,7 @@ body::after{
   content:'';
   position:fixed;inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:-1;opacity:.6;
+  pointer-events:none;z-index:1;opacity:.6;
 }
 
 /* ═══════════════════════════════════════════
@@ -2015,8 +2015,8 @@ footer{
 </section>
 
 <!-- ═══ EU STRIP ═══ -->
-<div class="eu-strip reveal">
-  <div class="eu-strip-inner">
+<!-- eu-strip moved below -->
+  <!-- eu-strip-inner removed -->
 
      <!-- ============================================================
      DOWNLOADS & APPS HUB
@@ -2502,7 +2502,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 </script>
 
      <!-- ===== REALSYNC APPS SHOWCASE ===== -->
-<section id="realsync-apps" style="position:relative;z-index:10;padding:6rem 2rem;max-width:1200px;margin:0 auto;">
+<section id="realsync-apps" style="position:relative;z-index:2;padding:6rem 2rem;max-width:1200px;margin:0 auto;">
   <div style="text-align:center;margin-bottom:3rem;">
     <span style="display:inline-block;padding:0.4rem 1.2rem;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:2px;font-family:'DM Mono',monospace;font-size:0.75rem;letter-spacing:0.15em;color:#C9A84C;text-transform:uppercase;margin-bottom:1.5rem;">by RealSync Apps</span>
     <h2 style="font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#F5F5F0;margin-bottom:1rem;">Unsere fertigen <span style="color:#C9A84C;">RealSync Apps</span></h2>
