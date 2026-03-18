@@ -23,15 +23,15 @@ imm<!DOCTYPE html>
 :root{
   --black:#000;
   --bg:#030303;
-  --gold:#C9A84C;
-  --gold-l:#E8C96A;
-  --gold-d:#7A6330;
-  --gold-f:rgba(201,168,76,0.10);
-  --gold-ff:rgba(201,168,76,0.04);
+  --gold:#20b2aa;
+  --gold-l:#2dd4cc;
+  --gold-d:#0e7c76;
+  --gold-f:rgba(32,178,170,0.10);
+  --gold-ff:rgba(32,178,170,0.04);
   --white:#F5F5F0;
   --grey:#888880;
   --grey-d:#222220;
-  --border:rgba(201,168,76,0.16);
+  --border:rgba(32,178,170,0.16);
   --text:rgba(245,245,240,0.68);
   --radius:12px;
 }
@@ -62,7 +62,7 @@ body{
 }
 #cur-ring{
   position:fixed;width:24px;height:24px;
-  border:1px solid rgba(201,168,76,0.5);
+  border:1px solid rgba(32,178,170,0.5);
   border-radius:50%;pointer-events:none;z-index:9998;
   transition:all .12s ease;
 }
@@ -150,22 +150,22 @@ nav.scrolled{height:56px;background:rgba(3,3,3,0.97);}
 .hero-grid-lines{
   position:absolute;inset:0;
   background-image:
-    linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px);
+    linear-gradient(rgba(32,178,170,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(32,178,170,.025) 1px,transparent 1px);
   background-size:80px 80px;
   pointer-events:none;
 }
 .hero-glow-1{
   position:absolute;top:-200px;right:-200px;
   width:800px;height:800px;
-  background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 65%);
+  background:radial-gradient(ellipse,rgba(32,178,170,0.06) 0%,transparent 65%);
   pointer-events:none;
   animation:glowPulse 8s ease-in-out infinite;
 }
 .hero-glow-2{
   position:absolute;bottom:-300px;left:-100px;
   width:600px;height:600px;
-  background:radial-gradient(ellipse,rgba(201,168,76,0.04) 0%,transparent 65%);
+  background:radial-gradient(ellipse,rgba(32,178,170,0.04) 0%,transparent 65%);
   pointer-events:none;
   animation:glowPulse 10s ease-in-out infinite reverse;
 }
@@ -193,7 +193,7 @@ nav.scrolled{height:56px;background:rgba(3,3,3,0.97);}
 }
 .hero-title .line2{
   display:block;
-  -webkit-text-stroke:1px rgba(201,168,76,0.4);
+  -webkit-text-stroke:1px rgba(32,178,170,0.4);
   color:transparent;
 }
 .hero-title .gold{color:var(--gold);}
@@ -302,7 +302,7 @@ section{position:relative;z-index:2;}
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding:14px 0;
-  background:rgba(201,168,76,0.02);
+  background:rgba(32,178,170,0.02);
 }
 .marquee-inner{
   display:flex;gap:0;
@@ -342,7 +342,7 @@ section{position:relative;z-index:2;}
   height:2px;background:transparent;
   transition:background .3s;
 }
-.what-card:hover{background:rgba(201,168,76,0.03);}
+.what-card:hover{background:rgba(32,178,170,0.03);}
 .what-card:hover::before{background:var(--gold);}
 .what-icon{
   width:48px;height:48px;
@@ -420,7 +420,7 @@ section{position:relative;z-index:2;}
 }
 .cs-visual::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 70% 30%,rgba(201,168,76,0.08) 0%,transparent 60%);
+  background:radial-gradient(ellipse at 70% 30%,rgba(32,178,170,0.08) 0%,transparent 60%);
   pointer-events:none;
 }
 .trust-score-demo{text-align:center;}
@@ -440,7 +440,7 @@ section{position:relative;z-index:2;}
   content:'';
   position:absolute;inset:-4px;
   border-radius:50%;
-  border:1px solid rgba(201,168,76,0.2);
+  border:1px solid rgba(32,178,170,0.2);
 }
 .ts-ring::after{
   content:'';
@@ -476,9 +476,9 @@ section{position:relative;z-index:2;}
   transition:background .25s;
   position:relative;
 }
-.pricing-card:hover{background:rgba(201,168,76,0.04);}
+.pricing-card:hover{background:rgba(32,178,170,0.04);}
 .pricing-card.featured{
-  background:rgba(201,168,76,0.06);
+  background:rgba(32,178,170,0.06);
   border-top:2px solid var(--gold);
 }
 .pricing-tier{
@@ -494,7 +494,7 @@ section{position:relative;z-index:2;}
 .pricing-features{list-style:none;display:flex;flex-direction:column;gap:0;}
 .pricing-features li{
   font-size:11px;color:var(--text);
-  padding:6px 0;border-bottom:1px solid rgba(201,168,76,0.06);
+  padding:6px 0;border-bottom:1px solid rgba(32,178,170,0.06);
   display:flex;align-items:flex-start;gap:8px;
 }
 .pricing-features li::before{content:'✓';color:var(--gold-d);flex-shrink:0;}
@@ -518,7 +518,7 @@ section{position:relative;z-index:2;}
   height:1px;background:transparent;
   transition:background .3s;
 }
-.inno-card:hover{background:rgba(201,168,76,0.025);}
+.inno-card:hover{background:rgba(32,178,170,0.025);}
 .inno-card:hover::after{background:linear-gradient(90deg,transparent,var(--gold-d),transparent);}
 .inno-num{
   font-size:10px;letter-spacing:.18em;
@@ -606,7 +606,7 @@ section{position:relative;z-index:2;}
   overflow:hidden;
   transition:border-color .3s;
 }
-.product-card:hover{border-color:rgba(201,168,76,0.35);}
+.product-card:hover{border-color:rgba(32,178,170,0.35);}
 .product-left{
   padding:44px 40px;
   border-right:1px solid var(--border);
@@ -653,7 +653,7 @@ section{position:relative;z-index:2;}
 .product-link:hover{border-color:var(--gold);background:var(--gold-ff);}
 .product-right{
   padding:44px 40px;
-  background:rgba(201,168,76,0.01);
+  background:rgba(32,178,170,0.01);
 }
 .product-desc{
   font-size:14px;color:var(--text);
@@ -666,7 +666,7 @@ section{position:relative;z-index:2;}
 .product-feature{
   display:flex;gap:14px;
   padding:12px 0;
-  border-bottom:1px solid rgba(201,168,76,0.06);
+  border-bottom:1px solid rgba(32,178,170,0.06);
 }
 .product-feature:last-child{border-bottom:none;}
 .pf-dot{
@@ -741,7 +741,7 @@ section{position:relative;z-index:2;}
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   padding:52px;
-  background:rgba(201,168,76,0.025);
+  background:rgba(32,178,170,0.025);
 }
 .eu-strip-inner{
   display:flex;align-items:center;
@@ -869,7 +869,7 @@ footer{
 .footer-badges{display:flex;gap:8px;}
 .footer-badge{
   font-size:9px;letter-spacing:.1em;color:var(--gold-d);
-  border:1px solid rgba(201,168,76,0.12);
+  border:1px solid rgba(32,178,170,0.12);
   padding:4px 10px;
 }
 
@@ -929,7 +929,7 @@ footer{
    /* ============================================================
    DOWNLOADS & APPS HUB + INFRASTRUKTUR PIPELINE
    → Einfügen vor closing style tag
-   Design-System: --gold:#C9A84C | --bg:#030303 | Syne + DM Mono
+   Design-System: --gold:#20b2aa | --bg:#030303 | Syne + DM Mono
    ============================================================ */
 
 /* ---------- SHARED UTILITIES ---------- */
@@ -946,7 +946,7 @@ footer{
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(32,178,170,0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -965,7 +965,7 @@ footer{
 .app-card {
   position: relative;
   background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border, rgba(201,168,76,0.16));
+  border: 1px solid var(--border, rgba(32,178,170,0.16));
   border-radius: 16px;
   padding: 32px 28px;
   display: flex;
@@ -980,22 +980,22 @@ footer{
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(32,178,170,0.4), transparent);
   opacity: 0;
   transition: opacity .3s;
 }
 
 .app-card:hover {
-  border-color: rgba(201,168,76,0.40);
+  border-color: rgba(32,178,170,0.40);
   transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(201,168,76,0.08);
+  box-shadow: 0 24px 60px rgba(32,178,170,0.08);
 }
 .app-card:hover::after { opacity: 1; }
 
 /* Card — Live accent */
 .app-card.is-live {
-  border-color: rgba(201,168,76,0.32);
-  background: rgba(201,168,76,0.03);
+  border-color: rgba(32,178,170,0.32);
+  background: rgba(32,178,170,0.03);
 }
 
 /* App Icon */
@@ -1003,8 +1003,8 @@ footer{
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: rgba(201,168,76,0.10);
-  border: 1px solid rgba(201,168,76,0.22);
+  background: rgba(32,178,170,0.10);
+  border: 1px solid rgba(32,178,170,0.22);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1073,9 +1073,9 @@ footer{
 }
 
 .badge--soon {
-  background: rgba(201,168,76,0.10);
-  border: 1px solid rgba(201,168,76,0.25);
-  color: rgba(201,168,76,0.80);
+  background: rgba(32,178,170,0.10);
+  border: 1px solid rgba(32,178,170,0.25);
+  color: rgba(32,178,170,0.80);
 }
 
 /* Description */
@@ -1132,9 +1132,9 @@ footer{
 }
 
 .btn-download--primary {
-  background: var(--gold, #C9A84C);
+  background: var(--gold, #20b2aa);
   color: #030303;
-  border-color: var(--gold, #C9A84C);
+  border-color: var(--gold, #20b2aa);
 }
 .btn-download--primary:hover {
   background: #d9b85c;
@@ -1147,8 +1147,8 @@ footer{
   border-color: rgba(255,255,255,0.10);
 }
 .btn-download--secondary:hover {
-  border-color: rgba(201,168,76,0.30);
-  color: rgba(201,168,76,0.70);
+  border-color: rgba(32,178,170,0.30);
+  color: rgba(32,178,170,0.70);
 }
 
 .btn-download--disabled {
@@ -1196,7 +1196,7 @@ footer{
   right: -1px;
   width: 2px;
   height: 36px;
-  background: linear-gradient(180deg, rgba(201,168,76,0.5) 0%, rgba(201,168,76,0.1) 100%);
+  background: linear-gradient(180deg, rgba(32,178,170,0.5) 0%, rgba(32,178,170,0.1) 100%);
   z-index: 1;
 }
 
@@ -1215,7 +1215,7 @@ footer{
     right: -14px;
     top: 24px;
     font-size: 1.1rem;
-    color: rgba(201,168,76,0.45);
+    color: rgba(32,178,170,0.45);
     z-index: 2;
   }
 }
@@ -1228,7 +1228,7 @@ footer{
     left: 50%;
     transform: translateX(-50%);
     font-size: 1rem;
-    color: rgba(201,168,76,0.45);
+    color: rgba(32,178,170,0.45);
     z-index: 2;
   }
   .pipeline-step { padding: 24px 20px; }
@@ -1239,7 +1239,7 @@ footer{
   font-size: 0.62rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.45);
+  color: rgba(32,178,170,0.45);
   margin-bottom: -6px;
 }
 
@@ -1247,8 +1247,8 @@ footer{
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: rgba(201,168,76,0.08);
-  border: 1px solid rgba(201,168,76,0.22);
+  background: rgba(32,178,170,0.08);
+  border: 1px solid rgba(32,178,170,0.22);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1257,8 +1257,8 @@ footer{
 }
 
 .pipeline-step:hover .pipeline-step__icon {
-  background: rgba(201,168,76,0.15);
-  border-color: rgba(201,168,76,0.45);
+  background: rgba(32,178,170,0.15);
+  border-color: rgba(32,178,170,0.45);
   transform: scale(1.08);
 }
 
@@ -1285,7 +1285,7 @@ footer{
   font-size: 0.68rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(201,168,76,0.55);
+  color: rgba(32,178,170,0.55);
   margin: 56px 0 24px;
 }
 
@@ -1310,8 +1310,8 @@ footer{
 }
 
 .tech-item:hover {
-  border-color: rgba(201,168,76,0.25);
-  background: rgba(201,168,76,0.03);
+  border-color: rgba(32,178,170,0.25);
+  background: rgba(32,178,170,0.03);
 }
 
 .tech-item__icon {
@@ -1340,46 +1340,46 @@ footer{
 }
 /* ═══════════════════ REALSYNC APPS ECOSYSTEM V2 ═══════════════════ */
 #realsync-apps{background:var(--bg);position:relative;z-index:2;overflow:hidden;}
-#realsync-apps::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 65%);pointer-events:none;animation:glowPulse 8s ease-in-out infinite;}
+#realsync-apps::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(ellipse,rgba(32,178,170,0.06) 0%,transparent 65%);pointer-events:none;animation:glowPulse 8s ease-in-out infinite;}
 .rs-apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
 @media(max-width:1100px){.rs-apps-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.rs-apps-grid{grid-template-columns:1fr;}}
 .rs-app{background:var(--bg);padding:32px 28px;position:relative;overflow:hidden;transition:all .35s;cursor:none;}
 .rs-app::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .35s;}
-.rs-app:hover{background:rgba(201,168,76,0.03);}
+.rs-app:hover{background:rgba(32,178,170,0.03);}
 .rs-app:hover::before{opacity:1;}
 .rs-app__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .rs-app__name{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--white);letter-spacing:-.01em;}
 .rs-app__badge{padding:3px 8px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;font-family:'Inter',sans-serif;border-radius:1px;}
 .rs-app__badge--live{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);color:#4ade80;}
 .rs-app__badge--live::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:#4ade80;margin-right:5px;animation:pulse-dot 2s ease-in-out infinite;}
-.rs-app__badge--beta{background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);}
+.rs-app__badge--beta{background:rgba(32,178,170,0.12);border:1px solid rgba(32,178,170,0.3);color:var(--gold);}
 .rs-app__desc{font-size:12px;color:var(--text);line-height:1.7;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .rs-app__routing{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px;}
-.rs-app__route{font-size:8px;letter-spacing:.06em;color:var(--gold-d);border:1px solid rgba(201,168,76,0.12);padding:2px 7px;font-family:'Inter',sans-serif;transition:all .2s;}
+.rs-app__route{font-size:8px;letter-spacing:.06em;color:var(--gold-d);border:1px solid rgba(32,178,170,0.12);padding:2px 7px;font-family:'Inter',sans-serif;transition:all .2s;}
 .rs-app__route:hover{border-color:var(--gold);color:var(--gold);}
 .rs-app__cta{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.08em;color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:7px 14px;transition:all .25s;font-family:'Inter',sans-serif;}
 .rs-app__cta:hover{border-color:var(--gold);background:var(--gold-ff);}
 .rs-app__cta .arrow{transition:transform .2s;}
 .rs-app__cta:hover .arrow{transform:translateX(3px);}
 /* Ecosystem Connection Map */
-.eco-map{border:1px solid var(--border);padding:32px;margin-top:40px;background:rgba(201,168,76,0.015);position:relative;}
-.eco-map::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,0.04) 0%,transparent 60%);pointer-events:none;}
+.eco-map{border:1px solid var(--border);padding:32px;margin-top:40px;background:rgba(32,178,170,0.015);position:relative;}
+.eco-map::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(32,178,170,0.04) 0%,transparent 60%);pointer-events:none;}
 .eco-map__title{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:var(--gold);margin-bottom:16px;letter-spacing:.04em;}
 .eco-map__grid{display:flex;gap:8px;flex-wrap:wrap;}
 .eco-map__node{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);background:var(--bg);font-size:10px;color:var(--grey);letter-spacing:.06em;transition:all .2s;cursor:pointer;}
-.eco-map__node:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.04);}
+.eco-map__node:hover{border-color:var(--gold);color:var(--gold);background:rgba(32,178,170,0.04);}
 .eco-map__node::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold-d);}
 .eco-map__node--active::before{background:#4ade80;animation:pulse-dot 2s ease-in-out infinite;}
 /* Revenue CTA Bar */
-.revenue-bar{border:1px solid var(--border);border-top:2px solid var(--gold);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;background:rgba(201,168,76,0.03);flex-wrap:wrap;}
+.revenue-bar{border:1px solid var(--border);border-top:2px solid var(--gold);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:40px;background:rgba(32,178,170,0.03);flex-wrap:wrap;}
 .revenue-bar__text{font-size:13px;color:var(--text);}
 .revenue-bar__text strong{color:var(--gold);font-weight:600;}
 .revenue-bar__cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--black);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;padding:12px 24px;text-decoration:none;transition:all .25s;border:none;}
 .revenue-bar__cta:hover{background:var(--gold-l);transform:translateY(-1px);}
 /* Agent Status Ticker */
 @keyframes agentTick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.agent-ticker{overflow:hidden;border:1px solid var(--border);border-bottom:none;padding:8px 0;background:rgba(201,168,76,0.015);}
+.agent-ticker{overflow:hidden;border:1px solid var(--border);border-bottom:none;padding:8px 0;background:rgba(32,178,170,0.015);}
 .agent-ticker__inner{display:flex;gap:0;animation:agentTick 40s linear infinite;white-space:nowrap;}
 .agent-ticker__item{display:flex;align-items:center;gap:6px;padding:0 20px;border-right:1px solid var(--border);font-size:9px;letter-spacing:.1em;color:var(--gold-d);}
 .agent-ticker__item::before{content:'';width:4px;height:4px;border-radius:50%;background:#4ade80;}
@@ -1394,7 +1394,7 @@ footer{
 @media(max-width:900px){.investor-grid{grid-template-columns:1fr 1fr;}.partner-grid{grid-template-columns:1fr!important;}}
 @media(max-width:640px){.investor-grid{grid-template-columns:1fr;}}
 .investor-card{background:var(--bg);padding:36px 28px;transition:background .3s;}
-.investor-card:hover{background:rgba(201,168,76,0.03);}
+.investor-card:hover{background:rgba(32,178,170,0.03);}
 .investor-icon{font-size:28px;margin-bottom:16px;}
 .investor-title{font-family:'Inter',sans-serif;font-weight:700;font-size:17px;color:var(--white);margin-bottom:10px;}
 .investor-desc{font-size:13px;color:var(--text);line-height:1.75;}
@@ -1403,7 +1403,7 @@ footer{
 .investor-kpi:last-child{border-right:none;}
 .investor-kpi-num{font-family:'Inter',sans-serif;font-weight:800;font-size:32px;color:var(--gold);margin-bottom:4px;}
 .investor-kpi-label{font-size:10px;color:var(--grey);letter-spacing:.1em;text-transform:uppercase;}
-.investor-form-section{border:1px solid var(--border);padding:48px;background:rgba(201,168,76,0.02);}
+.investor-form-section{border:1px solid var(--border);padding:48px;background:rgba(32,178,170,0.02);}
 .investor-form-title{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(28px,3vw,40px);color:var(--white);margin-bottom:12px;}
 .investor-form-title span{color:var(--gold);}
 .investor-form-desc{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:36px;max-width:600px;}
@@ -1426,13 +1426,13 @@ footer{
 .eu-form-legal p{font-size:10px;color:rgba(245,245,240,0.3);line-height:1.7;}
 .partner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:48px;}
 .partner-card{background:var(--bg);padding:36px 28px;display:flex;flex-direction:column;gap:16px;transition:background .3s;}
-.partner-card:hover{background:rgba(201,168,76,0.03);}
-.partner-featured{background:rgba(201,168,76,0.05)!important;border-top:2px solid var(--gold);}
+.partner-card:hover{background:rgba(32,178,170,0.03);}
+.partner-featured{background:rgba(32,178,170,0.05)!important;border-top:2px solid var(--gold);}
 .partner-tier{font-size:10px;letter-spacing:.2em;color:var(--gold-d);text-transform:uppercase;}
 .partner-commission{font-family:'Inter',sans-serif;font-weight:800;font-size:40px;color:var(--gold);line-height:1;}
 .partner-commission-label{font-size:11px;color:var(--grey);}
 .partner-features{display:flex;flex-direction:column;gap:0;flex:1;}
-.partner-feature{font-size:12px;color:var(--text);padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.06);}
+.partner-feature{font-size:12px;color:var(--text);padding:8px 0;border-bottom:1px solid rgba(32,178,170,0.06);}
 .partner-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 @media(max-width:900px){.partner-benefits{grid-template-columns:1fr 1fr;}}
 @media(max-width:640px){.partner-benefits{grid-template-columns:1fr;}}
@@ -1444,7 +1444,7 @@ footer{
 @media(max-width:900px){.promo-agent-grid{grid-template-columns:1fr;}}
 .promo-agent-card{background:var(--bg);padding:32px 28px;transition:background .3s;position:relative;overflow:hidden;}
 .promo-agent-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s;}
-.promo-agent-card:hover{background:rgba(201,168,76,0.03);}
+.promo-agent-card:hover{background:rgba(32,178,170,0.03);}
 .promo-agent-card:hover::before{background:var(--gold);}
 .promo-agent-card .agent-name{font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--white);margin-bottom:8px;}
 .promo-agent-card .agent-status{display:inline-flex;align-items:center;gap:6px;font-size:9px;letter-spacing:.14em;color:#4ade80;text-transform:uppercase;margin-bottom:12px;}
@@ -1461,37 +1461,37 @@ footer{
 @media(max-width:900px){.screenshot-gallery{grid-template-columns:1fr 1fr;}}
 @media(max-width:640px){.screenshot-gallery{grid-template-columns:1fr;}}
 .screenshot-item{background:var(--bg);padding:20px;text-align:center;transition:background .3s;}
-.screenshot-item:hover{background:rgba(201,168,76,0.03);}
+.screenshot-item:hover{background:rgba(32,178,170,0.03);}
 .screenshot-item .ss-label{font-size:9px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
 .screenshot-item .ss-desc{font-size:11px;color:var(--text);line-height:1.6;margin-bottom:8px;}
 .screenshot-item .ss-platform{font-size:8px;letter-spacing:.1em;color:var(--grey);border:1px solid var(--border);padding:3px 8px;display:inline-block;}
 
 /* ARCHITEKTUR SECTION */
-.arch-diagram{display:flex;flex-direction:column;gap:0;margin:3rem 0;border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;}
-.arch-layer{padding:1.5rem 2rem;border-bottom:1px solid rgba(212,175,55,0.15);background:rgba(255,255,255,0.02);}
+.arch-diagram{display:flex;flex-direction:column;gap:0;margin:3rem 0;border:1px solid rgba(32,178,170,0.2);border-radius:12px;overflow:hidden;}
+.arch-layer{padding:1.5rem 2rem;border-bottom:1px solid rgba(32,178,170,0.15);background:rgba(255,255,255,0.02);}
 .arch-layer:last-child{border-bottom:none;}
 .arch-layer-label{font-size:0.65rem;letter-spacing:0.06em;color:var(--gold);font-family:'Inter',sans-serif;margin-bottom:0.75rem;}
 .arch-nodes{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:0.75rem;}
 .arch-node{display:flex;flex-direction:column;gap:0.25rem;padding:0.75rem 1rem;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:rgba(255,255,255,0.03);min-width:160px;flex:1;}
-.arch-node.primary{border-color:rgba(212,175,55,0.4);background:rgba(212,175,55,0.06);}
-.arch-node.accent{border-color:rgba(212,175,55,0.3);background:rgba(212,175,55,0.04);}
+.arch-node.primary{border-color:rgba(32,178,170,0.4);background:rgba(32,178,170,0.06);}
+.arch-node.accent{border-color:rgba(32,178,170,0.3);background:rgba(32,178,170,0.04);}
 .arch-node .arch-icon{font-size:1.2rem;}
 .arch-node strong{font-size:0.85rem;color:var(--white);}
 .arch-node small{font-size:0.7rem;color:var(--grey);line-height:1.4;}
-.arch-arrow{font-size:0.7rem;color:rgba(212,175,55,0.6);font-family:'Inter',sans-serif;letter-spacing:0.05em;}
+.arch-arrow{font-size:0.7rem;color:rgba(32,178,170,0.6);font-family:'Inter',sans-serif;letter-spacing:0.05em;}
 .arch-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:3rem 0;}
 .arch-detail-card{padding:1.75rem;border:1px solid rgba(255,255,255,0.08);border-radius:12px;background:rgba(255,255,255,0.02);transition:border-color 0.3s;}
-.arch-detail-card:hover{border-color:rgba(212,175,55,0.3);}
+.arch-detail-card:hover{border-color:rgba(32,178,170,0.3);}
 .arch-detail-icon{font-size:2rem;margin-bottom:1rem;}
 .arch-detail-card h3{font-size:1rem;color:var(--white);margin-bottom:0.75rem;}
 .arch-detail-card p{font-size:0.82rem;color:var(--grey);line-height:1.7;margin-bottom:1rem;}
-.arch-detail-card code{font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--gold);background:rgba(212,175,55,0.1);padding:1px 5px;border-radius:3px;}
+.arch-detail-card code{font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--gold);background:rgba(32,178,170,0.1);padding:1px 5px;border-radius:3px;}
 .arch-code{background:#0a0a0a;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1rem;margin-bottom:1rem;overflow-x:auto;}
 .arch-code pre{font-family:'Inter',sans-serif;font-size:0.7rem;color:#a0d080;line-height:1.6;margin:0;white-space:pre;}
 .arch-tags{display:flex;gap:0.5rem;flex-wrap:wrap;}
-.arch-tag{font-size:0.62rem;letter-spacing:0.1em;padding:3px 8px;border:1px solid rgba(212,175,55,0.3);border-radius:20px;color:var(--gold);font-family:'Inter',sans-serif;}
-.arch-stack-table{margin:2rem 0;border:1px solid rgba(212,175,55,0.2);border-radius:12px;overflow:hidden;}
-.arch-stack-title{padding:1rem 1.5rem;font-size:0.65rem;letter-spacing:0.06em;color:var(--gold);font-family:'Inter',sans-serif;background:rgba(212,175,55,0.06);border-bottom:1px solid rgba(212,175,55,0.15);}
+.arch-tag{font-size:0.62rem;letter-spacing:0.1em;padding:3px 8px;border:1px solid rgba(32,178,170,0.3);border-radius:20px;color:var(--gold);font-family:'Inter',sans-serif;}
+.arch-stack-table{margin:2rem 0;border:1px solid rgba(32,178,170,0.2);border-radius:12px;overflow:hidden;}
+.arch-stack-title{padding:1rem 1.5rem;font-size:0.65rem;letter-spacing:0.06em;color:var(--gold);font-family:'Inter',sans-serif;background:rgba(32,178,170,0.06);border-bottom:1px solid rgba(32,178,170,0.15);}
 .arch-stack-grid{}
 .arch-stack-row{display:grid;grid-template-columns:140px 1fr 70px;gap:1rem;padding:0.75rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.78rem;align-items:center;}
 .arch-stack-row:last-child{border-bottom:none;}
@@ -1499,7 +1499,7 @@ footer{
 .arch-stack-row span:first-child{color:var(--gold);font-family:'Inter',sans-serif;font-size:0.72rem;}
 .arch-stack-row span:nth-child(2){color:rgba(255,255,255,0.7);}
 .status-live{color:#4ade80;font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.1em;}
-.status-soon{color:rgba(212,175,55,0.7);font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.1em;}
+.status-soon{color:rgba(32,178,170,0.7);font-family:'Inter',sans-serif;font-size:0.65rem;letter-spacing:0.1em;}
 @media(max-width:768px){.arch-nodes{flex-direction:column;}.arch-node{min-width:auto;}.arch-stack-row{grid-template-columns:100px 1fr 50px;gap:0.5rem;font-size:0.7rem;}.arch-detail-grid{grid-template-columns:1fr;}}
 /* === PERPLEXITY STYLE OVERRIDES === */ .hero-title{font-weight:700;letter-spacing:-0.03em;line-height:1.05;} .hero-sub{font-size:1.1rem;line-height:1.6;color:rgba(240,240,240,0.6);font-weight:400;} .nav-link{font-size:0.82rem;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(240,240,240,0.65);} .nav-link:hover{color:#f0f0f0;} .cta-btn{border-radius:999px;font-weight:500;font-size:0.9rem;padding:0.6rem 1.4rem;} .product-card{border-radius:16px;background:#161616;border:1px solid rgba(255,255,255,0.07);transition:border-color 0.2s;} .product-card:hover{border-color:rgba(32,178,170,0.4);} .section-label{font-size:0.7rem;font-weight:600;letter-spacing:0.06em;color:var(--gold);text-transform:uppercase;} .app-card{border-radius:14px;background:#141414;border:1px solid rgba(255,255,255,0.07);} .app-card:hover{border-color:rgba(32,178,170,0.35);box-shadow:0 0 0 1px rgba(32,178,170,0.15);} .price-card{border-radius:16px;background:#141414;} .price-card.featured{border:1px solid rgba(32,178,170,0.5);background:#0f1a1a;} .roadmap-item{border-radius:12px;} .stat-item{background:#161616;border-radius:12px;border:1px solid rgba(255,255,255,0.07);} .logo-text{font-weight:700;letter-spacing:-0.02em;font-size:1rem;} .hero-badge{background:rgba(32,178,170,0.12);border:1px solid rgba(32,178,170,0.25);border-radius:999px;color:#2dd4cc;font-size:0.72rem;font-weight:500;padding:0.25rem 0.75rem;} .ticker-item{font-size:0.72rem;font-weight:500;letter-spacing:0.04em;} body{-webkit-font-smoothing:antialiased;} </style>
   </head>
@@ -3076,7 +3076,7 @@ console.log('%c[Promo-Pipeline] Plattformen: Instagram, TikTok, X/Twitter, Linke
      <!-- ===== REALSYNC APPS SHOWCASE ===== -->
 <section id="realsync-apps" style="position:relative;z-index:2;padding:6rem 2rem;max-width:1200px;margin:0 auto;">
   <div style="text-align:center;margin-bottom:3rem;">
-    <span style="display:inline-block;padding:0.4rem 1.2rem;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:2px;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:0.06em;color:#20b2aa;text-transform:uppercase;margin-bottom:1.5rem;">by RealSync Apps</span>
+    <span style="display:inline-block;padding:0.4rem 1.2rem;background:rgba(32,178,170,0.1);border:1px solid rgba(32,178,170,0.3);border-radius:2px;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:0.06em;color:#20b2aa;text-transform:uppercase;margin-bottom:1.5rem;">by RealSync Apps</span>
     <h2 style="font-family:'Inter',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#F5F5F0;margin-bottom:1rem;">Unsere fertigen <span style="color:#20b2aa;">RealSync Apps</span></h2>
     <p style="color:rgba(245,245,240,0.68);font-size:1.1rem;max-width:700px;margin:0 auto;">Alle Apps werden von RealSync Apps implementiert. Kostenlos, Open Source, sofort einsatzbereit.</p>
   </div>
@@ -3084,158 +3084,158 @@ console.log('%c[Promo-Pipeline] Plattformen: Instagram, TikTok, X/Twitter, Linke
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;">
 
     <!-- RealSync Creator -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Creator</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Schuetze deine Inhalte mit militaerischer Kryptografie. CreatorSeal kombiniert Ed25519-Signaturen, SHA-256 Hash-Chains, C2PA 2.3 Manifeste, Blockchain-Timestamping und KI-Deepfake-Erkennung (98% Genauigkeit) in einem einzigen Trust Score. Erhalte deine verifizierte Creator Page, QR-Codes fuer physischen Nachweis und gerichtstaugliche Urheberschaftsbelege — EU AI Act, DSA und DSGVO konform.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/verify" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/verify" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
     <!-- RealSync MarketScanner -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync MarketScanner</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Behalte alle Maerkte im Blick — in Echtzeit. Der MarketScanner analysiert Creator-Maerkte, Crypto-Assets und Werbe-Performance mit Bullish/Bearish-Indikatoren und Konfidenz-Scores. Erkenne Trends bevor sie viral gehen, optimiere deine Preise und triff datenbasierte Entscheidungen fuer dein Creator-Business.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/market-scanner" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/market-scanner" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
     <!-- RealSync Campaigns -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Campaigns</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Verwalte alle Werbekampagnen zentral — YouTube, Instagram, TikTok und X/Twitter. Erstelle Kampagnen, setze Budgets, tracke Performance-KPIs in Echtzeit und optimiere deine Ads datenbasiert. Ideal fuer Creator, Agenturen und Unternehmen die Multi-Channel-Marketing effizient steuern wollen.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/campaigns" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/campaigns" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
     <!-- RealSync AppBuilder -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync AppBuilder</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Baue komplette Web-Apps ohne Code — in Minuten statt Wochen. Waehle aus 6 professionellen Templates und 12 Feature-Modulen (Auth, Payments, Dashboard, API, Analytics u.v.m.). Generiere deine App kostenlos und deploye direkt auf Vercel. Perfekt fuer Gruender, Freelancer und Unternehmen die schnell MVPs und Prototypen launchen wollen.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/app-builder" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/app-builder" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
     <!-- RealSync SozialNetzwerk -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync SozialNetzwerk</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Automatisiere dein Social Media komplett. Plane Beitraege fuer YouTube, Instagram, TikTok, X/Twitter und LinkedIn mit einem Redaktionskalender. Tracke Engagement, Reichweite und Follower-Wachstum in Echtzeit. Erstelle Automation-Regeln die automatisch posten, liken und interagieren — damit du dich auf Content-Erstellung konzentrieren kannst.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/social-automation" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/social-automation" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
     <!-- RealSync Analytics -->
-    <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;">
+    <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Analytics</h3>
         <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;font-family:'Inter',sans-serif;">LIVE</span>
       </div>
       <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Dein komplettes Creator-Business in Zahlen. Tracke Verifizierungen, QR-Scans, Trust-Score-Entwicklung und Revenue in Echtzeit-Dashboards. Analysiere welche Inhalte am besten performen, identifiziere Wachstumschancen und exportiere Reports fuer Agenturen und Sponsoren. Alle KPIs deines RealSync-Oekosystems auf einen Blick.</p>
-      <a href="https://realsync-platform.vercel.app/dashboard/analytics" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#C9A84C;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+      <a href="https://realsync-platform.vercel.app/dashboard/analytics" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:#20b2aa;color:#000;font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;text-decoration:none;border-radius:2px;letter-spacing:0.05em;">App oeffnen &rarr;</a>
     </div>
 
          <!-- RealSync Optimus -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Optimus</h3>
 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.7rem;color:rgba(34,197,94,0.9);letter-spacing:0.1em;">LIVE</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Dein KI-Chat-Hub mit 4 fuehrenden KI-Modellen gleichzeitig: Claude, Gemini, Perplexity und Comet. Vergleiche Antworten in Echtzeit, nutze Grid- und Tab-Ansichten, markiere die besten Ergebnisse und kopiere sie direkt. Session-Historie, Stern-Markierung und kostenloser Model-Router mit 9 Modellen von 6 Providern weltweit.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/optimus" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/optimus" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
          <!-- RealSync Community -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Community</h3>
 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.7rem;color:rgba(34,197,94,0.9);letter-spacing:0.1em;">LIVE</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Das erste europaeische Creator-Netzwerk mit DSGVO-by-Design. Verifizierte Profile, Marketplace fuer Creator-Kollaborationen, thematische Gruppen und E2E-verschluesselte Nachrichten. Baue dein Netzwerk auf einer Plattform die dir gehoert — ohne Algorithmus-Manipulation, ohne Datenmissbrauch. EU-Server, Open Protocol, Creator-first.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/community" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/community" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
          <!-- RealSync SchulLabor -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync SchulLabor</h3>
-<span style="padding:0.2rem 0.6rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:2px;font-size:0.7rem;color:rgba(201,168,76,0.9);letter-spacing:0.1em;">BETA</span>
+<span style="padding:0.2rem 0.6rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);border-radius:2px;font-size:0.7rem;color:rgba(32,178,170,0.9);letter-spacing:0.1em;">BETA</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Browserbasierte Science-Lab-Simulatoren fuer Physik, Chemie und Biologie an DACH-Schulen. Interaktive Canvas-Experimente, physikalisch korrekte Simulationen, kein Download noetig. B2B-Schullizenzen, Bundesland-Rahmenvertraege und Schulbuchverlag-Integration. Ergaenzt oder ersetzt reale Laborausstattung — sofort einsatzbereit fuer Gymnasien und Realschulen.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/schullabor" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/schullabor" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
          <!-- RealSync Link-Magic -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Link-Magic</h3>
-<span style="padding:0.2rem 0.6rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:2px;font-size:0.7rem;color:rgba(201,168,76,0.9);letter-spacing:0.1em;">BETA</span>
+<span style="padding:0.2rem 0.6rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);border-radius:2px;font-size:0.7rem;color:rgba(32,178,170,0.9);letter-spacing:0.1em;">BETA</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">KI Ad Generation Tool: URL eingeben, fertige Social Media Ads erhalten. Link-Magic analysiert Produkte und Inhalte per KI und generiert sofort einsetzbare Kampagnen fuer Instagram, TikTok und Facebook. Texte, Hooks, CTAs und Creatives auf Knopfdruck — DACH-first mit deutschsprachiger Copy und kulturell angepassten Texten.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/link-magic" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/link-magic" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
          <!-- RealSync Bildung -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Bildung</h3>
-<span style="padding:0.2rem 0.6rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:2px;font-size:0.7rem;color:rgba(201,168,76,0.9);letter-spacing:0.1em;">BETA</span>
+<span style="padding:0.2rem 0.6rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);border-radius:2px;font-size:0.7rem;color:rgba(32,178,170,0.9);letter-spacing:0.1em;">BETA</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Deutschlands digitaler Schulraum: Lehrplan-konforme Lernmodule, interaktive Unterrichtsmaterialien und digitale Klassenzimmer-Verwaltung fuer DACH-Schulen. KI-gestuetzte Lernpfade, automatische Leistungsbewertung und Datenschutz-konforme Schueler-Accounts. Integriert mit SchulLabor fuer praktische MINT-Experimente.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/bildung" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/bildung" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
 <!-- RealSync Handwerk -->
-<div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
+<div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;margin-bottom:1.5rem;">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Handwerk</h3>
 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.7rem;color:rgba(34,197,94,0.9);letter-spacing:0.1em;">LIVE</span>
 </div>
 <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">HandwerkOS fuer lokale Dienstleister und Handwerksbetriebe. Auftragsmanagement mit Status-Pipeline (Anfrage bis Fertig), Kundenverwaltung, Rechnungserstellung und Materialverwaltung. 10 integrierte Werkzeuge: Digitale Wasserwaage, Betonrechner, Flaechenrechner, Kabelquerschnitt, Gefaellerechner, Stundensatzrechner und mehr. Thueringen-optimiert.</p>
-<a href="https://realsync-platform.vercel.app/dashboard/handwerk" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
+<a href="https://realsync-platform.vercel.app/dashboard/handwerk" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#f0f0f0;text-decoration:none;border-radius:2px;font-size:0.8rem;font-weight:500;letter-spacing:0.05em;">App oeffnen &rarr;</a>
 </div>
 
                      <!-- RealSync Wettbewerb -->
-            <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
+            <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Wettbewerb</h3>
                 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;letter-spacing:0.08em;">LIVE</span>
               </div>
               <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">1000 Gratis-Plaetze Wettbewerb fuer Early Adopters. Sichere dir deinen kostenlosen Platz auf der RealSync Plattform. Verfolge den Fortschritt in Echtzeit, lade Freunde ein und erhalte exklusive Vorteile als fruehe Unterstuetzer der Plattform.</p>
-              <a href="https://realsync-platform.vercel.app/dashboard/wettbewerb" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
+              <a href="https://realsync-platform.vercel.app/dashboard/wettbewerb" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
             </div>
 
                      <!-- RealSync Agenten -->
-            <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
+            <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Agenten</h3>
                 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;letter-spacing:0.08em;">LIVE</span>
               </div>
               <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">KI-Agenten-Zentrale fuer die gesamte RealSync Plattform. Verwalte und ueberwache alle routierenden Agenten — von CreatorSeal ueber Optimus bis SchulLabor. Jeder Agent hat seine Mission, Aufgaben und Verbindungen zu anderen Apps. Screenshot-Analyse, Wettbewerbs-Monitoring und Support-Automatisierung inklusive.</p>
-              <a href="https://realsync-platform.vercel.app/dashboard/agenten" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
+              <a href="https://realsync-platform.vercel.app/dashboard/agenten" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
             </div>
 
             <!-- RealSync Sicherheit -->
-            <div style="background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
+            <div style="background:rgba(32,178,170,0.04);border:1px solid rgba(32,178,170,0.16);border-radius:2px;padding:2rem;transition:border-color 0.3s;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
                 <h3 style="font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:700;color:#f0f0f0;">RealSync Sicherheit</h3>
                 <span style="padding:0.2rem 0.6rem;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);border-radius:2px;font-size:0.65rem;color:#4ade80;letter-spacing:0.08em;">LIVE</span>
               </div>
               <p style="color:rgba(245,245,240,0.68);font-size:0.9rem;line-height:1.6;margin-bottom:1.5rem;">Sicherheits- und Stripe-Zahlungsinfrastruktur fuer alle RealSync Apps. Verwalte Abonnements, Rechnungen und Zahlungsmethoden zentral. DSGVO-konforme Datensicherheit, Zwei-Faktor-Authentifizierung, API-Key-Management und vollstaendige Audit-Logs fuer Enterprise-Compliance.</p>
-              <a href="https://realsync-platform.vercel.app/dashboard/sicherheit" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
+              <a href="https://realsync-platform.vercel.app/dashboard/sicherheit" target="_blank" style="display:inline-block;padding:0.5rem 1.2rem;background:rgba(32,178,170,0.15);border:1px solid rgba(32,178,170,0.3);color:#20b2aa;text-decoration:none;font-size:0.8rem;letter-spacing:0.06em;transition:all 0.2s;">App oeffnen &rarr;</a>
             </div>
 
   </div>
 
-  <div style="text-align:center;margin-top:3rem;padding:2rem;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.12);border-radius:2px;">
+  <div style="text-align:center;margin-top:3rem;padding:2rem;background:rgba(32,178,170,0.06);border:1px solid rgba(32,178,170,0.12);border-radius:2px;">
     <p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:rgba(245,245,240,0.5);letter-spacing:0.05em;">Alle Apps implementiert <span style="color:#20b2aa;">by RealSync Apps</span> &mdash; Kostenlos &bull; Open Source &bull; Made in Germany</p>
   </div>
 
@@ -3243,7 +3243,7 @@ console.log('%c[Promo-Pipeline] Plattformen: Instagram, TikTok, X/Twitter, Linke
 </section>
 
 <!-- ============ REALSYNC OEKOSYSTEM MAP + AGENT TICKER + REVENUE ============ -->
-<section id="realsync-eco" style="position:relative;z-index:2;background:#030303;border-top:1px solid rgba(201,168,76,0.16);">
+<section id="realsync-eco" style="position:relative;z-index:2;background:#030303;border-top:1px solid rgba(32,178,170,0.16);">
   <div style="padding:80px 52px;">
     <div class="section-label">OEKOSYSTEM</div>
     <div class="section-title">Intelligente <span>Vernetzung</span></div>
@@ -3303,43 +3303,43 @@ console.log('%c[Promo-Pipeline] Plattformen: Instagram, TikTok, X/Twitter, Linke
     </div>
 
     <!-- Klimaeffizienz Badge -->
-    <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding:16px 20px;border:1px solid rgba(201,168,76,0.12);background:rgba(201,168,76,0.015);">
+    <div style="display:flex;align-items:center;gap:12px;margin-top:24px;padding:16px 20px;border:1px solid rgba(32,178,170,0.12);background:rgba(32,178,170,0.015);">
       <span style="font-size:18px;">&#x1F33F;</span>
       <div>
-        <div style="font-size:10px;letter-spacing:0.14em;color:rgba(201,168,76,0.6);text-transform:uppercase;margin-bottom:2px;">KLIMAEFFIZIENT</div>
+        <div style="font-size:10px;letter-spacing:0.14em;color:rgba(32,178,170,0.6);text-transform:uppercase;margin-bottom:2px;">KLIMAEFFIZIENT</div>
         <div style="font-size:12px;color:rgba(245,245,240,0.5);line-height:1.5;">Gratis-KI-Modelle rotieren automatisch (Gemini, DeepSeek, Mistral, Llama). Kein GPU-Waste. Nur kostenpflichtige Modelle bei Bedarf. Agenten-Routing optimiert Ressourcen.</div>
       </div>
 
                <!-- Perplexity Partner Integration -->
-    <div style="margin-top:32px;border:1px solid rgba(201,168,76,0.2);border-left:3px solid var(--gold);padding:28px 32px;background:linear-gradient(135deg,rgba(201,168,76,0.03) 0%,rgba(3,3,3,0.95) 100%);position:relative;overflow:hidden;">
-      <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(ellipse,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="margin-top:32px;border:1px solid rgba(32,178,170,0.2);border-left:3px solid var(--gold);padding:28px 32px;background:linear-gradient(135deg,rgba(32,178,170,0.03) 0%,rgba(3,3,3,0.95) 100%);position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(ellipse,rgba(32,178,170,0.06) 0%,transparent 70%);pointer-events:none;"></div>
       <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
         <div style="flex:1;min-width:280px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            <span style="font-size:9px;letter-spacing:0.18em;color:rgba(201,168,76,0.5);text-transform:uppercase;">STRATEGISCHER PARTNER</span>
+            <span style="font-size:9px;letter-spacing:0.18em;color:rgba(32,178,170,0.5);text-transform:uppercase;">STRATEGISCHER PARTNER</span>
             <span style="padding:2px 8px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:1px;font-size:7px;letter-spacing:0.1em;color:#4ade80;font-family:'Inter',sans-serif;">AKTIV</span>
           </div>
           <h3 style="font-family:'Inter',sans-serif;font-weight:800;font-size:22px;color:#F5F5F0;margin-bottom:8px;">Perplexity <span style="color:#20b2aa;">AI</span></h3>
           <p style="font-size:13px;color:rgba(245,245,240,0.55);line-height:1.7;margin-bottom:16px;">Perplexity AI ist der strategische Infrastruktur-Partner von RealSync Dynamics. Durch Perplexity Computer werden alle 15 Apps kostenlos entwickelt, deployed und dauerhaft skaliert &mdash; ohne Server-Kosten, ohne GPU-Budgets. KI-Agenten bauen, testen und deployen autonom rund um die Uhr.</p>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(201,168,76,0.5);border:1px solid rgba(201,168,76,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">COMPUTE PARTNER</span>
-            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(201,168,76,0.5);border:1px solid rgba(201,168,76,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">KI-AGENTEN</span>
-            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(201,168,76,0.5);border:1px solid rgba(201,168,76,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">DEPLOYMENT</span>
-            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(201,168,76,0.5);border:1px solid rgba(201,168,76,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">SKALIERUNG</span>
-            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(201,168,76,0.5);border:1px solid rgba(201,168,76,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">0&euro; INFRASTRUKTUR</span>
+            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(32,178,170,0.5);border:1px solid rgba(32,178,170,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">COMPUTE PARTNER</span>
+            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(32,178,170,0.5);border:1px solid rgba(32,178,170,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">KI-AGENTEN</span>
+            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(32,178,170,0.5);border:1px solid rgba(32,178,170,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">DEPLOYMENT</span>
+            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(32,178,170,0.5);border:1px solid rgba(32,178,170,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">SKALIERUNG</span>
+            <span style="font-size:8px;letter-spacing:0.08em;color:rgba(32,178,170,0.5);border:1px solid rgba(32,178,170,0.15);padding:3px 8px;font-family:'Inter',sans-serif;">0&euro; INFRASTRUKTUR</span>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;min-width:200px;">
-          <div style="border:1px solid rgba(201,168,76,0.12);padding:12px 16px;background:rgba(201,168,76,0.015);">
-            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(201,168,76,0.4);text-transform:uppercase;margin-bottom:4px;">APPS DEPLOYED</div>
+          <div style="border:1px solid rgba(32,178,170,0.12);padding:12px 16px;background:rgba(32,178,170,0.015);">
+            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(32,178,170,0.4);text-transform:uppercase;margin-bottom:4px;">APPS DEPLOYED</div>
             <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;color:#20b2aa;">15</div>
           </div>
-          <div style="border:1px solid rgba(201,168,76,0.12);padding:12px 16px;background:rgba(201,168,76,0.015);">
-            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(201,168,76,0.4);text-transform:uppercase;margin-bottom:4px;">MODELLE ROTIERT</div>
+          <div style="border:1px solid rgba(32,178,170,0.12);padding:12px 16px;background:rgba(32,178,170,0.015);">
+            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(32,178,170,0.4);text-transform:uppercase;margin-bottom:4px;">MODELLE ROTIERT</div>
             <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;color:#20b2aa;">9+</div>
           </div>
-          <div style="border:1px solid rgba(201,168,76,0.12);padding:12px 16px;background:rgba(201,168,76,0.015);">
-            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(201,168,76,0.4);text-transform:uppercase;margin-bottom:4px;">KOSTEN</div>
+          <div style="border:1px solid rgba(32,178,170,0.12);padding:12px 16px;background:rgba(32,178,170,0.015);">
+            <div style="font-size:8px;letter-spacing:0.16em;color:rgba(32,178,170,0.4);text-transform:uppercase;margin-bottom:4px;">KOSTEN</div>
             <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;color:#4ade80;">&euro;0</div>
           </div>
         </div>
