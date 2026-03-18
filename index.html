@@ -13,8 +13,6 @@
 --bg:#050505;--bg2:#0a0a0a;--bg3:#111;--bd:#1a1a1a;--bd2:#222;
 --txt:#e0e0e0;--sub:#888;--dim:#555;
 --cyan:#00e5a0;--gold:#c9a84c;--perp:#8b5cf6;--perp2:#a78bfa;
---comet:#00e5a0;--comet2:#34d399;
---nc:#00e5a0;--TH:100vh;
 --font:'Syne',sans-serif;--mono:'DM Mono',monospace
 }
 html{scroll-behavior:smooth}
@@ -46,7 +44,7 @@ h1.hero-title .gold{color:var(--gold)}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
 .btn-primary{background:var(--cyan);color:#000;padding:.85rem 2rem;border-radius:4px;font-weight:700;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;border:none;cursor:pointer}
 .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
-.btn-secondary{border:1px solid var(--bd2);color:var(--txt);padding:.85rem 2rem;border-radius:4px;font-weight:600;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;transition:all .2s}
+.btn-secondary{border:1px solid var(--bd2);color:var(--txt);padding:.85rem 2rem;border-radius:4px;font-weight:600;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;background:transparent}
 .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
 
 /* SECTIONS */
@@ -62,29 +60,66 @@ section{padding:6rem 2rem}
 .stat-num{font-size:2.5rem;font-weight:800;color:var(--cyan);font-family:var(--mono)}
 .stat-label{font-size:.75rem;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem}
 
-/* APP GRID */
-.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--bd)}
-.app-card{background:var(--bg2);padding:2rem;transition:all .3s;position:relative;cursor:default}
-.app-card:hover{background:var(--bg3)}
-.app-icon{font-size:1.8rem;margin-bottom:1rem}
-.app-name{font-weight:700;font-size:1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
-.app-tag{font-family:var(--mono);font-size:.6rem;padding:.15rem .5rem;border-radius:2px;text-transform:uppercase;letter-spacing:.05em}
+/* APP CATEGORY BUTTONS */
+.app-categories{display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.cat-btn{padding:.75rem 2rem;border-radius:6px;font-weight:700;font-size:.85rem;letter-spacing:.05em;cursor:pointer;transition:all .3s;border:1px solid var(--bd2);background:var(--bg2);color:var(--sub);text-transform:uppercase}
+.cat-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.cat-btn.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
+.cat-btn .count{font-family:var(--mono);font-size:.7rem;margin-left:.4rem;opacity:.7}
+
+/* APP GRID - LARGE CARDS */
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1px;background:var(--bd)}
+.app-card{background:var(--bg2);padding:2.5rem;transition:all .3s;position:relative;cursor:pointer;min-height:200px;display:flex;flex-direction:column;justify-content:space-between}
+.app-card:hover{background:var(--bg3);transform:translateY(-2px)}
+.app-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.2rem}
+.app-icon{font-size:2.2rem}
+.app-tag{font-family:var(--mono);font-size:.6rem;padding:.2rem .6rem;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
 .app-tag.live{background:rgba(0,229,160,.15);color:var(--cyan)}
 .app-tag.beta{background:rgba(201,168,76,.15);color:var(--gold)}
 .app-tag.dev{background:rgba(139,92,246,.15);color:var(--perp2)}
-.app-desc{color:var(--sub);font-size:.85rem;line-height:1.6}
+.app-name{font-weight:700;font-size:1.15rem;margin-bottom:.6rem}
+.app-desc{color:var(--sub);font-size:.9rem;line-height:1.6}
+.app-card-footer{display:flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-size:.75rem;color:var(--dim);font-family:var(--mono)}
+.app-card-footer .arrow{color:var(--cyan);transition:transform .3s}
+.app-card:hover .arrow{transform:translateX(4px)}
 
-/* ROADMAP */
-.rm-item{display:flex;gap:2rem;padding:1.5rem 0;border-bottom:1px solid var(--bd)}
-.rm-q{font-family:var(--mono);font-size:.8rem;color:var(--cyan);min-width:80px;text-transform:uppercase}
-.rm-content h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
-.rm-content p{color:var(--sub);font-size:.85rem}
+/* APP OVERLAY */
+.app-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);z-index:200;display:none;overflow-y:auto;padding:2rem}
+.app-overlay.active{display:flex;justify-content:center;align-items:flex-start}
+.app-overlay-inner{max-width:900px;width:100%;margin:4rem auto;background:var(--bg2);border:1px solid var(--bd2);border-radius:12px;overflow:hidden}
+.app-overlay-header{padding:2.5rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.app-overlay-header h2{font-size:1.8rem;font-weight:800}
+.app-overlay-close{width:40px;height:40px;border-radius:8px;border:1px solid var(--bd2);background:transparent;color:var(--sub);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.app-overlay-close:hover{border-color:var(--cyan);color:var(--cyan)}
+.app-overlay-body{padding:2.5rem}
+.app-overlay-desc{color:var(--sub);font-size:1.05rem;line-height:1.8;margin-bottom:2rem}
+.app-features{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.app-feature{padding:1.5rem;background:var(--bg3);border-radius:8px;border:1px solid var(--bd)}
+.app-feature h4{font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--cyan)}
+.app-feature p{font-size:.8rem;color:var(--sub);line-height:1.5}
+
+/* WORKFLOWS */
+.workflows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.workflow-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:2rem;transition:all .3s}
+.workflow-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.workflow-icon{font-size:2rem;margin-bottom:1rem}
+.workflow-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+.workflow-card p{color:var(--sub);font-size:.85rem;line-height:1.6}
+.workflow-steps{margin-top:1.2rem;display:flex;flex-direction:column;gap:.5rem}
+.workflow-step{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--sub);font-family:var(--mono)}
+.workflow-step .step-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);flex-shrink:0}
 
 /* TECH */
 .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
 .tech-item{background:var(--bg2);padding:2rem}
 .tech-item h3{font-family:var(--mono);font-size:.85rem;color:var(--cyan);margin-bottom:.5rem}
 .tech-item p{color:var(--sub);font-size:.85rem;line-height:1.6}
+
+/* ROADMAP */
+.rm-item{display:flex;gap:2rem;padding:1.5rem 0;border-bottom:1px solid var(--bd)}
+.rm-q{font-family:var(--mono);font-size:.8rem;color:var(--cyan);min-width:80px;text-transform:uppercase}
+.rm-content h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.rm-content p{color:var(--sub);font-size:.85rem}
 
 /* FOOTER */
 footer{border-top:1px solid var(--bd);padding:3rem 2rem}
@@ -99,8 +134,10 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 .stats{grid-template-columns:repeat(2,1fr)}
 .tech-grid{grid-template-columns:1fr}
 .apps-grid{grid-template-columns:1fr}
+.app-features{grid-template-columns:1fr}
 .footer-inner{flex-direction:column;text-align:center}
 .rm-item{flex-direction:column;gap:.5rem}
+.workflows-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -112,6 +149,7 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 <div class="logo">REAL<span>SYNC</span> DYNAMICS</div>
 <div class="nav-links">
 <a href="#apps">Apps</a>
+<a href="#workflows">Workflows</a>
 <a href="#tech">Technologie</a>
 <a href="#roadmap">Roadmap</a>
 <a href="/partnership.html">Partner</a>
@@ -124,14 +162,19 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 <!-- HERO -->
 <section class="hero">
 <div class="hero-inner">
-<div class="hero-badge"><span class="dot"></span> Creator OS — Live 2025</div>
-<h1 class="hero-title">Das <span class="accent">Betriebssystem</span><br>für Content<br><span class="gold">Creator.</span></h1>
+<div class="hero-badge"><span class="dot"></span>Creator OS — Live 2025</div>
+<h1 class="hero-title">Das<br><span class="accent">Betriebssystem</span><br>für Content<br><span class="gold">Creator.</span></h1>
 <p class="hero-sub">Kryptografische Content-Verifikation, KI-Automation und Creator-Tools — alles in einer Plattform. Ed25519-Signaturen, C2PA 2.3, Deepfake-Erkennung und Blockchain-Timestamping für digitale Urheberschaft. Made in Germany.</p>
 <div class="hero-actions">
 <a href="#apps" class="btn-primary">Ökosystem entdecken</a>
 <a href="#tech" class="btn-secondary">Architektur ansehen</a>
 </div>
+</div>
+</section>
 
+<!-- STATS -->
+<section>
+<div class="section-inner">
 <div class="stats">
 <div class="stat"><div class="stat-num">19</div><div class="stat-label">Apps im Ökosystem</div></div>
 <div class="stat"><div class="stat-num">C2PA</div><div class="stat-label">2.3 Konform</div></div>
@@ -146,115 +189,245 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 <div class="section-inner">
 <div class="section-label">Creator OS Ökosystem</div>
 <div class="section-title">19 Apps. Eine Plattform.</div>
-<div class="section-desc">Jede App löst ein spezifisches Problem für Content Creator, Agenturen und Unternehmen. Alle nahtlos integriert.</div>
+<p class="section-desc">Jede App löst ein spezifisches Problem für Content Creator, Agenturen und Unternehmen. Alle nahtlos integriert.</p>
 
-<div class="apps-grid">
-<div class="app-card">
-<div class="app-icon">🛡️</div>
-<div class="app-name">RealSync Optimus <span class="app-tag live">Live</span></div>
-<div class="app-desc">KI-gestützte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance.</div>
+<div class="app-categories">
+<button class="cat-btn active" onclick="filterApps('all')">Alle Apps<span class="count">(19)</span></button>
+<button class="cat-btn" onclick="filterApps('live')">Live<span class="count">(15)</span></button>
+<button class="cat-btn" onclick="filterApps('beta')">Beta<span class="count">(2)</span></button>
+<button class="cat-btn" onclick="filterApps('dev')">In Entwicklung<span class="count">(2)</span></button>
 </div>
-<div class="app-card">
-<div class="app-icon">📹</div>
-<div class="app-name">RealSync Studio <span class="app-tag live">Live</span></div>
-<div class="app-desc">Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export.</div>
+
+<div class="apps-grid" id="appsGrid">
+
+<div class="app-card" data-status="live" onclick="openApp('optimus')">
+<div><div class="app-card-top"><div class="app-icon">🛡️</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Optimus</div>
+<div class="app-desc">KI-gestützte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🤖</div>
-<div class="app-name">RealSync Automate <span class="app-tag live">Live</span></div>
-<div class="app-desc">Marketing-Automation mit KI-Workflows, Social-Media-Scheduling und Analytics.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('studio')">
+<div><div class="app-card-top"><div class="app-icon">📹</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Studio</div>
+<div class="app-desc">Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🔍</div>
-<div class="app-name">RealSync Deepfake Guard <span class="app-tag live">Live</span></div>
-<div class="app-desc">Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('automate')">
+<div><div class="app-card-top"><div class="app-icon">🤖</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Automate</div>
+<div class="app-desc">Marketing-Automation mit KI-Workflows, Social-Media-Scheduling und Analytics.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">⛓️</div>
-<div class="app-name">RealSync Chain <span class="app-tag live">Live</span></div>
-<div class="app-desc">Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('deepfake')">
+<div><div class="app-card-top"><div class="app-icon">🔍</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Deepfake Guard</div>
+<div class="app-desc">Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">📊</div>
-<div class="app-name">RealSync Analytics <span class="app-tag live">Live</span></div>
-<div class="app-desc">Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('chain')">
+<div><div class="app-card-top"><div class="app-icon">⛓️</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Chain</div>
+<div class="app-desc">Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🎨</div>
-<div class="app-name">RealSync Design <span class="app-tag live">Live</span></div>
-<div class="app-desc">KI-Design-Tools für Thumbnails, Cover-Art und Brand-Kits.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('analytics')">
+<div><div class="app-card-top"><div class="app-icon">📊</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Analytics</div>
+<div class="app-desc">Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">💰</div>
-<div class="app-name">RealSync Monetize <span class="app-tag live">Live</span></div>
-<div class="app-desc">Einnahmen-Management mit Stripe-Integration, Abo-Modelle und Creator-Payouts.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('design')">
+<div><div class="app-card-top"><div class="app-icon">🎨</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Design</div>
+<div class="app-desc">KI-Design-Tools für Thumbnails, Cover-Art und Brand-Kits.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">📧</div>
-<div class="app-name">RealSync Outreach <span class="app-tag live">Live</span></div>
-<div class="app-desc">KI-gestütztes E-Mail-Marketing und Brand-Collaboration-Management.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('monetize')">
+<div><div class="app-card-top"><div class="app-icon">💰</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Monetize</div>
+<div class="app-desc">Einnahmen-Management mit Stripe-Integration, Abo-Modelle und Creator-Payouts.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🔗</div>
-<div class="app-name">RealSync Connect <span class="app-tag live">Live</span></div>
-<div class="app-desc">Multi-Plattform-API-Hub für YouTube, TikTok, Instagram und LinkedIn.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('outreach')">
+<div><div class="app-card-top"><div class="app-icon">📧</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Outreach</div>
+<div class="app-desc">KI-gestütztes E-Mail-Marketing und Brand-Collaboration-Management.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">📅</div>
-<div class="app-name">RealSync Planner <span class="app-tag live">Live</span></div>
-<div class="app-desc">Content-Kalender mit KI-Scheduling und Trend-Vorhersage.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('connect')">
+<div><div class="app-card-top"><div class="app-icon">🔗</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Connect</div>
+<div class="app-desc">Multi-Plattform-API-Hub für YouTube, TikTok, Instagram und LinkedIn.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🌐</div>
-<div class="app-name">RealSync Sites <span class="app-tag live">Live</span></div>
-<div class="app-desc">Landing-Page-Builder mit SEO-Optimierung und Custom Domains.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('planner')">
+<div><div class="app-card-top"><div class="app-icon">📅</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Planner</div>
+<div class="app-desc">Content-Kalender mit KI-Scheduling und Trend-Vorhersage.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">📢</div>
-<div class="app-name">RealSync Ads <span class="app-tag beta">Beta</span></div>
-<div class="app-desc">KI-optimierte Werbekampagnen mit automatischem A/B-Testing.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('sites')">
+<div><div class="app-card-top"><div class="app-icon">🌐</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Sites</div>
+<div class="app-desc">Landing-Page-Builder mit SEO-Optimierung und Custom Domains.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🔒</div>
-<div class="app-name">RealSync Vault <span class="app-tag live">Live</span></div>
-<div class="app-desc">Verschlüsselter Cloud-Speicher für Assets mit Versionierung und Sharing.</div>
+
+<div class="app-card" data-status="beta" onclick="openApp('ads')">
+<div><div class="app-card-top"><div class="app-icon">📢</div><span class="app-tag beta">Beta</span></div>
+<div class="app-name">RealSync Ads</div>
+<div class="app-desc">KI-optimierte Werbekampagnen mit automatischem A/B-Testing.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🧠</div>
-<div class="app-name">RealSync AI Writer <span class="app-tag live">Live</span></div>
-<div class="app-desc">KI-Textgenerierung für Skripte, Beschreibungen und Social-Media-Posts.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('vault')">
+<div><div class="app-card-top"><div class="app-icon">🔒</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Vault</div>
+<div class="app-desc">Verschlüsselter Cloud-Speicher für Assets mit Versionierung und Sharing.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🎬</div>
-<div class="app-name">RealSync Clips <span class="app-tag beta">Beta</span></div>
-<div class="app-desc">Automatische Highlight-Clips aus Langform-Videos mit KI-Erkennung.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('aiwriter')">
+<div><div class="app-card-top"><div class="app-icon">🧠</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync AI Writer</div>
+<div class="app-desc">KI-Textgenerierung für Skripte, Beschreibungen und Social-Media-Posts.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">📱</div>
-<div class="app-name">RealSync Mobile <span class="app-tag dev">Dev</span></div>
-<div class="app-desc">Native iOS/Android-App für unterwegs — alle Tools in der Tasche.</div>
+
+<div class="app-card" data-status="beta" onclick="openApp('clips')">
+<div><div class="app-card-top"><div class="app-icon">🎬</div><span class="app-tag beta">Beta</span></div>
+<div class="app-name">RealSync Clips</div>
+<div class="app-desc">Automatische Highlight-Clips aus Langform-Videos mit KI-Erkennung.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🔊</div>
-<div class="app-name">RealSync Audio <span class="app-tag live">Live</span></div>
-<div class="app-desc">Podcast-Produktion mit KI-Transkription, Noise-Cancelling und Distribution.</div>
+
+<div class="app-card" data-status="dev" onclick="openApp('mobile')">
+<div><div class="app-card-top"><div class="app-icon">📱</div><span class="app-tag dev">Dev</span></div>
+<div class="app-name">RealSync Mobile</div>
+<div class="app-desc">Native iOS/Android-App für unterwegs — alle Tools in der Tasche.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
-<div class="app-card">
-<div class="app-icon">🛡️</div>
-<div class="app-name">RealSync Sicherheit <span class="app-tag live">Live</span></div>
-<div class="app-desc">Enterprise-Sicherheit mit 2FA, SSO und rollenbasierter Zugriffskontrolle.</div>
+
+<div class="app-card" data-status="live" onclick="openApp('audio')">
+<div><div class="app-card-top"><div class="app-icon">🔊</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Audio</div>
+<div class="app-desc">Podcast-Produktion mit KI-Transkription, Noise-Cancelling und Distribution.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
 </div>
+
+<div class="app-card" data-status="live" onclick="openApp('security')">
+<div><div class="app-card-top"><div class="app-icon">🛡️</div><span class="app-tag live">Live</span></div>
+<div class="app-name">RealSync Sicherheit</div>
+<div class="app-desc">Enterprise-Sicherheit mit 2FA, SSO und rollenbasierter Zugriffskontrolle.</div></div>
+<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WORKFLOWS -->
+<section id="workflows">
+<div class="section-inner">
+<div class="section-label">Automatisierte Workflows</div>
+<div class="section-title">KI-Workflows für jeden Use-Case.</div>
+<p class="section-desc">Automatisiere deine Content-Pipeline von der Erstellung bis zur Distribution.</p>
+
+<div class="workflows-grid">
+
+<div class="workflow-card">
+<div class="workflow-icon">🚀</div>
+<h3>Content-Verifikation</h3>
+<p>Automatische Signierung und Zertifizierung jedes Contents.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>Upload → Ed25519 Signatur</div>
+<div class="workflow-step"><span class="step-dot"></span>C2PA 2.3 Metadaten</div>
+<div class="workflow-step"><span class="step-dot"></span>Blockchain Timestamp</div>
+<div class="workflow-step"><span class="step-dot"></span>Zertifikat generiert</div>
+</div>
+</div>
+
+<div class="workflow-card">
+<div class="workflow-icon">🎬</div>
+<h3>Video-Pipeline</h3>
+<p>Vom Rohschnitt zum fertigen Multi-Plattform-Video.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>Import → KI-Schnitt</div>
+<div class="workflow-step"><span class="step-dot"></span>Auto-Captions</div>
+<div class="workflow-step"><span class="step-dot"></span>Thumbnail generieren</div>
+<div class="workflow-step"><span class="step-dot"></span>Multi-Plattform Export</div>
+</div>
+</div>
+
+<div class="workflow-card">
+<div class="workflow-icon">📊</div>
+<h3>Marketing-Automation</h3>
+<p>KI-gestützte Kampagnen mit Echtzeit-Optimierung.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>Zielgruppe → KI-Analyse</div>
+<div class="workflow-step"><span class="step-dot"></span>Content erstellen</div>
+<div class="workflow-step"><span class="step-dot"></span>Multi-Channel Scheduling</div>
+<div class="workflow-step"><span class="step-dot"></span>Performance-Tracking</div>
+</div>
+</div>
+
+<div class="workflow-card">
+<div class="workflow-icon">🛡️</div>
+<h3>Deepfake-Schutz</h3>
+<p>Echtzeit-Überwachung und automatische Erkennung.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>Media-Monitoring</div>
+<div class="workflow-step"><span class="step-dot"></span>Neuronale Analyse</div>
+<div class="workflow-step"><span class="step-dot"></span>Blockchain-Vergleich</div>
+<div class="workflow-step"><span class="step-dot"></span>Alert & Report</div>
+</div>
+</div>
+
+<div class="workflow-card">
+<div class="workflow-icon">💰</div>
+<h3>Monetarisierung</h3>
+<p>Automatisches Einnahmen-Management und Payouts.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>Abo-Management</div>
+<div class="workflow-step"><span class="step-dot"></span>Stripe-Integration</div>
+<div class="workflow-step"><span class="step-dot"></span>Revenue-Tracking</div>
+<div class="workflow-step"><span class="step-dot"></span>Creator-Payouts</div>
+</div>
+</div>
+
+<div class="workflow-card">
+<div class="workflow-icon">🔗</div>
+<h3>API-Integration</h3>
+<p>Nahtlose Verbindung aller Plattformen.</p>
+<div class="workflow-steps">
+<div class="workflow-step"><span class="step-dot"></span>YouTube, TikTok, IG</div>
+<div class="workflow-step"><span class="step-dot"></span>Webhook-Automation</div>
+<div class="workflow-step"><span class="step-dot"></span>Cross-Plattform Sync</div>
+<div class="workflow-step"><span class="step-dot"></span>Unified Dashboard</div>
+</div>
+</div>
+
 </div>
 </div>
 </section>
 
 <!-- TECH -->
-<section id="tech" style="border-top:1px solid var(--bd)">
+<section id="tech">
 <div class="section-inner">
 <div class="section-label">Technologie-Stack</div>
 <div class="section-title">Enterprise-Architektur.<br>Creator-Einfachheit.</div>
-<div class="section-desc">Gebaut auf bewährten Technologien mit kryptografischer Sicherheit auf jeder Ebene.</div>
-
+<p class="section-desc">Gebaut auf bewährten Technologien mit kryptografischer Sicherheit auf jeder Ebene.</p>
 <div class="tech-grid">
 <div class="tech-item"><h3>C2PA 2.3</h3><p>Coalition for Content Provenance and Authenticity. Ab August 2026 EU-Pflicht für digitale Inhalte.</p></div>
 <div class="tech-item"><h3>Ed25519</h3><p>Elliptische-Kurven-Signaturen für manipulationssichere Content-Authentifizierung.</p></div>
@@ -267,12 +440,11 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 </section>
 
 <!-- ROADMAP -->
-<section id="roadmap" style="border-top:1px solid var(--bd)">
+<section id="roadmap">
 <div class="section-inner">
 <div class="section-label">Roadmap 2025–2026</div>
 <div class="section-title">Was kommt als Nächstes.</div>
-<div class="section-desc">Von der Gründung 2025 bis zur C2PA-Pflicht 2026 — unser Fahrplan.</div>
-
+<p class="section-desc">Von der Gründung 2025 bis zur C2PA-Pflicht 2026 — unser Fahrplan.</p>
 <div class="rm-item"><div class="rm-q">Q1 2025</div><div class="rm-content"><h3>Gründung & MVP</h3><p>Plattform-Launch mit Core-Apps: Optimus, Studio, Automate, Chain.</p></div></div>
 <div class="rm-item"><div class="rm-q">Q2 2025</div><div class="rm-content"><h3>Creator OS Beta</h3><p>19 Apps live. Öffentliche Beta mit Early-Access-Programm.</p></div></div>
 <div class="rm-item"><div class="rm-q">Q3 2025</div><div class="rm-content"><h3>Monetarisierung</h3><p>Stripe-Integration, Abo-Modelle, Enterprise-Lizenzen.</p></div></div>
@@ -281,6 +453,20 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 <div class="rm-item"><div class="rm-q">Q3 2026</div><div class="rm-content"><h3>C2PA EU-Pflicht</h3><p>Volle C2PA 2.3 Compliance als EU-Vorreiter. Automatische Content-Zertifizierung.</p></div></div>
 </div>
 </section>
+
+<!-- APP OVERLAY -->
+<div class="app-overlay" id="appOverlay">
+<div class="app-overlay-inner">
+<div class="app-overlay-header">
+<h2 id="overlayTitle">App Details</h2>
+<button class="app-overlay-close" onclick="closeApp()">✕</button>
+</div>
+<div class="app-overlay-body">
+<p class="app-overlay-desc" id="overlayDesc"></p>
+<div class="app-features" id="overlayFeatures"></div>
+</div>
+</div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -296,5 +482,55 @@ footer{border-top:1px solid var(--bd);padding:3rem 2rem}
 </div>
 </footer>
 
+<script>
+const appData = {
+optimus: {title:'RealSync Optimus',desc:'KI-gest\u00fctzte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance. Sch\u00fctze deine Inhalte mit kryptografischer Sicherheit.',features:[{t:'Ed25519 Signaturen',d:'Manipulationssichere digitale Unterschriften f\u00fcr jeden Content.'},{t:'C2PA 2.3',d:'Volle Compliance mit dem kommenden EU-Standard.'},{t:'Echtzeit-Verifikation',d:'Sofortige Pr\u00fcfung der Content-Authentizit\u00e4t.'},{t:'API-Integration',d:'Nahtlose Einbindung in bestehende Workflows.'}]},
+studio: {title:'RealSync Studio',desc:'Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export. Erstelle Videos schneller als je zuvor.',features:[{t:'KI-Schnitt',d:'Automatische Erkennung von Highlights und Schnittpunkten.'},{t:'Auto-Captions',d:'KI-generierte Untertitel in 50+ Sprachen.'},{t:'Multi-Export',d:'Optimierte Formate f\u00fcr YouTube, TikTok, Instagram.'},{t:'Brand-Kit',d:'Konsistentes Branding \u00fcber alle Videos.'}]},
+automate: {title:'RealSync Automate',desc:'Marketing-Automation mit KI-Workflows f\u00fcr maximale Reichweite und Engagement.',features:[{t:'Social Scheduling',d:'Plane Posts f\u00fcr alle Plattformen zentral.'},{t:'KI-Workflows',d:'Automatisierte Content-Pipelines.'},{t:'Analytics',d:'Echtzeit-Performance-Tracking.'},{t:'A/B-Testing',d:'Automatische Optimierung deiner Kampagnen.'}]},
+deepfake: {title:'RealSync Deepfake Guard',desc:'Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.',features:[{t:'Neuronale Analyse',d:'Deep-Learning-basierte Erkennung.'},{t:'Blockchain-Check',d:'Abgleich mit verifizierten Originalen.'},{t:'Echtzeit-Alerts',d:'Sofortige Benachrichtigung bei Deepfakes.'},{t:'Reporting',d:'Detaillierte Analyse-Reports.'}]},
+chain: {title:'RealSync Chain',desc:'Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung f\u00fcr unf\u00e4lschbaren Nachweis.',features:[{t:'Timestamping',d:'Unver\u00e4nderlicher Zeitstempel auf der Blockchain.'},{t:'Registrierung',d:'Dezentrale Urheberrechts-Dokumentation.'},{t:'Verifizierung',d:'\u00d6ffentlich pr\u00fcfbare Nachweise.'},{t:'Export',d:'Zertifikate f\u00fcr rechtliche Zwecke.'}]},
+analytics: {title:'RealSync Analytics',desc:'Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.',features:[{t:'Cross-Plattform',d:'Alle Metriken an einem Ort.'},{t:'Audience-Insights',d:'Verstehe deine Zielgruppe besser.'},{t:'Custom Reports',d:'Individuelle Dashboard-Konfiguration.'},{t:'Export',d:'Daten-Export in allen g\u00e4ngigen Formaten.'}]},
+design: {title:'RealSync Design',desc:'KI-Design-Tools f\u00fcr Thumbnails, Cover-Art und Brand-Kits.',features:[{t:'KI-Thumbnails',d:'Automatisch optimierte Vorschaubilder.'},{t:'Cover-Art',d:'Professionelle Designs per Klick.'},{t:'Brand-Kit',d:'Einheitliches Branding.'},{t:'Templates',d:'Hunderte professionelle Vorlagen.'}]},
+monetize: {title:'RealSync Monetize',desc:'Einnahmen-Management mit Stripe-Integration und automatischen Creator-Payouts.',features:[{t:'Stripe',d:'PCI-konforme Zahlungsabwicklung.'},{t:'Abo-Modelle',d:'Flexible Preisgestaltung.'},{t:'Payouts',d:'Automatische Auszahlungen.'},{t:'Revenue-Dashboard',d:'\u00dcbersicht aller Einnahmen.'}]},
+outreach: {title:'RealSync Outreach',desc:'KI-gest\u00fctztes E-Mail-Marketing und Brand-Collaboration-Management.',features:[{t:'E-Mail-Marketing',d:'KI-optimierte Kampagnen.'},{t:'Brand-Matching',d:'Passende Kooperationspartner finden.'},{t:'Templates',d:'Professionelle E-Mail-Vorlagen.'},{t:'Tracking',d:'\u00d6ffnungs- und Klickraten.'}]},
+connect: {title:'RealSync Connect',desc:'Multi-Plattform-API-Hub f\u00fcr alle gro\u00dfen Social-Media-Plattformen.',features:[{t:'YouTube API',d:'Volle YouTube-Integration.'},{t:'TikTok API',d:'TikTok-Management.'},{t:'Instagram API',d:'Instagram-Automatisierung.'},{t:'LinkedIn API',d:'B2B-Content-Management.'}]},
+planner: {title:'RealSync Planner',desc:'Content-Kalender mit KI-Scheduling und Trend-Vorhersage.',features:[{t:'KI-Scheduling',d:'Optimale Posting-Zeiten.'},{t:'Trend-Analyse',d:'Fr\u00fchzeitige Trend-Erkennung.'},{t:'Kalender',d:'Visuelle Content-Planung.'},{t:'Team-Features',d:'Kollaboratives Arbeiten.'}]},
+sites: {title:'RealSync Sites',desc:'Landing-Page-Builder mit SEO-Optimierung und Custom Domains.',features:[{t:'Drag & Drop',d:'Visueller Page-Builder.'},{t:'SEO',d:'Automatische Optimierung.'},{t:'Custom Domains',d:'Eigene Domain verbinden.'},{t:'Analytics',d:'Besucher-Tracking.'}]},
+ads: {title:'RealSync Ads',desc:'KI-optimierte Werbekampagnen mit automatischem A/B-Testing.',features:[{t:'KI-Optimierung',d:'Automatische Kampagnen-Anpassung.'},{t:'A/B-Testing',d:'Datengetriebene Entscheidungen.'},{t:'Multi-Channel',d:'Werbung \u00fcber alle Kan\u00e4le.'},{t:'Budget-Management',d:'Intelligente Budgetverteilung.'}]},
+vault: {title:'RealSync Vault',desc:'Verschl\u00fcsselter Cloud-Speicher f\u00fcr Assets mit Versionierung.',features:[{t:'Verschl\u00fcsselung',d:'Ende-zu-Ende-Verschl\u00fcsselung.'},{t:'Versionierung',d:'Alle \u00c4nderungen nachvollziehbar.'},{t:'Sharing',d:'Sichere Team-Freigaben.'},{t:'Backup',d:'Automatische Sicherungen.'}]},
+aiwriter: {title:'RealSync AI Writer',desc:'KI-Textgenerierung f\u00fcr Skripte, Beschreibungen und Social-Media-Posts.',features:[{t:'Skript-Generator',d:'Video-Skripte per KI.'},{t:'Beschreibungen',d:'SEO-optimierte Texte.'},{t:'Social Posts',d:'Plattform-optimierte Beitr\u00e4ge.'},{t:'Mehrsprachig',d:'Texte in 30+ Sprachen.'}]},
+clips: {title:'RealSync Clips',desc:'Automatische Highlight-Clips aus Langform-Videos.',features:[{t:'KI-Erkennung',d:'Automatische Highlight-Erkennung.'},{t:'Multi-Format',d:'Clips f\u00fcr alle Plattformen.'},{t:'Batch-Processing',d:'Mehrere Videos gleichzeitig.'},{t:'Custom Branding',d:'Eigenes Logo und Farben.'}]},
+mobile: {title:'RealSync Mobile',desc:'Native iOS/Android-App \u2014 alle Tools in der Tasche.',features:[{t:'iOS & Android',d:'Native Performance.'},{t:'Offline-Modus',d:'Arbeiten ohne Internet.'},{t:'Push-Benachrichtigungen',d:'Echtzeit-Updates.'},{t:'Kamera-Integration',d:'Direkt aufnehmen und bearbeiten.'}]},
+audio: {title:'RealSync Audio',desc:'Podcast-Produktion mit KI-Transkription und Distribution.',features:[{t:'KI-Transkription',d:'Automatische Verschriftlichung.'},{t:'Noise-Cancelling',d:'KI-Rauschunterdr\u00fcckung.'},{t:'Distribution',d:'Automatische Ver\u00f6ffentlichung.'},{t:'Editing',d:'Professioneller Audio-Editor.'}]},
+security: {title:'RealSync Sicherheit',desc:'Enterprise-Sicherheit mit 2FA, SSO und Zugriffskontrolle.',features:[{t:'2FA',d:'Zwei-Faktor-Authentifizierung.'},{t:'SSO',d:'Single Sign-On Integration.'},{t:'Rollen',d:'Granulare Zugriffskontrolle.'},{t:'Audit-Log',d:'L\u00fcckenlose Protokollierung.'}]}
+};
+
+function filterApps(status){
+document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+event.target.closest('.cat-btn').classList.add('active');
+document.querySelectorAll('.app-card').forEach(c=>{
+if(status==='all'||c.dataset.status===status){c.style.display='flex'}else{c.style.display='none'}
+});
+}
+
+function openApp(id){
+const app=appData[id];if(!app)return;
+document.getElementById('overlayTitle').textContent=app.title;
+document.getElementById('overlayDesc').textContent=app.desc;
+const f=document.getElementById('overlayFeatures');
+f.innerHTML=app.features.map(x=>'<div class="app-feature"><h4>'+x.t+'</h4><p>'+x.d+'</p></div>').join('');
+document.getElementById('appOverlay').classList.add('active');
+document.body.style.overflow='hidden';
+}
+
+function closeApp(){
+document.getElementById('appOverlay').classList.remove('active');
+document.body.style.overflow='';
+}
+
+document.getElementById('appOverlay').addEventListener('click',function(e){
+if(e.target===this)closeApp();
+});
+</script>
 </body>
 </html>
