@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutzerklärung · RealSync Dynamics</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://realsyncdynamics-website.vercel.app/datenschutz">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#D4AF37;--black:#0a0a0a;--white:#f5f5f5;--grey:#888;}
+body{background:var(--black);color:var(--white);font-family:'DM Mono',monospace,'Courier New',monospace;min-height:100vh;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;border-bottom:1px solid rgba(212,175,55,0.15);position:sticky;top:0;background:rgba(10,10,10,0.95);backdrop-filter:blur(10px);z-index:100;}
+.nav-brand{font-size:0.75rem;letter-spacing:0.15em;color:var(--gold);text-decoration:none;font-weight:700;}
+.nav-back{font-size:0.72rem;color:var(--grey);text-decoration:none;letter-spacing:0.08em;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+main{max-width:760px;margin:0 auto;padding:4rem 2rem 6rem;}
+.label{font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:1.5rem;}
+h1{font-size:2rem;font-weight:700;margin-bottom:0.5rem;letter-spacing:-0.02em;}
+.subtitle{font-size:0.8rem;color:var(--grey);margin-bottom:3rem;}
+section{margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+section:last-child{border-bottom:none;}
+h2{font-size:0.7rem;letter-spacing:0.15em;color:var(--gold);margin-bottom:1.25rem;}
+p,li{font-size:0.85rem;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:0.75rem;}
+ul{padding-left:1.5rem;margin-bottom:0.75rem;}
+strong{color:var(--white);}
+a{color:var(--gold);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.highlight-box{border:1px solid rgba(212,175,55,0.25);border-radius:8px;padding:1.25rem 1.5rem;background:rgba(212,175,55,0.04);margin:1rem 0;}
+.highlight-box p{margin-bottom:0;}
+footer{text-align:center;padding:2rem;font-size:0.7rem;color:var(--grey);border-top:1px solid rgba(255,255,255,0.06);}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-brand">REALSYNC DYNAMICS · DIGITAL INFRASTRUCTURE</a>
+  <a href="/" class="nav-back">← Zurück zur Hauptseite</a>
+</nav>
+<main>
+  <div class="label">DATENSCHUTZ · DSGVO-KONFORM</div>
+  <h1>Datenschutzerklärung</h1>
+  <p class="subtitle">Gemäß DSGVO Art. 13, 14 · Stand: März 2026</p>
+
+  <div class="highlight-box">
+    <p><strong>Kurzfassung:</strong> Wir verarbeiten nur die Daten, die unbedingt nötig sind. Kein Tracking ohne Einwilligung. Keine Weitergabe an Dritte. Daten werden auf EU-Servern gespeichert. Du kannst jederzeit Auskunft, Löschung oder Widerruf verlangen.</p>
+  </div>
+
+  <section>
+    <h2>1. VERANTWORTLICHER</h2>
+    <p><strong>RealSync Dynamics</strong><br>Inhaber: Dominik Steiner<br>Schwarzburger Str. 31, 98724 Neuhaus am Rennweg<br>Thüringen, Deutschland</p>
+    <p>E-Mail Datenschutz: <a href="mailto:datenschutz@realsyncdynamics.de">datenschutz@realsyncdynamics.de</a></p>
+  </section>
+
+  <section>
+    <h2>2. RECHTSGRUNDLAGEN</h2>
+    <ul>
+      <li><strong>Art. 6(1)(a) DSGVO</strong> — Einwilligung (Kontaktformular, Newsletter)</li>
+      <li><strong>Art. 6(1)(b) DSGVO</strong> — Vertragserfüllung (Account, Billing)</li>
+      <li><strong>Art. 6(1)(c) DSGVO</strong> — Rechtliche Verpflichtung (Buchführung)</li>
+      <li><strong>Art. 6(1)(f) DSGVO</strong> — Berechtigtes Interesse (Sicherheit, Betrug)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. ERHOBENE DATEN</h2>
+    <p><strong>Automatisch bei jedem Besuch:</strong></p>
+    <ul>
+      <li>IP-Adresse (anonymisiert nach 7 Tagen)</li>
+      <li>Browser-Typ, Betriebssystem, Referrer-URL</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+    </ul>
+    <p><strong>Bei Registrierung / Account:</strong></p>
+    <ul>
+      <li>E-Mail-Adresse, gewähltes Passwort (gehasht)</li>
+      <li>Benutzername, Profilbild (optional)</li>
+      <li>Zahlungsdaten (verarbeitet durch Stripe, nicht bei uns gespeichert)</li>
+    </ul>
+    <p><strong>Bei Nutzung von CreatorSeal:</strong></p>
+    <ul>
+      <li>Hochgeladene Inhalte (verschlüsselt gespeichert)</li>
+      <li>Kryptografische Signaturen (Ed25519 Public Keys)</li>
+      <li>C2PA-Manifest-Metadaten</li>
+      <li>Blockchain-Transaktions-IDs (public, on-chain)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. AUFTRAGSVERARBEITER (ART. 28 DSGVO)</h2>
+    <ul>
+      <li><strong>Vercel Inc.</strong> (USA) — Hosting &amp; CDN · SCCs abgeschlossen</li>
+      <li><strong>Supabase Inc.</strong> (USA/EU) — Datenbank &amp; Auth · EU-Region gewählt</li>
+      <li><strong>Stripe Inc.</strong> (USA) — Zahlungsabwicklung · PCI-DSS zertifiziert</li>
+      <li><strong>Polygon/Alchemy</strong> — Blockchain-Timestamping · Public Ledger</li>
+      <li><strong>Cloudflare Inc.</strong> (USA) — CDN &amp; DDoS-Schutz · SCCs</li>
+    </ul>
+    <p>Mit allen Auftragsverarbeitern bestehen Datenverarbeitungsverträge (AVV) gemäß Art. 28 DSGVO.</p>
+  </section>
+
+  <section>
+    <h2>5. SPEICHERDAUER</h2>
+    <ul>
+      <li>Account-Daten: bis zur Löschung des Accounts</li>
+      <li>Rechnungen &amp; Zahlungsbelege: 10 Jahre (gesetzliche Aufbewahrungspflicht)</li>
+      <li>Server-Logs: 7 Tage, dann automatische Löschung</li>
+      <li>Kontaktformular: 6 Monate nach Bearbeitung</li>
+      <li>Blockchain-Einträge: permanent (dezentral, technisch nicht löschbar)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. DEINE RECHTE (ART. 15–22 DSGVO)</h2>
+    <ul>
+      <li><strong>Auskunft</strong> — Art. 15 DSGVO: Welche Daten wir über dich haben</li>
+      <li><strong>Berichtigung</strong> — Art. 16 DSGVO: Korrektur falscher Daten</li>
+      <li><strong>Löschung</strong> — Art. 17 DSGVO: &quot;Recht auf Vergessenwerden&quot;</li>
+      <li><strong>Einschränkung</strong> — Art. 18 DSGVO: Verarbeitungsbeschränkung</li>
+      <li><strong>Datenübertragbarkeit</strong> — Art. 20 DSGVO: Export in maschinenlesbarem Format</li>
+      <li><strong>Widerspruch</strong> — Art. 21 DSGVO: Gegen Direktwerbung jederzeit</li>
+      <li><strong>Widerruf</strong> — Art. 7(3) DSGVO: Einwilligung jederzeit ohne Nachteile</li>
+    </ul>
+    <p>Anfragen an: <a href="mailto:datenschutz@realsyncdynamics.de">datenschutz@realsyncdynamics.de</a><br>Wir antworten innerhalb von 30 Tagen (gesetzliche Frist).</p>
+  </section>
+
+  <section>
+    <h2>7. BESCHWERDE</h2>
+    <p>Du hast das Recht, eine Beschwerde bei der zuständigen Datenschutzaufsichtsbehörde einzureichen:</p>
+    <p><strong>Thüringer Landesbeauftragter für den Datenschutz und die Informationsfreiheit</strong><br>Postfach 90 04 55, 99107 Erfurt · <a href="https://www.tlfdi.de" target="_blank">www.tlfdi.de</a></p>
+  </section>
+
+  <section>
+    <h2>WEITERE DOKUMENTE</h2>
+    <p><a href="/impressum">→ Impressum (§ 5 TMG)</a></p>
+    <p><a href="/agb">→ Allgemeine Geschäftsbedingungen</a></p>
+    <p><a href="/">→ Zurück zur Hauptseite</a></p>
+  </section>
+</main>
+<footer>
+  © 2026 RealSync Dynamics · Einzelunternehmen · Neuhaus am Rennweg · Thüringen · Deutschland
+</footer>
+</body>
+</html>
