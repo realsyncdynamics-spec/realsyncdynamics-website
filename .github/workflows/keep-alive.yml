@@ -11,8 +11,17 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          curl -sf -o /dev/null \
-            'https://oipyyzwobkcuhihpqmoj.supabase.co/rest/v1/' \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            && echo "Ping OK" || echo "Ping failed"
+          for i in 1 2 3; do
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+              'https://oipyyzwobkcuhihpqmoj.supabase.co/rest/v1/' \
+              -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+              -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+            echo "Attempt $i: HTTP $HTTP_STATUS"
+            if [ "$HTTP_STATUS" -eq 200 ]; then
+              echo "Ping OK"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Ping failed after 3 attempts"
+          exit 1
