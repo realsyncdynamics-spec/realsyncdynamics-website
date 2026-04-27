@@ -1,536 +1,1012 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RealSync Creator OS — Das Betriebssystem für Content Creator</title>
-<meta name="description" content="RealSync Creator OS: Kryptografische Content-Verifikation, KI-Automation und Creator-Tools. C2PA 2.3, Ed25519-Signaturen, Deepfake-Erkennung. Made in Germany.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0a'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%2300e5a0' font-size='18' font-family='monospace' font-weight='bold'>R</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#050505;--bg2:#0a0a0a;--bg3:#111;--bd:#1a1a1a;--bd2:#222;
---txt:#e0e0e0;--sub:#888;--dim:#555;
---cyan:#00e5a0;--gold:#c9a84c;--perp:#8b5cf6;--perp2:#a78bfa;
---font:'Syne',sans-serif;--mono:'DM Mono',monospace
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6}
-a{color:var(--cyan);text-decoration:none}a:hover{opacity:.85}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RealSyncDynamics — Video-Verifikation & Trust Layer für Creator-Plattformen</title>
+<meta name="description" content="RealSyncDynamics ist die Video-Trust-Layer-Infrastruktur für Creator-Plattformen: nachweisbare Herkunft, Manipulationsprüfung, Rechte-Workflows und API-first Integration. Made in Germany." />
+<meta name="theme-color" content="#0d6b61" />
+<meta name="author" content="RealSyncDynamics" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://www.realsyncdynamics.de/" />
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);background:rgba(5,5,5,.85);border-bottom:1px solid var(--bd)}
-.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:800;font-size:1.1rem;letter-spacing:-.02em}
-.logo span{color:var(--cyan)}
-.nav-links{display:flex;gap:2rem;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.nav-links a{color:var(--sub);transition:color .2s}
-.nav-links a:hover{color:var(--cyan)}
-.nav-cta{background:var(--cyan);color:#000;padding:.5rem 1.2rem;border-radius:4px;font-weight:700;font-size:.8rem;letter-spacing:.05em;transition:all .2s}
-.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="RealSyncDynamics — Video-Verifikation & Trust Layer für Creator-Plattformen" />
+<meta property="og:description" content="Verifiziere Videos, sichere Content-Rechte und mache Creator-Plattformen vertrauenswürdiger. Trust Layer mit Ed25519, C2PA 2.3 und Audit-Trail." />
+<meta property="og:url" content="https://www.realsyncdynamics.de/" />
+<meta property="og:locale" content="de_DE" />
+<meta property="og:site_name" content="RealSyncDynamics" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="RealSyncDynamics — Video-Verifikation & Trust Layer" />
+<meta name="twitter:description" content="Trust-Layer-Infrastruktur für Creator-Plattformen: Identität, Integrität und Rechte in einem prüfbaren Status." />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect width='48' height='48' rx='10' fill='%230d6b61'/><path d='M16 25.5L22 31L33 17' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>" />
+
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "RealSyncDynamics",
+  "url": "https://www.realsyncdynamics.de/",
+  "email": "realsyncdynamics@gmail.com",
+  "description": "Video-Verifikation und Content-Security für Creator-Plattformen, Marken und SaaS-Teams.",
+  "areaServed": "EU"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RealSyncDynamics Trust Layer",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Web",
+  "description": "Video-Verifikation, Identitäts- und Rechte-Workflow für Creator-Plattformen — API-first und Audit-ready.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
+  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-3xl:clamp(2.55rem,1.2rem + 4.6vw,5.9rem);
+
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-14:3.5rem;
+  --space-16:4rem;--space-20:5rem;--space-24:6rem;--space-32:8rem;
+
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--radius-2xl:1.5rem;--radius-full:9999px;
+  --transition-interactive:180ms cubic-bezier(.16,1,.3,1);
+
+  --content-narrow:680px;--content-default:980px;--content-wide:1180px;
+
+  --font-display:'Cabinet Grotesk','Inter',sans-serif;
+  --font-body:'Satoshi','Inter',sans-serif;
+}
+
+:root,[data-theme='light']{
+  --color-bg:#f4f3ee;
+  --color-surface:#fbfaf6;
+  --color-surface-2:#ffffff;
+  --color-surface-offset:#ebe8de;
+  --color-divider:#d9d5ca;
+  --color-border:#cfcabd;
+  --color-text:#171b1b;
+  --color-text-muted:#626a69;
+  --color-text-faint:#9a9f9b;
+  --color-text-inverse:#f8fbf8;
+  --color-primary:#0d6b61;
+  --color-primary-hover:#084f49;
+  --color-primary-active:#063d39;
+  --color-primary-highlight:#d8ebe5;
+  --color-ink:#172323;
+  --color-signal:#bd6b2f;
+  --color-success:#2d7a4a;
+  --shadow-sm:0 1px 2px oklch(.25 .02 160 / .06);
+  --shadow-md:0 5px 18px oklch(.25 .02 160 / .08);
+  --shadow-lg:0 18px 48px oklch(.25 .02 160 / .12);
+}
+
+[data-theme='dark']{
+  --color-bg:#0d1111;
+  --color-surface:#121818;
+  --color-surface-2:#172020;
+  --color-surface-offset:#1b2423;
+  --color-divider:#25302f;
+  --color-border:#33413f;
+  --color-text:#e2e8e4;
+  --color-text-muted:#a4aca8;
+  --color-text-faint:#68716f;
+  --color-text-inverse:#0c1111;
+  --color-primary:#5fc1b4;
+  --color-primary-hover:#7dd8cd;
+  --color-primary-active:#a6eee5;
+  --color-primary-highlight:#193331;
+  --color-ink:#e7efea;
+  --color-signal:#d58a51;
+  --color-success:#72c992;
+  --shadow-sm:0 1px 2px oklch(0 0 0 / .22);
+  --shadow-md:0 8px 24px oklch(0 0 0 / .34);
+  --shadow-lg:0 22px 54px oklch(0 0 0 / .44);
+}
+
+html{
+  -moz-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;scroll-behavior:smooth;
+  scroll-padding-top:var(--space-20);
+}
+body{
+  min-height:100dvh;line-height:1.6;font-family:var(--font-body,sans-serif);font-size:var(--text-base);
+  color:var(--color-text);background-color:var(--color-bg);overflow-x:hidden;
+}
+img,picture,video,canvas,svg{display:block;max-width:100%;height:auto}
+input,button,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+h1,h2,h3,h4,h5,h6{text-wrap:balance;line-height:1.05}
+p,li,figcaption{text-wrap:pretty;max-width:72ch}
+a{color:inherit;text-decoration:none}
+::selection{background:color-mix(in oklab,var(--color-primary) 28%,transparent);color:var(--color-text)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+
+a,button,[role='button'],[role='link'],input,textarea,select{
+  transition:color var(--transition-interactive),background var(--transition-interactive),
+    border-color var(--transition-interactive),box-shadow var(--transition-interactive),transform var(--transition-interactive);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+.skip-link{
+  position:fixed;inset:var(--space-4) auto auto var(--space-4);z-index:100;
+  padding:var(--space-3) var(--space-4);background:var(--color-text);color:var(--color-text-inverse);
+  border-radius:var(--radius-full);transform:translateY(-150%);
+}
+.skip-link:focus{transform:translateY(0)}
+
+.site-shell{position:relative;isolation:isolate}
+.site-shell::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 10%,color-mix(in oklab,var(--color-primary) 18%,transparent),transparent 28rem),
+    radial-gradient(circle at 82% 2%,color-mix(in oklab,var(--color-signal) 12%,transparent),transparent 24rem),
+    linear-gradient(180deg,var(--color-bg),var(--color-surface-offset));
+}
+.site-shell::after{
+  content:'';position:fixed;inset:0;z-index:-1;opacity:.28;pointer-events:none;
+  background-image:
+    linear-gradient(color-mix(in oklab,var(--color-text) 5%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in oklab,var(--color-text) 5%,transparent) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,black 0%,transparent 58%);
+}
+
+.container{width:min(var(--content-wide),calc(100% - var(--space-8)));margin-inline:auto}
+
+/* HEADER */
+.header{
+  position:sticky;top:0;z-index:50;
+  border-bottom:1px solid color-mix(in oklab,var(--color-text) 10%,transparent);
+  background:color-mix(in oklab,var(--color-bg) 88%,transparent);
+  backdrop-filter:blur(18px);
+}
+.header__inner{display:flex;align-items:center;justify-content:space-between;min-height:76px;gap:var(--space-4)}
+.brand{display:inline-flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);font-weight:700;letter-spacing:-.02em}
+.brand__mark{width:36px;height:36px;color:var(--color-primary)}
+.brand__text{display:flex;flex-direction:column;line-height:1.05}
+.brand__text span:last-child{color:var(--color-text-muted);font-size:var(--text-xs);font-weight:500;letter-spacing:.02em}
+
+.nav{display:flex;align-items:center;gap:var(--space-6);font-size:var(--text-sm);color:var(--color-text-muted)}
+.nav a:hover{color:var(--color-text)}
+
+.header__actions{display:flex;align-items:center;gap:var(--space-2)}
+.icon-button,.menu-button{
+  display:grid;place-items:center;width:44px;height:44px;
+  border:1px solid color-mix(in oklab,var(--color-text) 12%,transparent);
+  border-radius:var(--radius-full);
+  background:color-mix(in oklab,var(--color-surface) 84%,transparent);
+  color:var(--color-text);
+}
+.menu-button{display:none}
+
+.button{
+  display:inline-flex;align-items:center;justify-content:center;min-height:46px;
+  padding:var(--space-3) var(--space-5);border:1px solid transparent;border-radius:var(--radius-full);
+  font-size:var(--text-sm);font-weight:700;letter-spacing:-.01em;
+}
+.button--primary{background:var(--color-primary);color:var(--color-text-inverse);box-shadow:var(--shadow-md)}
+.button--primary:hover{background:var(--color-primary-hover);transform:translateY(-1px)}
+.button--secondary{
+  background:color-mix(in oklab,var(--color-surface) 86%,transparent);
+  border-color:color-mix(in oklab,var(--color-text) 12%,transparent);
+  color:var(--color-text);
+}
+.button--secondary:hover{border-color:color-mix(in oklab,var(--color-primary) 50%,transparent)}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(0,229,160,.06) 0%,transparent 60%);pointer-events:none}
-.hero-inner{max-width:1400px;margin:0 auto;width:100%}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid var(--bd2);border-radius:100px;font-family:var(--mono);font-size:.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.15em;margin-bottom:2rem}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1.hero-title{font-size:clamp(3rem,8vw,6.5rem);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:1.5rem}
-h1.hero-title .accent{color:var(--cyan)}
-h1.hero-title .gold{color:var(--gold)}
-.hero-sub{font-size:1.15rem;color:var(--sub);max-width:650px;line-height:1.7;margin-bottom:2.5rem}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{background:var(--cyan);color:#000;padding:.85rem 2rem;border-radius:4px;font-weight:700;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;border:none;cursor:pointer}
-.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
-.btn-secondary{border:1px solid var(--bd2);color:var(--txt);padding:.85rem 2rem;border-radius:4px;font-weight:600;font-size:.85rem;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;background:transparent}
-.btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero{padding-block:clamp(var(--space-16),11vw,var(--space-32)) var(--space-20)}
+.hero__grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:clamp(var(--space-10),7vw,var(--space-20));align-items:center}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);width:fit-content;margin-bottom:var(--space-6);
+  padding:var(--space-2) var(--space-4);
+  border:1px solid color-mix(in oklab,var(--color-primary) 30%,transparent);
+  border-radius:var(--radius-full);
+  background:color-mix(in oklab,var(--color-primary-highlight) 58%,transparent);
+  color:var(--color-primary);font-size:var(--text-xs);font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+}
+.eyebrow::before{
+  content:'';width:8px;height:8px;border-radius:var(--radius-full);background:var(--color-success);
+  box-shadow:0 0 0 6px color-mix(in oklab,var(--color-success) 14%,transparent);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+.hero h1{max-width:13.8ch;font-family:var(--font-display);font-size:var(--text-3xl);font-weight:800;letter-spacing:-.055em;line-height:.96}
+.hero h1 .accent{color:var(--color-primary)}
+.hero__lead{margin-top:var(--space-6);max-width:58ch;color:var(--color-text-muted);font-size:var(--text-lg)}
+.hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-8)}
+.hero__meta{display:flex;flex-wrap:wrap;gap:var(--space-4);margin-top:var(--space-8);color:var(--color-text-muted);font-size:var(--text-sm)}
+.hero__meta strong{color:var(--color-text)}
+
+.proof-card{
+  position:relative;padding:var(--space-5);
+  border:1px solid color-mix(in oklab,var(--color-text) 10%,transparent);
+  border-radius:var(--radius-2xl);
+  background:color-mix(in oklab,var(--color-surface) 82%,transparent);
+  box-shadow:var(--shadow-lg);overflow:hidden;
+}
+.proof-card::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,color-mix(in oklab,var(--color-primary) 13%,transparent),transparent 42%),
+    radial-gradient(circle at 76% 22%,color-mix(in oklab,var(--color-signal) 22%,transparent),transparent 14rem);
+  pointer-events:none;
+}
+
+.verification-panel{position:relative;display:grid;gap:var(--space-4)}
+.video-frame{
+  position:relative;min-height:260px;
+  border-radius:calc(var(--radius-2xl) - var(--space-2));
+  background:linear-gradient(140deg,#182727,#0f1717 55%,#263b37),var(--color-ink);
+  overflow:hidden;
+}
+.video-frame::before,.video-frame::after{
+  content:'';position:absolute;border:1px solid color-mix(in oklab,white 42%,transparent);border-radius:var(--radius-lg);
+}
+.video-frame::before{inset:var(--space-5)}
+.video-frame::after{
+  width:42%;height:38%;right:var(--space-8);bottom:var(--space-8);
+  background:color-mix(in oklab,var(--color-primary) 20%,transparent);
+}
+.scan-line{
+  position:absolute;left:var(--space-5);right:var(--space-5);top:42%;height:2px;
+  background:var(--color-primary);
+  box-shadow:0 0 30px color-mix(in oklab,var(--color-primary) 75%,transparent);
+  animation:scan 3.6s ease-in-out infinite;
+}
+@keyframes scan{0%,100%{top:18%}50%{top:74%}}
+.video-badge{
+  position:absolute;left:var(--space-8);bottom:var(--space-8);display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-3);border-radius:var(--radius-full);
+  background:color-mix(in oklab,white 12%,transparent);color:#ecfff9;font-size:var(--text-xs);font-weight:800;
+  backdrop-filter:blur(12px);
+}
+.video-badge::before{content:'';width:7px;height:7px;border-radius:var(--radius-full);background:#77f0c0}
+
+.audit-list{position:relative;display:grid;gap:var(--space-3)}
+.audit-row{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+  padding:var(--space-4);border-radius:var(--radius-lg);
+  background:color-mix(in oklab,var(--color-surface-2) 84%,transparent);
+  border:1px solid color-mix(in oklab,var(--color-text) 8%,transparent);
+}
+.audit-row span:first-child{color:var(--color-text-muted);font-size:var(--text-sm)}
+.audit-row span:last-child{color:var(--color-success);font-size:var(--text-sm);font-weight:800}
 
 /* SECTIONS */
-section{padding:6rem 2rem}
-.section-inner{max-width:1200px;margin:0 auto}
-.section-label{font-family:var(--mono);font-size:.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.2em;margin-bottom:1rem}
-.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:1rem;line-height:1.1}
-.section-desc{color:var(--sub);max-width:600px;font-size:1rem;line-height:1.7;margin-bottom:3rem}
+.section{padding-block:clamp(3.5rem,8vw,var(--space-24))}
+.section--tight{padding-block:var(--space-16)}
+.section__header{display:grid;grid-template-columns:minmax(0,.9fr) minmax(280px,.75fr);gap:var(--space-8);align-items:end;margin-bottom:var(--space-12)}
+.section__label{display:block;margin-bottom:var(--space-3);color:var(--color-primary);font-size:var(--text-xs);font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.section h2{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:-.045em}
+.section__header p,.section__intro{color:var(--color-text-muted)}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin:4rem 0}
-.stat{background:var(--bg2);padding:2rem;text-align:center}
-.stat-num{font-size:2.5rem;font-weight:800;color:var(--cyan);font-family:var(--mono)}
-.stat-label{font-size:.75rem;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;margin-top:.5rem}
+/* PROBLEM */
+.problem-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:var(--space-5)}
+.problem-card,.feature-card,.step-card,.metric-card,.app-card,.workflow-card,.tech-card{
+  border:1px solid color-mix(in oklab,var(--color-text) 10%,transparent);
+  background:color-mix(in oklab,var(--color-surface) 82%,transparent);
+  border-radius:var(--radius-xl);box-shadow:var(--shadow-sm);
+}
+.problem-card{padding:var(--space-8)}
+.problem-card--large{
+  min-height:360px;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(155deg,color-mix(in oklab,var(--color-primary-highlight) 72%,transparent),transparent),color-mix(in oklab,var(--color-surface) 86%,transparent);
+}
+.problem-stack{display:grid;gap:var(--space-5)}
+.problem-card h3,.feature-card h3,.step-card h3,.app-card h3,.workflow-card h3,.tech-card h3{
+  margin-bottom:var(--space-3);font-size:var(--text-lg);letter-spacing:-.02em;
+}
+.problem-card p,.feature-card p,.step-card p,.metric-card p,.app-card p,.workflow-card p,.tech-card p{color:var(--color-text-muted)}
+.quote{font-family:var(--font-display);font-size:clamp(1.8rem,3.3vw,3.6rem);font-weight:700;letter-spacing:-.05em;line-height:.98;margin-bottom:var(--space-6)}
 
-/* APP CATEGORY BUTTONS */
-.app-categories{display:flex;gap:1rem;margin-bottom:2.5rem;flex-wrap:wrap}
-.cat-btn{padding:.75rem 2rem;border-radius:6px;font-weight:700;font-size:.85rem;letter-spacing:.05em;cursor:pointer;transition:all .3s;border:1px solid var(--bd2);background:var(--bg2);color:var(--sub);text-transform:uppercase}
-.cat-btn:hover{border-color:var(--cyan);color:var(--cyan)}
-.cat-btn.active{background:var(--cyan);color:#000;border-color:var(--cyan)}
-.cat-btn .count{font-family:var(--mono);font-size:.7rem;margin-left:.4rem;opacity:.7}
+/* SYSTEM */
+.feature-layout{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:var(--space-5)}
+.feature-card{padding:var(--space-8)}
+.feature-card--hero{
+  min-height:100%;background:var(--color-ink);color:#f3faf6;overflow:hidden;position:relative;
+}
+.feature-card--hero h3{color:#f3faf6}
+.feature-card--hero p{color:color-mix(in oklab,white 72%,transparent)}
+.feature-card--hero::after{
+  content:'';position:absolute;width:18rem;height:18rem;right:-6rem;bottom:-8rem;border-radius:50%;
+  border:1px solid color-mix(in oklab,white 18%,transparent);
+  box-shadow:inset 0 0 0 38px color-mix(in oklab,var(--color-primary) 18%,transparent);
+}
+.feature-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)}
+.feature-kicker{display:inline-block;margin-bottom:var(--space-6);color:var(--color-primary);font-size:var(--text-xs);font-weight:900;letter-spacing:.1em;text-transform:uppercase}
 
-/* APP GRID - LARGE CARDS */
-.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:1px;background:var(--bd)}
-.app-card{background:var(--bg2);padding:2.5rem;transition:all .3s;position:relative;cursor:pointer;min-height:200px;display:flex;flex-direction:column;justify-content:space-between}
-.app-card:hover{background:var(--bg3);transform:translateY(-2px)}
-.app-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.2rem}
-.app-icon{font-size:2.2rem}
-.app-tag{font-family:var(--mono);font-size:.6rem;padding:.2rem .6rem;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
-.app-tag.live{background:rgba(0,229,160,.15);color:var(--cyan)}
-.app-tag.beta{background:rgba(201,168,76,.15);color:var(--gold)}
-.app-tag.dev{background:rgba(139,92,246,.15);color:var(--perp2)}
-.app-name{font-weight:700;font-size:1.15rem;margin-bottom:.6rem}
-.app-desc{color:var(--sub);font-size:.9rem;line-height:1.6}
-.app-card-footer{display:flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-size:.75rem;color:var(--dim);font-family:var(--mono)}
-.app-card-footer .arrow{color:var(--cyan);transition:transform .3s}
+/* WORKFLOW */
+.workflow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4)}
+.step-card{padding:var(--space-6);min-height:260px}
+.step-number{
+  display:inline-grid;place-items:center;width:40px;height:40px;margin-bottom:var(--space-8);
+  border-radius:var(--radius-full);background:var(--color-primary-highlight);color:var(--color-primary);
+  font-size:var(--text-sm);font-weight:900;
+}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:var(--space-5)}
+.metric-card{padding:var(--space-8)}
+.metric-card strong{display:block;margin-bottom:var(--space-3);font-family:var(--font-display);font-size:var(--text-2xl);letter-spacing:-.04em;line-height:1}
+.metric-card--wide{
+  background:linear-gradient(135deg,color-mix(in oklab,var(--color-primary-highlight) 74%,transparent),transparent),color-mix(in oklab,var(--color-surface) 86%,transparent);
+}
+
+/* APPS GRID */
+.apps-toolbar{display:flex;gap:var(--space-2);margin-bottom:var(--space-8);flex-wrap:wrap}
+.cat-btn{
+  padding:var(--space-2) var(--space-5);border-radius:var(--radius-full);
+  font-weight:700;font-size:var(--text-xs);letter-spacing:.04em;cursor:pointer;
+  border:1px solid color-mix(in oklab,var(--color-text) 12%,transparent);
+  background:color-mix(in oklab,var(--color-surface) 86%,transparent);
+  color:var(--color-text-muted);text-transform:uppercase;
+}
+.cat-btn:hover{border-color:color-mix(in oklab,var(--color-primary) 40%,transparent);color:var(--color-text)}
+.cat-btn.active{background:var(--color-primary);color:var(--color-text-inverse);border-color:var(--color-primary)}
+.cat-btn .count{margin-left:.4rem;opacity:.7}
+
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-4)}
+.app-card{padding:var(--space-6);min-height:180px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
+.app-card:hover{transform:translateY(-2px);border-color:color-mix(in oklab,var(--color-primary) 40%,transparent)}
+.app-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:var(--space-4);gap:var(--space-3)}
+.app-icon{font-size:1.6rem}
+.app-tag{
+  font-size:.65rem;padding:.2rem .55rem;border-radius:var(--radius-full);
+  text-transform:uppercase;letter-spacing:.08em;font-weight:800;
+}
+.app-tag.live{background:color-mix(in oklab,var(--color-primary-highlight) 80%,transparent);color:var(--color-primary)}
+.app-tag.beta{background:color-mix(in oklab,var(--color-signal) 18%,transparent);color:var(--color-signal)}
+.app-tag.dev{background:color-mix(in oklab,var(--color-text) 12%,transparent);color:var(--color-text-muted)}
+.app-card-footer{display:flex;align-items:center;gap:var(--space-2);margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint)}
+.app-card-footer .arrow{color:var(--color-primary);transition:transform .25s}
 .app-card:hover .arrow{transform:translateX(4px)}
 
 /* APP OVERLAY */
-.app-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);z-index:200;display:none;overflow-y:auto;padding:2rem}
+.app-overlay{
+  position:fixed;inset:0;background:color-mix(in oklab,var(--color-ink) 84%,transparent);
+  backdrop-filter:blur(20px);z-index:200;display:none;overflow-y:auto;padding:var(--space-6);
+}
 .app-overlay.active{display:flex;justify-content:center;align-items:flex-start}
-.app-overlay-inner{max-width:900px;width:100%;margin:4rem auto;background:var(--bg2);border:1px solid var(--bd2);border-radius:12px;overflow:hidden}
-.app-overlay-header{padding:2.5rem;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
-.app-overlay-header h2{font-size:1.8rem;font-weight:800}
-.app-overlay-close{width:40px;height:40px;border-radius:8px;border:1px solid var(--bd2);background:transparent;color:var(--sub);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.app-overlay-close:hover{border-color:var(--cyan);color:var(--cyan)}
-.app-overlay-body{padding:2.5rem}
-.app-overlay-desc{color:var(--sub);font-size:1.05rem;line-height:1.8;margin-bottom:2rem}
-.app-features{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
-.app-feature{padding:1.5rem;background:var(--bg3);border-radius:8px;border:1px solid var(--bd)}
-.app-feature h4{font-size:.85rem;font-weight:700;margin-bottom:.4rem;color:var(--cyan)}
-.app-feature p{font-size:.8rem;color:var(--sub);line-height:1.5}
-
-/* WORKFLOWS */
-.workflows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
-.workflow-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:2rem;transition:all .3s}
-.workflow-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
-.workflow-icon{font-size:2rem;margin-bottom:1rem}
-.workflow-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
-.workflow-card p{color:var(--sub);font-size:.85rem;line-height:1.6}
-.workflow-steps{margin-top:1.2rem;display:flex;flex-direction:column;gap:.5rem}
-.workflow-step{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--sub);font-family:var(--mono)}
-.workflow-step .step-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+.app-overlay-inner{
+  max-width:760px;width:100%;margin:var(--space-16) auto;
+  background:var(--color-surface);border:1px solid color-mix(in oklab,var(--color-text) 10%,transparent);
+  border-radius:var(--radius-2xl);overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.app-overlay-header{
+  padding:var(--space-8);border-bottom:1px solid color-mix(in oklab,var(--color-text) 8%,transparent);
+  display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);
+}
+.app-overlay-header h2{font-family:var(--font-display);font-size:var(--text-xl);font-weight:800;letter-spacing:-.03em}
+.app-overlay-close{
+  width:40px;height:40px;border-radius:var(--radius-full);
+  border:1px solid color-mix(in oklab,var(--color-text) 12%,transparent);
+  background:transparent;color:var(--color-text-muted);font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.app-overlay-close:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.app-overlay-body{padding:var(--space-8)}
+.app-overlay-desc{color:var(--color-text-muted);font-size:var(--text-base);line-height:1.7;margin-bottom:var(--space-6)}
+.app-features{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-4)}
+.app-feature{
+  padding:var(--space-5);border-radius:var(--radius-lg);
+  background:color-mix(in oklab,var(--color-surface-2) 84%,transparent);
+  border:1px solid color-mix(in oklab,var(--color-text) 8%,transparent);
+}
+.app-feature h4{font-size:var(--text-sm);font-weight:800;margin-bottom:var(--space-2);color:var(--color-primary)}
+.app-feature p{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.55}
 
 /* TECH */
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
-.tech-item{background:var(--bg2);padding:2rem}
-.tech-item h3{font-family:var(--mono);font-size:.85rem;color:var(--cyan);margin-bottom:.5rem}
-.tech-item p{color:var(--sub);font-size:.85rem;line-height:1.6}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.tech-card{padding:var(--space-6)}
+.tech-card h3{color:var(--color-primary);font-family:var(--font-display);font-size:var(--text-lg)}
 
 /* ROADMAP */
-.rm-item{display:flex;gap:2rem;padding:1.5rem 0;border-bottom:1px solid var(--bd)}
-.rm-q{font-family:var(--mono);font-size:.8rem;color:var(--cyan);min-width:80px;text-transform:uppercase}
-.rm-content h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
-.rm-content p{color:var(--sub);font-size:.85rem}
+.roadmap{display:grid;gap:var(--space-3)}
+.rm-item{
+  display:grid;grid-template-columns:120px 1fr;gap:var(--space-6);align-items:start;
+  padding:var(--space-5) var(--space-6);
+  border:1px solid color-mix(in oklab,var(--color-text) 8%,transparent);
+  border-radius:var(--radius-lg);
+  background:color-mix(in oklab,var(--color-surface) 60%,transparent);
+}
+.rm-q{font-weight:900;font-size:var(--text-xs);color:var(--color-primary);letter-spacing:.1em;text-transform:uppercase}
+.rm-content h3{font-size:var(--text-base);font-weight:800;margin-bottom:var(--space-2);letter-spacing:-.01em}
+.rm-content p{color:var(--color-text-muted);font-size:var(--text-sm)}
+
+/* CTA */
+.cta{padding-block:var(--space-20)}
+.cta__box{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-8);align-items:center;
+  padding:clamp(var(--space-8),6vw,var(--space-16));
+  border-radius:var(--radius-2xl);background:var(--color-ink);color:#f4fbf7;
+  box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+}
+.cta__box::after{
+  content:'';position:absolute;width:26rem;height:26rem;right:-10rem;top:-12rem;border-radius:50%;
+  background:color-mix(in oklab,var(--color-primary) 30%,transparent);
+}
+.cta__content,.cta__actions{position:relative;z-index:1}
+.cta h2{max-width:14ch;font-family:var(--font-display);font-size:var(--text-2xl);font-weight:800;letter-spacing:-.05em}
+.cta p{margin-top:var(--space-4);color:color-mix(in oklab,white 72%,transparent);max-width:54ch}
+.cta__actions{display:flex;flex-direction:column;gap:var(--space-3);min-width:230px}
+.cta .button--secondary{color:#f4fbf7;background:color-mix(in oklab,white 10%,transparent);border-color:color-mix(in oklab,white 18%,transparent)}
+.cta .button--secondary:hover{border-color:color-mix(in oklab,white 38%,transparent)}
+.cta__email{margin-top:var(--space-5);font-size:var(--text-sm);color:color-mix(in oklab,white 72%,transparent)}
+.cta__email a{color:#f4fbf7;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 
 /* FOOTER */
-footer{border-top:1px solid var(--bd);padding:3rem 2rem}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-links{display:flex;gap:1.5rem;font-size:.8rem}
-.footer-links a{color:var(--sub)}footer .footer-links a:hover{color:var(--cyan)}
-.footer-copy{font-size:.75rem;color:var(--dim);font-family:var(--mono)}
+.footer{
+  padding-block:var(--space-10);
+  border-top:1px solid color-mix(in oklab,var(--color-text) 10%,transparent);
+  color:var(--color-text-muted);font-size:var(--text-sm);
+}
+.footer__inner{display:flex;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;align-items:center}
+.footer a{color:var(--color-text);font-weight:700}
+.footer-links{display:flex;gap:var(--space-5);flex-wrap:wrap}
 
 /* RESPONSIVE */
-@media(max-width:768px){
-.nav-links{display:none}
-.stats{grid-template-columns:repeat(2,1fr)}
-.tech-grid{grid-template-columns:1fr}
-.apps-grid{grid-template-columns:1fr}
-.app-features{grid-template-columns:1fr}
-.footer-inner{flex-direction:column;text-align:center}
-.rm-item{flex-direction:column;gap:.5rem}
-.workflows-grid{grid-template-columns:1fr}
+@media (max-width:940px){
+  .hero__grid,.section__header,.problem-grid,.feature-layout,.metrics,.cta__box{grid-template-columns:1fr}
+  .workflow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cta__actions{min-width:0;flex-direction:row;flex-wrap:wrap}
+  .tech-grid{grid-template-columns:repeat(2,1fr)}
+  .rm-item{grid-template-columns:1fr;gap:var(--space-2)}
+  .app-features{grid-template-columns:1fr}
+}
+
+@media (max-width:760px){
+  .container{width:min(100% - var(--space-6),var(--content-wide))}
+  .nav{
+    position:fixed;inset:76px var(--space-3) auto var(--space-3);display:none;
+    padding:var(--space-4);
+    border:1px solid color-mix(in oklab,var(--color-text) 12%,transparent);
+    border-radius:var(--radius-xl);background:var(--color-surface);box-shadow:var(--shadow-lg);
+  }
+  .nav[data-open='true']{display:grid;gap:var(--space-2)}
+  .nav a{padding:var(--space-3)}
+  .menu-button{display:grid}
+  .header .button{display:none}
+  .brand__text span:last-child{display:none}
+  .hero{padding-block-start:var(--space-12)}
+  .hero h1{max-width:11.2ch}
+  .hero__actions,.cta__actions{flex-direction:column}
+  .button{width:100%}
+  .feature-list,.workflow,.tech-grid{grid-template-columns:1fr}
+  .step-card{min-height:auto}
+  .video-frame{min-height:220px}
 }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Direkt zum Inhalt</a>
+<div class="site-shell">
 
-<!-- NAV -->
-<nav class="nav">
-<div class="nav-inner">
-<div class="logo">REAL<span>SYNC</span> DYNAMICS</div>
-<div class="nav-links">
-<a href="#apps">Apps</a>
-<a href="#workflows">Workflows</a>
-<a href="#tech">Technologie</a>
-<a href="#roadmap">Roadmap</a>
-<a href="/partnership.html">Partner</a>
-<a href="/impressum.html">Kontakt</a>
-</div>
-<a href="#apps" class="nav-cta">Creator OS starten</a>
-</div>
-</nav>
+<!-- HEADER -->
+<header class="header">
+  <div class="container header__inner">
+    <a class="brand" href="#top" aria-label="RealSyncDynamics Startseite">
+      <svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="7" y="7" width="34" height="34" rx="10" stroke="currentColor" stroke-width="3"/>
+        <path d="M16 25.5L22 31L33 17" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 13H21M27 35H35" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="brand__text">
+        <span>RealSyncDynamics</span>
+        <span>Video Trust Layer</span>
+      </span>
+    </a>
+
+    <nav class="nav" data-nav aria-label="Hauptnavigation">
+      <a href="#problem">Problem</a>
+      <a href="#system">System</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#apps">Apps</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <div class="header__actions">
+      <button class="icon-button" type="button" data-theme-toggle aria-label="Farbschema wechseln"></button>
+      <button class="menu-button" type="button" data-menu-button aria-label="Navigation öffnen" aria-expanded="false">
+        <svg aria-hidden="true" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a class="button button--primary" href="mailto:realsyncdynamics@gmail.com?subject=RealSyncDynamics%20Demo">Demo anfragen</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
 
 <!-- HERO -->
-<section class="hero">
-<div class="hero-inner">
-<div class="hero-badge"><span class="dot"></span>Creator OS — Live 2025</div>
-<h1 class="hero-title">Das<br><span class="accent">Betriebssystem</span><br>für Content<br><span class="gold">Creator.</span></h1>
-<p class="hero-sub">Kryptografische Content-Verifikation, KI-Automation und Creator-Tools — alles in einer Plattform. Ed25519-Signaturen, C2PA 2.3, Deepfake-Erkennung und Blockchain-Timestamping für digitale Urheberschaft. Made in Germany.</p>
-<div class="hero-actions">
-<a href="#apps" class="btn-primary">Ökosystem entdecken</a>
-<a href="#tech" class="btn-secondary">Architektur ansehen</a>
-</div>
-</div>
+<section class="hero" id="top">
+  <div class="container hero__grid">
+    <div>
+      <span class="eyebrow">Creator-Content absichern</span>
+      <h1>Video-Trust für Plattformen, die <span class="accent">Echtheit</span> beweisen müssen.</h1>
+      <p class="hero__lead">
+        RealSyncDynamics ist die Sicherheits- und Verifikationsschicht für Creator-Videos:
+        nachweisbare Herkunft, Manipulationsprüfung und klare Freigabeprozesse für Plattformen,
+        Marken und SaaS-Teams — Made in Germany.
+      </p>
+      <div class="hero__actions" aria-label="Primäre Aktionen">
+        <a class="button button--primary" href="mailto:realsyncdynamics@gmail.com?subject=RealSyncDynamics%20Demo">Private Demo anfragen</a>
+        <a class="button button--secondary" href="#system">System ansehen</a>
+      </div>
+      <div class="hero__meta" aria-label="Produktfokus">
+        <span><strong>Video Verification</strong> für Upload-Flows</span>
+        <span><strong>Audit-ready</strong> für Teams</span>
+        <span><strong>API-first</strong> integrierbar</span>
+      </div>
+    </div>
+
+    <aside class="proof-card" aria-label="Verifikationsvorschau">
+      <div class="verification-panel">
+        <div class="video-frame" aria-hidden="true">
+          <span class="scan-line"></span>
+          <span class="video-badge">Authenticity scan active</span>
+        </div>
+        <div class="audit-list">
+          <div class="audit-row"><span>Creator identity</span><span>Matched</span></div>
+          <div class="audit-row"><span>Frame integrity</span><span>Clean</span></div>
+          <div class="audit-row"><span>Rights package</span><span>Ready</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
 </section>
 
-<!-- STATS -->
-<section>
-<div class="section-inner">
-<div class="stats">
-<div class="stat"><div class="stat-num">19</div><div class="stat-label">Apps im Ökosystem</div></div>
-<div class="stat"><div class="stat-num">C2PA</div><div class="stat-label">2.3 Konform</div></div>
-<div class="stat"><div class="stat-num">Ed25519</div><div class="stat-label">Signaturen</div></div>
-<div class="stat"><div class="stat-num">100%</div><div class="stat-label">Made in Germany</div></div>
-</div>
-</div>
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">Warum jetzt</span>
+      <h2>Creator-Plattformen brauchen mehr als einen Upload-Button.</h2>
+    </div>
+    <p>
+      Videos werden schneller produziert, geteilt und wiederverwendet. Damit wachsen Risiken:
+      Fake-Uploads, unklare Rechte, fehlende Herkunftsnachweise und manuelle Prüfprozesse.
+    </p>
+  </div>
+
+  <div class="container problem-grid">
+    <article class="problem-card problem-card--large">
+      <p class="quote">Wenn Content skaliert, muss Vertrauen mit skalieren.</p>
+      <p>
+        RealSyncDynamics positioniert Verifikation nicht als Zusatz, sondern als Infrastruktur:
+        jedes Video bekommt einen prüfbaren Status, bevor es veröffentlicht, monetarisiert oder weitergegeben wird.
+      </p>
+    </article>
+    <div class="problem-stack">
+      <article class="problem-card">
+        <h3>Unsichere Herkunft</h3>
+        <p>Plattformen benötigen klare Signale, ob ein Video vom richtigen Creator stammt und ob der Upload-Kontext plausibel ist.</p>
+      </article>
+      <article class="problem-card">
+        <h3>Manuelle Freigaben</h3>
+        <p>Teams verlieren Zeit, wenn Rechte, Qualität und Echtheit erst nachträglich geprüft werden.</p>
+      </article>
+      <article class="problem-card">
+        <h3>Fehlende Beweiskette</h3>
+        <p>Ohne Audit-Trail bleibt unklar, wann ein Asset geprüft, freigegeben oder verändert wurde.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SYSTEM -->
+<section class="section" id="system">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">System</span>
+      <h2>Eine Trust-Layer-Architektur für moderne Video-Workflows.</h2>
+    </div>
+    <p>
+      API-first SaaS: Creator-Onboarding, Video-Prüfung, Rechtefreigabe, Webhooks und Status-Transparenz —
+      gestützt durch kryptografische Signaturen (Ed25519), C2PA 2.3 Metadaten und Blockchain-Timestamping.
+    </p>
+  </div>
+
+  <div class="container feature-layout">
+    <article class="feature-card feature-card--hero">
+      <span class="feature-kicker">Core layer</span>
+      <h3>Video-Verifikation vor Veröffentlichung</h3>
+      <p>
+        Erkenne Risiken früh im Upload-Prozess: Identität, Metadaten, Integrität und Rechtepaket
+        werden als ein prüfbarer Status zusammengeführt.
+      </p>
+    </article>
+
+    <div class="feature-list">
+      <article class="feature-card">
+        <h3>Creator Proof</h3>
+        <p>Verknüpfe Uploads mit Creator-Profilen, Onboarding-Schritten und Freigaberegeln.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Integrity Signals</h3>
+        <p>Prüfe Videodateien, Metadaten und Statusänderungen entlang der Content-Pipeline.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Rights Workflow</h3>
+        <p>Halte fest, ob Content für Kampagnen, Plattformen oder Markenverwendung freigegeben ist.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Webhook-ready</h3>
+        <p>Binde Verifikationsereignisse in Bubble, Stripe, VdoCipher, CRM oder eigene Backends ein.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="section section--tight" id="workflow">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">Workflow</span>
+      <h2>Vom Upload zum verwertbaren Vertrauenssignal.</h2>
+    </div>
+    <p>
+      Klar genug für Landingpage-Besucher, technisch genug für Integrationspartner.
+      Der Prozess erklärt sofort, wie RealSyncDynamics in eine Plattform passt.
+    </p>
+  </div>
+
+  <div class="container workflow">
+    <article class="step-card">
+      <span class="step-number">01</span>
+      <h3>Upload erfassen</h3>
+      <p>Creator lädt Video hoch. System liest Kontext, Metadaten und geplante Verwendung.</p>
+    </article>
+    <article class="step-card">
+      <span class="step-number">02</span>
+      <h3>Signale prüfen</h3>
+      <p>Identität, Datei-Integrität, Rechte und Plattformregeln werden in einem Check zusammengeführt.</p>
+    </article>
+    <article class="step-card">
+      <span class="step-number">03</span>
+      <h3>Status setzen</h3>
+      <p>Das Video erhält einen klaren Trust-Status: freigegeben, prüfen, blockieren oder nachfordern.</p>
+    </article>
+    <article class="step-card">
+      <span class="step-number">04</span>
+      <h3>Aktion auslösen</h3>
+      <p>Webhook, Dashboard, Review Queue oder Monetarisierung reagieren automatisch auf den Status.</p>
+    </article>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="section">
+  <div class="container metrics">
+    <article class="metric-card">
+      <strong>API</strong>
+      <p>Gedacht für schnelle Integration in bestehende Creator- und SaaS-Stacks.</p>
+    </article>
+    <article class="metric-card">
+      <strong>Audit</strong>
+      <p>Jede Prüfung wird als nachvollziehbarer Status im Workflow sichtbar.</p>
+    </article>
+    <article class="metric-card metric-card--wide">
+      <strong>Trust Layer</strong>
+      <p>Eine zentrale Vertrauensschicht zwischen Upload, Review, Veröffentlichung und Monetarisierung.</p>
+    </article>
+  </div>
 </section>
 
 <!-- APPS -->
-<section id="apps">
-<div class="section-inner">
-<div class="section-label">Creator OS Ökosystem</div>
-<div class="section-title">19 Apps. Eine Plattform.</div>
-<p class="section-desc">Jede App löst ein spezifisches Problem für Content Creator, Agenturen und Unternehmen. Alle nahtlos integriert.</p>
+<section class="section" id="apps">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">Creator OS Ökosystem</span>
+      <h2>19 Apps. Eine Trust-Plattform.</h2>
+    </div>
+    <p>Jede App löst ein Problem für Content Creator, Agenturen und Plattformen — alle nahtlos integriert in die Trust-Layer-Architektur.</p>
+  </div>
 
-<div class="app-categories">
-<button class="cat-btn active" onclick="filterApps('all')">Alle Apps<span class="count">(19)</span></button>
-<button class="cat-btn" onclick="filterApps('live')">Live<span class="count">(16)</span></button>
-<button class="cat-btn" onclick="filterApps('beta')">Beta<span class="count">(2)</span></button>
-<button class="cat-btn" onclick="filterApps('dev')">In Entwicklung<span class="count">(1)</span></button>
-</div>
+  <div class="container">
+    <div class="apps-toolbar" role="tablist">
+      <button class="cat-btn active" type="button" data-filter="all">Alle Apps<span class="count">(19)</span></button>
+      <button class="cat-btn" type="button" data-filter="live">Live<span class="count">(16)</span></button>
+      <button class="cat-btn" type="button" data-filter="beta">Beta<span class="count">(2)</span></button>
+      <button class="cat-btn" type="button" data-filter="dev">In Entwicklung<span class="count">(1)</span></button>
+    </div>
 
-<div class="apps-grid" id="appsGrid">
-
-<div class="app-card" data-status="live" onclick="openApp('optimus')">
-<div><div class="app-card-top"><div class="app-icon">🛡️</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Optimus</div>
-<div class="app-desc">KI-gestützte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('studio')">
-<div><div class="app-card-top"><div class="app-icon">📹</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Studio</div>
-<div class="app-desc">Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('automate')">
-<div><div class="app-card-top"><div class="app-icon">🤖</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Automate</div>
-<div class="app-desc">Marketing-Automation mit KI-Workflows, Social-Media-Scheduling und Analytics.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('deepfake')">
-<div><div class="app-card-top"><div class="app-icon">🔍</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Deepfake Guard</div>
-<div class="app-desc">Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('chain')">
-<div><div class="app-card-top"><div class="app-icon">⛓️</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Chain</div>
-<div class="app-desc">Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('analytics')">
-<div><div class="app-card-top"><div class="app-icon">📊</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Analytics</div>
-<div class="app-desc">Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('design')">
-<div><div class="app-card-top"><div class="app-icon">🎨</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Design</div>
-<div class="app-desc">KI-Design-Tools für Thumbnails, Cover-Art und Brand-Kits.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('monetize')">
-<div><div class="app-card-top"><div class="app-icon">💰</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Monetize</div>
-<div class="app-desc">Einnahmen-Management mit Stripe-Integration, Abo-Modelle und Creator-Payouts.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('outreach')">
-<div><div class="app-card-top"><div class="app-icon">📧</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Outreach</div>
-<div class="app-desc">KI-gestütztes E-Mail-Marketing und Brand-Collaboration-Management.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('connect')">
-<div><div class="app-card-top"><div class="app-icon">🔗</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Connect</div>
-<div class="app-desc">Multi-Plattform-API-Hub für YouTube, TikTok, Instagram und LinkedIn.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('planner')">
-<div><div class="app-card-top"><div class="app-icon">📅</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Planner</div>
-<div class="app-desc">Content-Kalender mit KI-Scheduling und Trend-Vorhersage.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('sites')">
-<div><div class="app-card-top"><div class="app-icon">🌐</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Sites</div>
-<div class="app-desc">Landing-Page-Builder mit SEO-Optimierung und Custom Domains.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="beta" onclick="openApp('ads')">
-<div><div class="app-card-top"><div class="app-icon">📢</div><span class="app-tag beta">Beta</span></div>
-<div class="app-name">RealSync Ads</div>
-<div class="app-desc">KI-optimierte Werbekampagnen mit automatischem A/B-Testing.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('vault')">
-<div><div class="app-card-top"><div class="app-icon">🔒</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Vault</div>
-<div class="app-desc">Verschlüsselter Cloud-Speicher für Assets mit Versionierung und Sharing.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('aiwriter')">
-<div><div class="app-card-top"><div class="app-icon">🧠</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync AI Writer</div>
-<div class="app-desc">KI-Textgenerierung für Skripte, Beschreibungen und Social-Media-Posts.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="beta" onclick="openApp('clips')">
-<div><div class="app-card-top"><div class="app-icon">🎬</div><span class="app-tag beta">Beta</span></div>
-<div class="app-name">RealSync Clips</div>
-<div class="app-desc">Automatische Highlight-Clips aus Langform-Videos mit KI-Erkennung.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="dev" onclick="openApp('mobile')">
-<div><div class="app-card-top"><div class="app-icon">📱</div><span class="app-tag dev">Dev</span></div>
-<div class="app-name">RealSync Mobile</div>
-<div class="app-desc">Native iOS/Android-App für unterwegs — alle Tools in der Tasche.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('audio')">
-<div><div class="app-card-top"><div class="app-icon">🔊</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Audio</div>
-<div class="app-desc">Podcast-Produktion mit KI-Transkription, Noise-Cancelling und Distribution.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-<div class="app-card" data-status="live" onclick="openApp('security')">
-<div><div class="app-card-top"><div class="app-icon">🛡️</div><span class="app-tag live">Live</span></div>
-<div class="app-name">RealSync Sicherheit</div>
-<div class="app-desc">Enterprise-Sicherheit mit 2FA, SSO und rollenbasierter Zugriffskontrolle.</div></div>
-<div class="app-card-footer">Details ansehen <span class="arrow">→</span></div>
-</div>
-
-</div>
-</div>
-</section>
-
-<!-- WORKFLOWS -->
-<section id="workflows">
-<div class="section-inner">
-<div class="section-label">Automatisierte Workflows</div>
-<div class="section-title">KI-Workflows für jeden Use-Case.</div>
-<p class="section-desc">Automatisiere deine Content-Pipeline von der Erstellung bis zur Distribution.</p>
-
-<div class="workflows-grid">
-
-<div class="workflow-card">
-<div class="workflow-icon">🚀</div>
-<h3>Content-Verifikation</h3>
-<p>Automatische Signierung und Zertifizierung jedes Contents.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>Upload → Ed25519 Signatur</div>
-<div class="workflow-step"><span class="step-dot"></span>C2PA 2.3 Metadaten</div>
-<div class="workflow-step"><span class="step-dot"></span>Blockchain Timestamp</div>
-<div class="workflow-step"><span class="step-dot"></span>Zertifikat generiert</div>
-</div>
-</div>
-
-<div class="workflow-card">
-<div class="workflow-icon">🎬</div>
-<h3>Video-Pipeline</h3>
-<p>Vom Rohschnitt zum fertigen Multi-Plattform-Video.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>Import → KI-Schnitt</div>
-<div class="workflow-step"><span class="step-dot"></span>Auto-Captions</div>
-<div class="workflow-step"><span class="step-dot"></span>Thumbnail generieren</div>
-<div class="workflow-step"><span class="step-dot"></span>Multi-Plattform Export</div>
-</div>
-</div>
-
-<div class="workflow-card">
-<div class="workflow-icon">📊</div>
-<h3>Marketing-Automation</h3>
-<p>KI-gestützte Kampagnen mit Echtzeit-Optimierung.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>Zielgruppe → KI-Analyse</div>
-<div class="workflow-step"><span class="step-dot"></span>Content erstellen</div>
-<div class="workflow-step"><span class="step-dot"></span>Multi-Channel Scheduling</div>
-<div class="workflow-step"><span class="step-dot"></span>Performance-Tracking</div>
-</div>
-</div>
-
-<div class="workflow-card">
-<div class="workflow-icon">🛡️</div>
-<h3>Deepfake-Schutz</h3>
-<p>Echtzeit-Überwachung und automatische Erkennung.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>Media-Monitoring</div>
-<div class="workflow-step"><span class="step-dot"></span>Neuronale Analyse</div>
-<div class="workflow-step"><span class="step-dot"></span>Blockchain-Vergleich</div>
-<div class="workflow-step"><span class="step-dot"></span>Alert & Report</div>
-</div>
-</div>
-
-<div class="workflow-card">
-<div class="workflow-icon">💰</div>
-<h3>Monetarisierung</h3>
-<p>Automatisches Einnahmen-Management und Payouts.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>Abo-Management</div>
-<div class="workflow-step"><span class="step-dot"></span>Stripe-Integration</div>
-<div class="workflow-step"><span class="step-dot"></span>Revenue-Tracking</div>
-<div class="workflow-step"><span class="step-dot"></span>Creator-Payouts</div>
-</div>
-</div>
-
-<div class="workflow-card">
-<div class="workflow-icon">🔗</div>
-<h3>API-Integration</h3>
-<p>Nahtlose Verbindung aller Plattformen.</p>
-<div class="workflow-steps">
-<div class="workflow-step"><span class="step-dot"></span>YouTube, TikTok, IG</div>
-<div class="workflow-step"><span class="step-dot"></span>Webhook-Automation</div>
-<div class="workflow-step"><span class="step-dot"></span>Cross-Plattform Sync</div>
-<div class="workflow-step"><span class="step-dot"></span>Unified Dashboard</div>
-</div>
-</div>
-
-</div>
-</div>
+    <div class="apps-grid" id="appsGrid">
+      <article class="app-card" data-status="live" data-app="optimus">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🛡️</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Optimus</h3><p>KI-gestützte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="studio">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📹</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Studio</h3><p>Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="automate">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🤖</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Automate</h3><p>Marketing-Automation mit KI-Workflows, Social-Scheduling und Analytics.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="deepfake">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🔍</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Deepfake Guard</h3><p>Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="chain">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">⛓️</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Chain</h3><p>Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="analytics">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📊</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Analytics</h3><p>Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="design">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🎨</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Design</h3><p>KI-Design-Tools für Thumbnails, Cover-Art und Brand-Kits.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="monetize">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">💰</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Monetize</h3><p>Einnahmen-Management mit Stripe-Integration, Abo-Modellen und Creator-Payouts.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="outreach">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📧</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Outreach</h3><p>KI-gestütztes E-Mail-Marketing und Brand-Collaboration-Management.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="connect">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🔗</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Connect</h3><p>Multi-Plattform-API-Hub für YouTube, TikTok, Instagram und LinkedIn.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="planner">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📅</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Planner</h3><p>Content-Kalender mit KI-Scheduling und Trend-Vorhersage.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="sites">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🌐</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Sites</h3><p>Landing-Page-Builder mit SEO-Optimierung und Custom Domains.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="beta" data-app="ads">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📢</div><span class="app-tag beta">Beta</span></div>
+        <h3>RealSync Ads</h3><p>KI-optimierte Werbekampagnen mit automatischem A/B-Testing.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="vault">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🔒</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Vault</h3><p>Verschlüsselter Cloud-Speicher für Assets mit Versionierung und Sharing.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="aiwriter">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🧠</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync AI Writer</h3><p>KI-Textgenerierung für Skripte, Beschreibungen und Social-Media-Posts.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="beta" data-app="clips">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🎬</div><span class="app-tag beta">Beta</span></div>
+        <h3>RealSync Clips</h3><p>Automatische Highlight-Clips aus Langform-Videos mit KI-Erkennung.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="dev" data-app="mobile">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">📱</div><span class="app-tag dev">Dev</span></div>
+        <h3>RealSync Mobile</h3><p>Native iOS/Android-App für unterwegs — alle Tools in der Tasche.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="audio">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🔊</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Audio</h3><p>Podcast-Produktion mit KI-Transkription, Noise-Cancelling und Distribution.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+      <article class="app-card" data-status="live" data-app="security">
+        <div><div class="app-card-top"><div class="app-icon" aria-hidden="true">🛡️</div><span class="app-tag live">Live</span></div>
+        <h3>RealSync Sicherheit</h3><p>Enterprise-Sicherheit mit 2FA, SSO und rollenbasierter Zugriffskontrolle.</p></div>
+        <div class="app-card-footer">Details <span class="arrow">→</span></div>
+      </article>
+    </div>
+  </div>
 </section>
 
 <!-- TECH -->
-<section id="tech">
-<div class="section-inner">
-<div class="section-label">Technologie-Stack</div>
-<div class="section-title">Enterprise-Architektur.<br>Creator-Einfachheit.</div>
-<p class="section-desc">Gebaut auf bewährten Technologien mit kryptografischer Sicherheit auf jeder Ebene.</p>
-<div class="tech-grid">
-<div class="tech-item"><h3>C2PA 2.3</h3><p>Coalition for Content Provenance and Authenticity. Ab August 2026 EU-Pflicht für digitale Inhalte.</p></div>
-<div class="tech-item"><h3>Ed25519</h3><p>Elliptische-Kurven-Signaturen für manipulationssichere Content-Authentifizierung.</p></div>
-<div class="tech-item"><h3>Blockchain</h3><p>Dezentrales Timestamping und unverfälschbare Urheberrechts-Registrierung.</p></div>
-<div class="tech-item"><h3>Next.js 14</h3><p>React Server Components, Edge Runtime und optimierte Build-Performance.</p></div>
-<div class="tech-item"><h3>Stripe</h3><p>PCI-konforme Zahlungsabwicklung mit Abo-Management und Creator-Payouts.</p></div>
-<div class="tech-item"><h3>Vercel Edge</h3><p>Globales CDN mit Edge Functions für minimale Latenz weltweit.</p></div>
-</div>
-</div>
+<section class="section" id="tech">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">Technologie</span>
+      <h2>Enterprise-Architektur. Creator-Einfachheit.</h2>
+    </div>
+    <p>Gebaut auf bewährten Standards mit kryptografischer Sicherheit auf jeder Ebene.</p>
+  </div>
+  <div class="container tech-grid">
+    <article class="tech-card"><h3>C2PA 2.3</h3><p>Coalition for Content Provenance and Authenticity. Ab August 2026 EU-Pflicht für digitale Inhalte.</p></article>
+    <article class="tech-card"><h3>Ed25519</h3><p>Elliptische-Kurven-Signaturen für manipulationssichere Content-Authentifizierung.</p></article>
+    <article class="tech-card"><h3>Blockchain</h3><p>Dezentrales Timestamping und unverfälschbare Urheberrechts-Registrierung.</p></article>
+    <article class="tech-card"><h3>API-first</h3><p>Webhooks, REST-Endpoints und Event-Streams für nahtlose Integration in jeden Stack.</p></article>
+    <article class="tech-card"><h3>Audit-Trail</h3><p>Lückenlose Protokollierung jeder Statusänderung — DSGVO- und compliance-tauglich.</p></article>
+    <article class="tech-card"><h3>Edge & EU</h3><p>Globales CDN mit Edge Functions, Hosting in Deutschland für volle Datenhoheit.</p></article>
+  </div>
 </section>
 
 <!-- ROADMAP -->
-<section id="roadmap">
-<div class="section-inner">
-<div class="section-label">Roadmap 2025–2026</div>
-<div class="section-title">Was kommt als Nächstes.</div>
-<p class="section-desc">Von der Gründung 2025 bis zur C2PA-Pflicht 2026 — unser Fahrplan.</p>
-<div class="rm-item"><div class="rm-q">Q1 2025</div><div class="rm-content"><h3>Gründung & MVP</h3><p>Plattform-Launch mit Core-Apps: Optimus, Studio, Automate, Chain.</p></div></div>
-<div class="rm-item"><div class="rm-q">Q2 2025</div><div class="rm-content"><h3>Creator OS Beta</h3><p>19 Apps live. Öffentliche Beta mit Early-Access-Programm.</p></div></div>
-<div class="rm-item"><div class="rm-q">Q3 2025</div><div class="rm-content"><h3>Monetarisierung</h3><p>Stripe-Integration, Abo-Modelle, Enterprise-Lizenzen.</p></div></div>
-<div class="rm-item"><div class="rm-q">Q4 2025</div><div class="rm-content"><h3>Mobile & API</h3><p>Native iOS/Android-App. Öffentliche API für Drittanbieter.</p></div></div>
-<div class="rm-item"><div class="rm-q">Q1 2026</div><div class="rm-content"><h3>Enterprise & Compliance</h3><p>SOC 2 Zertifizierung. Enterprise-Dashboard und SSO.</p></div></div>
-<div class="rm-item"><div class="rm-q">Q3 2026</div><div class="rm-content"><h3>C2PA EU-Pflicht</h3><p>Volle C2PA 2.3 Compliance als EU-Vorreiter. Automatische Content-Zertifizierung.</p></div></div>
-</div>
+<section class="section" id="roadmap">
+  <div class="container section__header">
+    <div>
+      <span class="section__label">Roadmap 2025–2026</span>
+      <h2>Was als Nächstes kommt.</h2>
+    </div>
+    <p>Von Gründung bis C2PA-Pflicht — unser Fahrplan zur Trust-Layer-Infrastruktur für Europa.</p>
+  </div>
+  <div class="container roadmap">
+    <div class="rm-item"><div class="rm-q">Q1 2025</div><div class="rm-content"><h3>Gründung & MVP</h3><p>Plattform-Launch mit Core-Apps: Optimus, Studio, Automate, Chain.</p></div></div>
+    <div class="rm-item"><div class="rm-q">Q2 2025</div><div class="rm-content"><h3>Creator OS Beta</h3><p>19 Apps live. Öffentliche Beta mit Early-Access-Programm.</p></div></div>
+    <div class="rm-item"><div class="rm-q">Q3 2025</div><div class="rm-content"><h3>Monetarisierung</h3><p>Stripe-Integration, Abo-Modelle, Enterprise-Lizenzen.</p></div></div>
+    <div class="rm-item"><div class="rm-q">Q4 2025</div><div class="rm-content"><h3>Mobile & API</h3><p>Native iOS/Android-App. Öffentliche API für Drittanbieter.</p></div></div>
+    <div class="rm-item"><div class="rm-q">Q1 2026</div><div class="rm-content"><h3>Enterprise & Compliance</h3><p>SOC 2 Zertifizierung. Enterprise-Dashboard und SSO.</p></div></div>
+    <div class="rm-item"><div class="rm-q">Q3 2026</div><div class="rm-content"><h3>C2PA EU-Pflicht</h3><p>Volle C2PA 2.3 Compliance als EU-Vorreiter. Automatische Content-Zertifizierung.</p></div></div>
+  </div>
 </section>
 
+<!-- CTA -->
+<section class="cta" id="kontakt">
+  <div class="container cta__box">
+    <div class="cta__content">
+      <h2>Bereit für den ersten Trust-Workflow?</h2>
+      <p>
+        Lass uns deinen Verifikations-Flow, die technische Integration oder eine Demo
+        als nächsten Schritt aufsetzen. Direkter Draht — kein Funnel.
+      </p>
+      <p class="cta__email">Schreib uns: <a href="mailto:realsyncdynamics@gmail.com">realsyncdynamics@gmail.com</a></p>
+    </div>
+    <div class="cta__actions">
+      <a class="button button--primary" href="mailto:realsyncdynamics@gmail.com?subject=RealSyncDynamics%20Demo">Demo anfragen</a>
+      <a class="button button--secondary" href="mailto:realsyncdynamics@gmail.com?subject=RealSyncDynamics%20Integration">Integration besprechen</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <!-- APP OVERLAY -->
-<div class="app-overlay" id="appOverlay">
-<div class="app-overlay-inner">
-<div class="app-overlay-header">
-<h2 id="overlayTitle">App Details</h2>
-<button class="app-overlay-close" onclick="closeApp()">✕</button>
-</div>
-<div class="app-overlay-body">
-<p class="app-overlay-desc" id="overlayDesc"></p>
-<div class="app-features" id="overlayFeatures"></div>
-</div>
-</div>
+<div class="app-overlay" id="appOverlay" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+  <div class="app-overlay-inner">
+    <div class="app-overlay-header">
+      <h2 id="overlayTitle">App Details</h2>
+      <button class="app-overlay-close" type="button" data-close-app aria-label="Schließen">✕</button>
+    </div>
+    <div class="app-overlay-body">
+      <p class="app-overlay-desc" id="overlayDesc"></p>
+      <div class="app-features" id="overlayFeatures"></div>
+    </div>
+  </div>
 </div>
 
 <!-- FOOTER -->
-<footer>
-<div class="footer-inner">
-<div class="footer-links">
-<a href="/impressum.html">Impressum</a>
-<a href="/datenschutz.html">Datenschutz</a>
-<a href="/agb.html">AGB</a>
-<a href="/partnership.html">Partner</a>
-<a href="/impressum.html">Kontakt</a>
-</div>
-<div class="footer-copy">© 2025 RealSync Dynamics — Made in Germany</div>
-</div>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© <span data-year></span> RealSyncDynamics — Video Verification & Creator Security · Made in Germany</p>
+    <div class="footer-links">
+      <a href="/impressum.html">Impressum</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+      <a href="/agb.html">AGB</a>
+      <a href="/partnership.html">Partner</a>
+      <a href="mailto:realsyncdynamics@gmail.com">Kontakt</a>
+    </div>
+  </div>
 </footer>
 
+</div>
+
 <script>
-const appData = {
-optimus: {title:'RealSync Optimus',desc:'KI-gest\u00fctzte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance. Sch\u00fctze deine Inhalte mit kryptografischer Sicherheit.',features:[{t:'Ed25519 Signaturen',d:'Manipulationssichere digitale Unterschriften f\u00fcr jeden Content.'},{t:'C2PA 2.3',d:'Volle Compliance mit dem kommenden EU-Standard.'},{t:'Echtzeit-Verifikation',d:'Sofortige Pr\u00fcfung der Content-Authentizit\u00e4t.'},{t:'API-Integration',d:'Nahtlose Einbindung in bestehende Workflows.'}]},
-studio: {title:'RealSync Studio',desc:'Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export. Erstelle Videos schneller als je zuvor.',features:[{t:'KI-Schnitt',d:'Automatische Erkennung von Highlights und Schnittpunkten.'},{t:'Auto-Captions',d:'KI-generierte Untertitel in 50+ Sprachen.'},{t:'Multi-Export',d:'Optimierte Formate f\u00fcr YouTube, TikTok, Instagram.'},{t:'Brand-Kit',d:'Konsistentes Branding \u00fcber alle Videos.'}]},
-automate: {title:'RealSync Automate',desc:'Marketing-Automation mit KI-Workflows f\u00fcr maximale Reichweite und Engagement.',features:[{t:'Social Scheduling',d:'Plane Posts f\u00fcr alle Plattformen zentral.'},{t:'KI-Workflows',d:'Automatisierte Content-Pipelines.'},{t:'Analytics',d:'Echtzeit-Performance-Tracking.'},{t:'A/B-Testing',d:'Automatische Optimierung deiner Kampagnen.'}]},
-deepfake: {title:'RealSync Deepfake Guard',desc:'Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.',features:[{t:'Neuronale Analyse',d:'Deep-Learning-basierte Erkennung.'},{t:'Blockchain-Check',d:'Abgleich mit verifizierten Originalen.'},{t:'Echtzeit-Alerts',d:'Sofortige Benachrichtigung bei Deepfakes.'},{t:'Reporting',d:'Detaillierte Analyse-Reports.'}]},
-chain: {title:'RealSync Chain',desc:'Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung f\u00fcr unf\u00e4lschbaren Nachweis.',features:[{t:'Timestamping',d:'Unver\u00e4nderlicher Zeitstempel auf der Blockchain.'},{t:'Registrierung',d:'Dezentrale Urheberrechts-Dokumentation.'},{t:'Verifizierung',d:'\u00d6ffentlich pr\u00fcfbare Nachweise.'},{t:'Export',d:'Zertifikate f\u00fcr rechtliche Zwecke.'}]},
-analytics: {title:'RealSync Analytics',desc:'Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.',features:[{t:'Cross-Plattform',d:'Alle Metriken an einem Ort.'},{t:'Audience-Insights',d:'Verstehe deine Zielgruppe besser.'},{t:'Custom Reports',d:'Individuelle Dashboard-Konfiguration.'},{t:'Export',d:'Daten-Export in allen g\u00e4ngigen Formaten.'}]},
-design: {title:'RealSync Design',desc:'KI-Design-Tools f\u00fcr Thumbnails, Cover-Art und Brand-Kits.',features:[{t:'KI-Thumbnails',d:'Automatisch optimierte Vorschaubilder.'},{t:'Cover-Art',d:'Professionelle Designs per Klick.'},{t:'Brand-Kit',d:'Einheitliches Branding.'},{t:'Templates',d:'Hunderte professionelle Vorlagen.'}]},
-monetize: {title:'RealSync Monetize',desc:'Einnahmen-Management mit Stripe-Integration und automatischen Creator-Payouts.',features:[{t:'Stripe',d:'PCI-konforme Zahlungsabwicklung.'},{t:'Abo-Modelle',d:'Flexible Preisgestaltung.'},{t:'Payouts',d:'Automatische Auszahlungen.'},{t:'Revenue-Dashboard',d:'\u00dcbersicht aller Einnahmen.'}]},
-outreach: {title:'RealSync Outreach',desc:'KI-gest\u00fctztes E-Mail-Marketing und Brand-Collaboration-Management.',features:[{t:'E-Mail-Marketing',d:'KI-optimierte Kampagnen.'},{t:'Brand-Matching',d:'Passende Kooperationspartner finden.'},{t:'Templates',d:'Professionelle E-Mail-Vorlagen.'},{t:'Tracking',d:'\u00d6ffnungs- und Klickraten.'}]},
-connect: {title:'RealSync Connect',desc:'Multi-Plattform-API-Hub f\u00fcr alle gro\u00dfen Social-Media-Plattformen.',features:[{t:'YouTube API',d:'Volle YouTube-Integration.'},{t:'TikTok API',d:'TikTok-Management.'},{t:'Instagram API',d:'Instagram-Automatisierung.'},{t:'LinkedIn API',d:'B2B-Content-Management.'}]},
-planner: {title:'RealSync Planner',desc:'Content-Kalender mit KI-Scheduling und Trend-Vorhersage.',features:[{t:'KI-Scheduling',d:'Optimale Posting-Zeiten.'},{t:'Trend-Analyse',d:'Fr\u00fchzeitige Trend-Erkennung.'},{t:'Kalender',d:'Visuelle Content-Planung.'},{t:'Team-Features',d:'Kollaboratives Arbeiten.'}]},
-sites: {title:'RealSync Sites',desc:'Landing-Page-Builder mit SEO-Optimierung und Custom Domains.',features:[{t:'Drag & Drop',d:'Visueller Page-Builder.'},{t:'SEO',d:'Automatische Optimierung.'},{t:'Custom Domains',d:'Eigene Domain verbinden.'},{t:'Analytics',d:'Besucher-Tracking.'}]},
-ads: {title:'RealSync Ads',desc:'KI-optimierte Werbekampagnen mit automatischem A/B-Testing.',features:[{t:'KI-Optimierung',d:'Automatische Kampagnen-Anpassung.'},{t:'A/B-Testing',d:'Datengetriebene Entscheidungen.'},{t:'Multi-Channel',d:'Werbung \u00fcber alle Kan\u00e4le.'},{t:'Budget-Management',d:'Intelligente Budgetverteilung.'}]},
-vault: {title:'RealSync Vault',desc:'Verschl\u00fcsselter Cloud-Speicher f\u00fcr Assets mit Versionierung.',features:[{t:'Verschl\u00fcsselung',d:'Ende-zu-Ende-Verschl\u00fcsselung.'},{t:'Versionierung',d:'Alle \u00c4nderungen nachvollziehbar.'},{t:'Sharing',d:'Sichere Team-Freigaben.'},{t:'Backup',d:'Automatische Sicherungen.'}]},
-aiwriter: {title:'RealSync AI Writer',desc:'KI-Textgenerierung f\u00fcr Skripte, Beschreibungen und Social-Media-Posts.',features:[{t:'Skript-Generator',d:'Video-Skripte per KI.'},{t:'Beschreibungen',d:'SEO-optimierte Texte.'},{t:'Social Posts',d:'Plattform-optimierte Beitr\u00e4ge.'},{t:'Mehrsprachig',d:'Texte in 30+ Sprachen.'}]},
-clips: {title:'RealSync Clips',desc:'Automatische Highlight-Clips aus Langform-Videos.',features:[{t:'KI-Erkennung',d:'Automatische Highlight-Erkennung.'},{t:'Multi-Format',d:'Clips f\u00fcr alle Plattformen.'},{t:'Batch-Processing',d:'Mehrere Videos gleichzeitig.'},{t:'Custom Branding',d:'Eigenes Logo und Farben.'}]},
-mobile: {title:'RealSync Mobile',desc:'Native iOS/Android-App \u2014 alle Tools in der Tasche.',features:[{t:'iOS & Android',d:'Native Performance.'},{t:'Offline-Modus',d:'Arbeiten ohne Internet.'},{t:'Push-Benachrichtigungen',d:'Echtzeit-Updates.'},{t:'Kamera-Integration',d:'Direkt aufnehmen und bearbeiten.'}]},
-audio: {title:'RealSync Audio',desc:'Podcast-Produktion mit KI-Transkription und Distribution.',features:[{t:'KI-Transkription',d:'Automatische Verschriftlichung.'},{t:'Noise-Cancelling',d:'KI-Rauschunterdr\u00fcckung.'},{t:'Distribution',d:'Automatische Ver\u00f6ffentlichung.'},{t:'Editing',d:'Professioneller Audio-Editor.'}]},
-security: {title:'RealSync Sicherheit',desc:'Enterprise-Sicherheit mit 2FA, SSO und Zugriffskontrolle.',features:[{t:'2FA',d:'Zwei-Faktor-Authentifizierung.'},{t:'SSO',d:'Single Sign-On Integration.'},{t:'Rollen',d:'Granulare Zugriffskontrolle.'},{t:'Audit-Log',d:'L\u00fcckenlose Protokollierung.'}]}
-};
+(function(){
+  const root=document.documentElement;
+  const themeToggle=document.querySelector('[data-theme-toggle]');
+  const menuButton=document.querySelector('[data-menu-button]');
+  const nav=document.querySelector('[data-nav]');
+  const year=document.querySelector('[data-year]');
+  const stored=(()=>{try{return localStorage.getItem('rsd-theme')}catch(_){return null}})();
+  let theme=stored||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 
-function filterApps(status){
-document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-event.target.closest('.cat-btn').classList.add('active');
-document.querySelectorAll('.app-card').forEach(c=>{
-if(status==='all'||c.dataset.status===status){c.style.display='flex'}else{c.style.display='none'}
-});
-}
+  function setTheme(next){
+    theme=next;
+    root.setAttribute('data-theme',theme);
+    try{localStorage.setItem('rsd-theme',theme)}catch(_){}
+    if(!themeToggle)return;
+    themeToggle.setAttribute('aria-label',theme==='dark'?'Zum hellen Modus wechseln':'Zum dunklen Modus wechseln');
+    themeToggle.innerHTML=theme==='dark'
+      ?'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+  setTheme(theme);
+  themeToggle&&themeToggle.addEventListener('click',()=>setTheme(theme==='dark'?'light':'dark'));
 
-function openApp(id){
-const app=appData[id];if(!app)return;
-document.getElementById('overlayTitle').textContent=app.title;
-document.getElementById('overlayDesc').textContent=app.desc;
-const f=document.getElementById('overlayFeatures');
-f.innerHTML=app.features.map(x=>'<div class="app-feature"><h4>'+x.t+'</h4><p>'+x.d+'</p></div>').join('');
-document.getElementById('appOverlay').classList.add('active');
-document.body.style.overflow='hidden';
-}
+  menuButton&&menuButton.addEventListener('click',()=>{
+    const isOpen=nav&&nav.getAttribute('data-open')==='true';
+    nav&&nav.setAttribute('data-open',String(!isOpen));
+    menuButton.setAttribute('aria-expanded',String(!isOpen));
+  });
+  nav&&nav.addEventListener('click',(e)=>{
+    if(e.target instanceof HTMLAnchorElement){
+      nav.setAttribute('data-open','false');
+      menuButton&&menuButton.setAttribute('aria-expanded','false');
+    }
+  });
+  if(year)year.textContent=String(new Date().getFullYear());
 
-function closeApp(){
-document.getElementById('appOverlay').classList.remove('active');
-document.body.style.overflow='';
-}
+  // Apps filter
+  document.querySelectorAll('.cat-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const status=btn.dataset.filter;
+      document.querySelectorAll('.app-card').forEach(c=>{
+        c.style.display=(status==='all'||c.dataset.status===status)?'flex':'none';
+      });
+    });
+  });
 
-document.getElementById('appOverlay').addEventListener('click',function(e){
-if(e.target===this)closeApp();
-});
+  // App overlay
+  const appData={
+    optimus:{title:'RealSync Optimus',desc:'KI-gestützte Content-Verifikation mit Ed25519-Signaturen und C2PA 2.3 Compliance. Schütze deine Inhalte mit kryptografischer Sicherheit.',features:[{t:'Ed25519 Signaturen',d:'Manipulationssichere digitale Unterschriften für jeden Content.'},{t:'C2PA 2.3',d:'Volle Compliance mit dem kommenden EU-Standard.'},{t:'Echtzeit-Verifikation',d:'Sofortige Prüfung der Content-Authentizität.'},{t:'API-Integration',d:'Nahtlose Einbindung in bestehende Workflows.'}]},
+    studio:{title:'RealSync Studio',desc:'Professionelles Video-Editing mit KI-Schnitt, Auto-Captions und Multi-Plattform-Export.',features:[{t:'KI-Schnitt',d:'Automatische Erkennung von Highlights und Schnittpunkten.'},{t:'Auto-Captions',d:'KI-generierte Untertitel in 50+ Sprachen.'},{t:'Multi-Export',d:'Optimierte Formate für YouTube, TikTok, Instagram.'},{t:'Brand-Kit',d:'Konsistentes Branding über alle Videos.'}]},
+    automate:{title:'RealSync Automate',desc:'Marketing-Automation mit KI-Workflows für maximale Reichweite und Engagement.',features:[{t:'Social Scheduling',d:'Plane Posts für alle Plattformen zentral.'},{t:'KI-Workflows',d:'Automatisierte Content-Pipelines.'},{t:'Analytics',d:'Echtzeit-Performance-Tracking.'},{t:'A/B-Testing',d:'Automatische Optimierung deiner Kampagnen.'}]},
+    deepfake:{title:'RealSync Deepfake Guard',desc:'Echtzeit-Deepfake-Erkennung mit neuronaler Analyse und Blockchain-Verifikation.',features:[{t:'Neuronale Analyse',d:'Deep-Learning-basierte Erkennung.'},{t:'Blockchain-Check',d:'Abgleich mit verifizierten Originalen.'},{t:'Echtzeit-Alerts',d:'Sofortige Benachrichtigung bei Deepfakes.'},{t:'Reporting',d:'Detaillierte Analyse-Reports.'}]},
+    chain:{title:'RealSync Chain',desc:'Blockchain-Timestamping und dezentrale Urheberrechts-Registrierung für unfälschbaren Nachweis.',features:[{t:'Timestamping',d:'Unveränderlicher Zeitstempel auf der Blockchain.'},{t:'Registrierung',d:'Dezentrale Urheberrechts-Dokumentation.'},{t:'Verifizierung',d:'Öffentlich prüfbare Nachweise.'},{t:'Export',d:'Zertifikate für rechtliche Zwecke.'}]},
+    analytics:{title:'RealSync Analytics',desc:'Echtzeit-Dashboards mit Cross-Plattform-Metriken und Audience-Insights.',features:[{t:'Cross-Plattform',d:'Alle Metriken an einem Ort.'},{t:'Audience-Insights',d:'Verstehe deine Zielgruppe besser.'},{t:'Custom Reports',d:'Individuelle Dashboard-Konfiguration.'},{t:'Export',d:'Daten-Export in allen gängigen Formaten.'}]},
+    design:{title:'RealSync Design',desc:'KI-Design-Tools für Thumbnails, Cover-Art und Brand-Kits.',features:[{t:'KI-Thumbnails',d:'Automatisch optimierte Vorschaubilder.'},{t:'Cover-Art',d:'Professionelle Designs per Klick.'},{t:'Brand-Kit',d:'Einheitliches Branding.'},{t:'Templates',d:'Hunderte professionelle Vorlagen.'}]},
+    monetize:{title:'RealSync Monetize',desc:'Einnahmen-Management mit Stripe-Integration und automatischen Creator-Payouts.',features:[{t:'Stripe',d:'PCI-konforme Zahlungsabwicklung.'},{t:'Abo-Modelle',d:'Flexible Preisgestaltung.'},{t:'Payouts',d:'Automatische Auszahlungen.'},{t:'Revenue-Dashboard',d:'Übersicht aller Einnahmen.'}]},
+    outreach:{title:'RealSync Outreach',desc:'KI-gestütztes E-Mail-Marketing und Brand-Collaboration-Management.',features:[{t:'E-Mail-Marketing',d:'KI-optimierte Kampagnen.'},{t:'Brand-Matching',d:'Passende Kooperationspartner finden.'},{t:'Templates',d:'Professionelle E-Mail-Vorlagen.'},{t:'Tracking',d:'Öffnungs- und Klickraten.'}]},
+    connect:{title:'RealSync Connect',desc:'Multi-Plattform-API-Hub für alle großen Social-Media-Plattformen.',features:[{t:'YouTube API',d:'Volle YouTube-Integration.'},{t:'TikTok API',d:'TikTok-Management.'},{t:'Instagram API',d:'Instagram-Automatisierung.'},{t:'LinkedIn API',d:'B2B-Content-Management.'}]},
+    planner:{title:'RealSync Planner',desc:'Content-Kalender mit KI-Scheduling und Trend-Vorhersage.',features:[{t:'KI-Scheduling',d:'Optimale Posting-Zeiten.'},{t:'Trend-Analyse',d:'Frühzeitige Trend-Erkennung.'},{t:'Kalender',d:'Visuelle Content-Planung.'},{t:'Team-Features',d:'Kollaboratives Arbeiten.'}]},
+    sites:{title:'RealSync Sites',desc:'Landing-Page-Builder mit SEO-Optimierung und Custom Domains.',features:[{t:'Drag & Drop',d:'Visueller Page-Builder.'},{t:'SEO',d:'Automatische Optimierung.'},{t:'Custom Domains',d:'Eigene Domain verbinden.'},{t:'Analytics',d:'Besucher-Tracking.'}]},
+    ads:{title:'RealSync Ads',desc:'KI-optimierte Werbekampagnen mit automatischem A/B-Testing.',features:[{t:'KI-Optimierung',d:'Automatische Kampagnen-Anpassung.'},{t:'A/B-Testing',d:'Datengetriebene Entscheidungen.'},{t:'Multi-Channel',d:'Werbung über alle Kanäle.'},{t:'Budget-Management',d:'Intelligente Budgetverteilung.'}]},
+    vault:{title:'RealSync Vault',desc:'Verschlüsselter Cloud-Speicher für Assets mit Versionierung.',features:[{t:'Verschlüsselung',d:'Ende-zu-Ende-Verschlüsselung.'},{t:'Versionierung',d:'Alle Änderungen nachvollziehbar.'},{t:'Sharing',d:'Sichere Team-Freigaben.'},{t:'Backup',d:'Automatische Sicherungen.'}]},
+    aiwriter:{title:'RealSync AI Writer',desc:'KI-Textgenerierung für Skripte, Beschreibungen und Social-Media-Posts.',features:[{t:'Skript-Generator',d:'Video-Skripte per KI.'},{t:'Beschreibungen',d:'SEO-optimierte Texte.'},{t:'Social Posts',d:'Plattform-optimierte Beiträge.'},{t:'Mehrsprachig',d:'Texte in 30+ Sprachen.'}]},
+    clips:{title:'RealSync Clips',desc:'Automatische Highlight-Clips aus Langform-Videos.',features:[{t:'KI-Erkennung',d:'Automatische Highlight-Erkennung.'},{t:'Multi-Format',d:'Clips für alle Plattformen.'},{t:'Batch-Processing',d:'Mehrere Videos gleichzeitig.'},{t:'Custom Branding',d:'Eigenes Logo und Farben.'}]},
+    mobile:{title:'RealSync Mobile',desc:'Native iOS/Android-App — alle Tools in der Tasche.',features:[{t:'iOS & Android',d:'Native Performance.'},{t:'Offline-Modus',d:'Arbeiten ohne Internet.'},{t:'Push-Benachrichtigungen',d:'Echtzeit-Updates.'},{t:'Kamera-Integration',d:'Direkt aufnehmen und bearbeiten.'}]},
+    audio:{title:'RealSync Audio',desc:'Podcast-Produktion mit KI-Transkription und Distribution.',features:[{t:'KI-Transkription',d:'Automatische Verschriftlichung.'},{t:'Noise-Cancelling',d:'KI-Rauschunterdrückung.'},{t:'Distribution',d:'Automatische Veröffentlichung.'},{t:'Editing',d:'Professioneller Audio-Editor.'}]},
+    security:{title:'RealSync Sicherheit',desc:'Enterprise-Sicherheit mit 2FA, SSO und Zugriffskontrolle.',features:[{t:'2FA',d:'Zwei-Faktor-Authentifizierung.'},{t:'SSO',d:'Single Sign-On Integration.'},{t:'Rollen',d:'Granulare Zugriffskontrolle.'},{t:'Audit-Log',d:'Lückenlose Protokollierung.'}]}
+  };
+  const overlay=document.getElementById('appOverlay');
+  function openApp(id){
+    const app=appData[id];if(!app)return;
+    document.getElementById('overlayTitle').textContent=app.title;
+    document.getElementById('overlayDesc').textContent=app.desc;
+    document.getElementById('overlayFeatures').innerHTML=app.features.map(x=>'<div class="app-feature"><h4>'+x.t+'</h4><p>'+x.d+'</p></div>').join('');
+    overlay.classList.add('active');document.body.style.overflow='hidden';
+  }
+  function closeApp(){overlay.classList.remove('active');document.body.style.overflow=''}
+  document.querySelectorAll('.app-card').forEach(c=>c.addEventListener('click',()=>openApp(c.dataset.app)));
+  document.querySelector('[data-close-app]').addEventListener('click',closeApp);
+  overlay.addEventListener('click',(e)=>{if(e.target===overlay)closeApp()});
+  document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&overlay.classList.contains('active'))closeApp()});
+})();
 </script>
 </body>
 </html>
